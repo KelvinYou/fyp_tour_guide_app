@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:fyp_project/main.dart';
 import 'package:fyp_project/app_theme.dart';
-
+import 'package:fyp_project/ui_view/profile_view.dart';
 import 'package:flutter/material.dart';
 
 
@@ -58,10 +58,7 @@ class _MyBottomBarView extends State<BottomBarView> {
       'Index 3: Message',
       style: optionStyle,
     ),
-    Text(
-      'Index 4: Profile',
-      style: optionStyle,
-    ),
+    Profile(),
   ];
 
   void _onItemTapped(int index) {
@@ -106,7 +103,7 @@ class _MyBottomBarView extends State<BottomBarView> {
         ],
         currentIndex: _selectedIndex,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );
