@@ -3,8 +3,9 @@ import 'dart:math' as math;
 import 'package:fyp_project/main.dart';
 import 'package:fyp_project/app_theme.dart';
 import 'package:fyp_project/ui_view/profile_view.dart';
+import 'package:fyp_project/ui_view/home_view.dart';
 import 'package:flutter/material.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 
 class BottomBarView extends StatefulWidget {
   const BottomBarView({super.key});
@@ -17,35 +18,13 @@ class _MyBottomBarView extends State<BottomBarView> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  // static const List<Widget> _widgettitles = <Widget>[
-  //   Text(
-  //     'Home',
-  //     style: optionStyle,
-  //   ),
-  //   Text(
-  //     'Request',
-  //     style: optionStyle,
-  //   ),
-  //   Text(
-  //     'Wallet',
-  //     style: optionStyle,
-  //   ),
-  //   Text(
-  //     'Message',
-  //     style: optionStyle,
-  //   ),
-  //   Text(
-  //     'Profile',
-  //     style: optionStyle,
-  //   ),
-  // ];
+  Future<FirebaseApp> _initializeFirebase() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    Home(),
     Text(
       'Index 1: Request',
       style: optionStyle,
@@ -66,7 +45,22 @@ class _MyBottomBarView extends State<BottomBarView> {
       _selectedIndex = index;
     });
   }
-
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: FutureBuilder(
+  //       future: _initializeFirebase(),
+  //       builder: (context, snapshot) {
+  //         if (snapshot.connectionState == ConnectionState.done) {
+  //           return const BottomBarView();
+  //         }
+  //         return const Center(
+  //           child: CircularProgressIndicator(),
+  //         );
+  //       }
+  //     )
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,10 +69,21 @@ class _MyBottomBarView extends State<BottomBarView> {
         //   child: _widgettitles.elementAt(_selectedIndex),
         // )
       // ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: FutureBuilder(
+          future: _initializeFirebase(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Center(
+                child: _widgetOptions.elementAt(_selectedIndex),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -102,7 +107,7 @@ class _MyBottomBarView extends State<BottomBarView> {
           ),
         ],
         currentIndex: _selectedIndex,
-        unselectedItemColor: AppTheme.lightGrey,
+        unselectedItemColor: AppTheme.secondary,
         selectedItemColor: AppTheme.primary,
         onTap: _onItemTapped,
       ),

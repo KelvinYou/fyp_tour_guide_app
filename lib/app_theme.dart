@@ -3,17 +3,28 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
-  static const Color primary = Color(0xFF03C04A); // green
+  static const Color primary = Color.fromARGB(255, 81, 43, 107); // green
+  static const Color secondary = Color.fromARGB(255, 130, 105, 146);
 
   static const Color nearlyWhite = Color(0xFFFEFEFE);
-  static const Color lightGrey = Color(0xFFBFBFBF);
 
+  static const Color lightGrey = Color(0xFFBFBFBF);
+  
   static const Color chipBackground = Color(0xFFEEF1F3);
 
   static const TextStyle headline = TextStyle( // h5 -> headline
     fontFamily: fontName,
     fontWeight: FontWeight.bold,
     fontSize: 24,
+    letterSpacing: 0.27,
+    color: darkerText,
+  );
+
+  static const TextStyle subHeadline = TextStyle( // h6 -> headline
+    fontFamily: fontName,
+    fontWeight: FontWeight.bold,
+
+    fontSize: 18,
     letterSpacing: 0.27,
     color: darkerText,
   );
@@ -34,7 +45,7 @@ class AppTheme {
   static const Color white = Color(0xFFFFFFFF);
   static const Color nearlyBlack = Color(0xFF213333);
 
-  static const Color grey = Color(0xFF3A5160);
+
   static const Color darkGrey = Color(0xFF7C7C7C);
 
   static const Color darkText = Color(0xFF253840);

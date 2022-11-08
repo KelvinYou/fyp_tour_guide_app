@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/app_theme.dart';
 
 class Login extends StatefulWidget {
@@ -11,6 +11,12 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  // Login Function
+  // static Future<User?> loginUsingEmailPassword(required String email, required String password, required BuildContext context) async {
+  //
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

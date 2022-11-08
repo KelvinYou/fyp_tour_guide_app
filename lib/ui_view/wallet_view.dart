@@ -12,7 +12,9 @@ class _WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+
+    );
   }
   
 }
