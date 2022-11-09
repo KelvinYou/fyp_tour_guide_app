@@ -3,6 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/app_theme.dart';
 
+import 'package:fyp_project/resources/auth_methods.dart';
+import 'package:fyp_project/ui_view/home_view.dart';
+import 'package:fyp_project/bottom_bar_view.dart';
+import 'package:fyp_project/utils/utils.dart';
+import 'package:fyp_project/ui_view/register_view.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -11,11 +17,47 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool _isLoading = false;
 
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
   // Login Function
   // static Future<User?> loginUsingEmailPassword(required String email, required String password, required BuildContext context) async {
-  //
+
   // }
+  void signIn() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    String res = await AuthMethods().loginUser(
+        email: emailController.text, password: passwordController.text);
+    print(res);
+    if (res == 'success') {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => const BottomBarView()
+          ),
+              (route) => false);
+
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      showSnackBar(context, res);
+      // showSnackBar(context, res);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +104,10 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: const [ AppTheme.boxShadow ],
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.0),
                     child: TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Username / Email / Phone Number',
@@ -87,9 +130,10 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: const [ AppTheme.boxShadow ],
                       ),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 25.0),
                         child: TextField(
+                          controller: passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -105,23 +149,14 @@ class _LoginState extends State<Login> {
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppTheme.primary,
-                    borderRadius: BorderRadius.circular(12),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: AppTheme.primary,
                   ),
-                  child: const Center(
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
+                  child: Text('Login'),
+                  onPressed: signIn,
                 ),
+
               ),
 
               const SizedBox(height: 10),
@@ -129,17 +164,24 @@ class _LoginState extends State<Login> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Not a member?",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    " Register Now",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const Register(),
+                      ),
+                    ),
+                    child: const Text(
+                      " Register Now",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ],
