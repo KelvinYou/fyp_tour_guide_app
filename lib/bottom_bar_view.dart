@@ -6,6 +6,7 @@ import 'package:fyp_project/ui_view/profile_view.dart';
 import 'package:fyp_project/ui_view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BottomBarView extends StatefulWidget {
   const BottomBarView({super.key});
@@ -23,7 +24,7 @@ class _MyBottomBarView extends State<BottomBarView> {
     return firebaseApp;
   }
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Home(),
     Text(
       'Index 1: Request',
@@ -37,7 +38,9 @@ class _MyBottomBarView extends State<BottomBarView> {
       'Index 3: Message',
       style: optionStyle,
     ),
-    Profile(),
+    Profile(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    ),
   ];
 
   void _onItemTapped(int index) {

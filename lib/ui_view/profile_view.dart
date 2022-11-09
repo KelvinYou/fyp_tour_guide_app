@@ -4,8 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/register_view.dart';
 import 'package:fyp_project/app_theme.dart';
+import 'package:fyp_project/resources/auth_methods.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fyp_project/utils/utils.dart';
+import 'package:fyp_project/providers/user_provider.dart';
+
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  final String uid;
+  const Profile({Key? key, required this.uid}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -13,8 +20,51 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   static const String title = 'Profile';
+  var userData = {};
   int counter = 0;
   bool isLogin = false;
+  bool isLoading = false;
+  String myEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('tourGuides')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      userData = userSnap.data()!;
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  void logout() async {
+    await AuthMethods().signOut();
+    Navigator.of(context)
+        .pushReplacement(
+      MaterialPageRoute(
+        builder: (context) =>
+        const Login(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +83,20 @@ class _ProfileState extends State<Profile> {
         child: Column(
           children: [
             const SizedBox(height: 10.0),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 56.0,
+                      backgroundImage: AssetImage('assets/erza.jpg'),
+                      backgroundColor: Colors.white,
+                    ),
+                    const SizedBox(width: 10.0),
+                    Text(userData['username'] ?? 'sohai'),
+                  ],
+                ),
+            ),
             // Container(
             //   padding: const EdgeInsets.symmetric(horizontal: 10),
             //   child: Row(
@@ -228,10 +292,22 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
+            const SizedBox(height: 20.0),
+            GestureDetector(
+              onTap: logout,
+              child: const Text(
+                "Logout",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-  
+
+
 }
