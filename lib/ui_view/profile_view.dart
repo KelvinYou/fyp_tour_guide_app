@@ -69,16 +69,16 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.nearlyWhite,
-        elevation: 0.0,
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-            color: Colors.black,
-          )
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: AppTheme.nearlyWhite,
+      //   elevation: 0.0,
+      //   title: const Text(
+      //     'Profile',
+      //     style: TextStyle(
+      //       color: Colors.black,
+      //     )
+      //   ),
+      // ),
       body: SafeArea(
         child: Column(
           children: [
@@ -187,34 +187,15 @@ class _ProfileState extends State<Profile> {
                         ),
                         Expanded(
                           flex: 1,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: AppTheme.nearlyWhite,
-                              side: const BorderSide(width: 0.0, color: Colors.transparent,),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const Register()),
-                              );
-                            },
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.person,
-                                    size: 35,
-                                    color: Colors.black,
-                                  ),
-                                  Text(
-                                    "Licence",
-                                    style: TextStyle(
-                                      color:Colors.black,
-                                    ),
-
-                                  ),
-                                ],
-                              ),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.person,
+                                  size: 35,
+                                ),
+                                Text("Licence"),
+                              ],
                             ),
                           ),
                         ),
