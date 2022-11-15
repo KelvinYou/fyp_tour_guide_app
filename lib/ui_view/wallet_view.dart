@@ -13,7 +13,11 @@ class _WalletState extends State<Wallet> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-
+      body: ListView(
+        children: [
+          Text("lai wallet la"),
+        ],
+      ),
     );
   }
   

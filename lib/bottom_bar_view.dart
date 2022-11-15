@@ -2,8 +2,13 @@ import 'dart:math' as math;
 
 import 'package:fyp_project/main.dart';
 import 'package:fyp_project/app_theme.dart';
-import 'package:fyp_project/ui_view/profile_view.dart';
+
 import 'package:fyp_project/ui_view/home_view.dart';
+import 'package:fyp_project/ui_view/request_view.dart';
+import 'package:fyp_project/ui_view/wallet_view.dart';
+import 'package:fyp_project/ui_view/message_view.dart';
+import 'package:fyp_project/ui_view/profile_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,18 +31,9 @@ class _MyBottomBarView extends State<BottomBarView> {
 
   static List<Widget> _widgetOptions = <Widget>[
     Home(),
-    Text(
-      'Index 1: Request',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Wallet',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Message',
-      style: optionStyle,
-    ),
+    Request(),
+    Wallet(),
+    Message(),
     Profile(
       uid: FirebaseAuth.instance.currentUser!.uid,
     ),
