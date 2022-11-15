@@ -6,6 +6,8 @@ import 'package:fyp_project/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class AddPackage extends StatefulWidget {
   const AddPackage({super.key});
@@ -18,17 +20,19 @@ class _AddPackageState extends State<AddPackage> {
   final packageTypeController = TextEditingController();
   final contentController = TextEditingController();
   bool isLoading = false;
+  int duration = 3;
 
-  void submit() async {
+  void submit(String uid) async {
     setState(() {
       isLoading = true;
     });
 
     try {
       String res = await FireStoreMethods().addPackage(
-        "1jSbhh8ETgeitQoBZRcQj0lvbHQ2",
+        uid,
         contentController.text,
         packageTypeController.text,
+        duration,
       );
       if (res == "success") {
         setState(() {
@@ -81,6 +85,8 @@ class _AddPackageState extends State<AddPackage> {
           ),
           ElevatedButton(
             onPressed: () => submit(
+              FirebaseAuth.instance.currentUser!.uid
+              // userProvider.getUser.uid,
             ),
             child: const Text("Submit"),
           ),
