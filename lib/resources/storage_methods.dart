@@ -28,4 +28,7 @@ class StorageMethods {
     String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
   }
+
+  // https://www.bezkoder.com/dart-base64-image/
+
 }
