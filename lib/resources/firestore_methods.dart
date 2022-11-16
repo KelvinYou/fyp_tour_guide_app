@@ -6,7 +6,8 @@ import 'package:uuid/uuid.dart';
 
 import 'package:fyp_project/models/tour_package.dart';
 import 'package:fyp_project/models/instant_order.dart';
-
+import 'package:fyp_project/models/e_wallet.dart';
+import 'package:fyp_project/models/bank_card.dart';
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -48,6 +49,7 @@ class FireStoreMethods {
     return res;
   }
 
+  //haven't test
   Future<String> deletePackage(String packageId) async {
     String res = "Some error occurred";
     try {
@@ -60,6 +62,7 @@ class FireStoreMethods {
   }
 
   // Instant Order
+  //haven't test
   Future<String> updateOrder(String uid, int price, bool onDuty) async {
     String res = "Some error occurred";
     String orderID = "instant_$uid";
@@ -71,6 +74,46 @@ class FireStoreMethods {
         onDuty: onDuty,
       );
       _firestore.collection('instantOrder').doc(orderID).set(instantOrder.toJson());
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  // E Wallet
+  //haven't test
+  Future<String> updateEWallet(String uid, double balance) async {
+    String res = "Some error occurred";
+    String eWalletId = "ewallet_$uid";
+    try {
+      EWallet eWallet = EWallet(
+        eWalletId: eWalletId,
+        ownerId: uid,
+        balance: balance,
+      );
+      _firestore.collection('eWallet').doc(eWalletId).set(eWallet.toJson());
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  // Bank Card
+  //haven't test
+  Future<String> bankCard(String uid, int cardNumber, int ccv, int cardHolder) async {
+    String res = "Some error occurred";
+    String cardId = const Uuid().v1();
+    try {
+      BankCard bankCard = BankCard(
+        cardId: cardId,
+        ownerId: uid,
+        cardNumber: cardNumber,
+        ccv: ccv,
+        cardHolder: cardHolder,
+      );
+      _firestore.collection('bankCard').doc(cardId).set(bankCard.toJson());
       res = "success";
     } catch (err) {
       res = err.toString();

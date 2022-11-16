@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fyp_project/app_theme.dart';
+
+import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/widget/text_field_input.dart';
+
 
 import 'package:fyp_project/resources/auth_methods.dart';
 import 'package:fyp_project/ui_view/home_view.dart';
@@ -28,10 +31,7 @@ class _LoginState extends State<Login> {
 
     super.dispose();
   }
-  // Login Function
-  // static Future<User?> loginUsingEmailPassword(required String email, required String password, required BuildContext context) async {
 
-  // }
   void signIn() async {
     setState(() {
       _isLoading = true;
@@ -95,55 +95,19 @@ class _LoginState extends State<Login> {
               // const SizedBox(height: 15),
 
               // email textfield
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppTheme.nearlyWhite,
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: const [ AppTheme.boxShadow ],
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.0),
-                    child: TextField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Username / Email / Phone Number',
-                      ),
-                    ),
-                  ),
-                ),
-
-              ),
+              TextFieldInput(
+                  textEditingController: emailController,
+                  hintText: "Email",
+                  textInputType: TextInputType.emailAddress),
 
               const SizedBox(height: 20),
 
               // password textfield
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: AppTheme.nearlyWhite,
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [ AppTheme.boxShadow ],
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25.0),
-                        child: TextField(
-                          controller: passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Password',
-                          ),
-                        ),
-                      ),
-                  ),
-
-              ),
+              TextFieldInput(
+                  textEditingController: passwordController,
+                  hintText: "Password",
+                  isPass: true,
+                  textInputType: TextInputType.text),
 
               const SizedBox(height: 20),
 

@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'package:fyp_project/app_theme.dart';
+import 'package:fyp_project/widget/app_theme.dart';
 import 'package:fyp_project/bottom_bar_view.dart';
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';

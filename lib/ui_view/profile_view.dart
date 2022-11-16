@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/register_view.dart';
-import 'package:fyp_project/app_theme.dart';
+import 'package:fyp_project/widget/app_theme.dart';
 import 'package:fyp_project/resources/auth_methods.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
