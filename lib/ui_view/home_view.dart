@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    " My Status",
+                    " Type",
                     style: AppTheme.subHeadline,
                   ),
                 ),

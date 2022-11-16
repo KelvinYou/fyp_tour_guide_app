@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/register_view.dart';
+import 'package:fyp_project/ui_view/personal_detail_view.dart';
+
 import 'package:fyp_project/widget/app_theme.dart';
 import 'package:fyp_project/resources/auth_methods.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -86,6 +88,26 @@ class _ProfileState extends State<Profile> {
       body: SafeArea(
         child: Column(
           children: [
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PersonalDetail(),
+                    ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                      child: Icon(
+                        Icons.settings,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 10.0),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -99,7 +121,7 @@ class _ProfileState extends State<Profile> {
                       backgroundColor: Colors.white,
                     ),
                     const SizedBox(width: 10.0),
-                    Text(userData['username'] ?? ''),
+                    Text(userData['username']),
                   ],
                 ),
             ),

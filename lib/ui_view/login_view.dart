@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/widget/app_theme.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
-
 import 'package:fyp_project/resources/auth_methods.dart';
 import 'package:fyp_project/ui_view/home_view.dart';
 import 'package:fyp_project/bottom_bar_view.dart';
