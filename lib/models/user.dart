@@ -9,6 +9,10 @@ class User {
   final String email;
   final int icNumber;
   final String photoUrl;
+  final String description;
+  final String language;
+  final double rating;
+  final String grade;
 
   const User(
       {required this.uid,
@@ -17,7 +21,11 @@ class User {
         required this.phoneNumber,
         required this.email,
         required this.icNumber,
-        required this.photoUrl});
+        required this.photoUrl,
+        required this.description,
+        required this.language,
+        required this.rating,
+        required this.grade,});
 
   static User fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
@@ -30,6 +38,10 @@ class User {
       email: snapshot["email"],
       icNumber: snapshot["icNumber"],
       photoUrl: snapshot["photoUrl"],
+      description: snapshot["description"],
+      language: snapshot["language"],
+      rating: snapshot["rating"],
+      grade: snapshot["grade"],
     );
   }
 
@@ -41,5 +53,9 @@ class User {
     "email": email,
     "icNumber": icNumber,
     "photoUrl": photoUrl,
+    "description": description,
+    "language": language,
+    "rating": rating,
+    "grade": grade,
   };
 }

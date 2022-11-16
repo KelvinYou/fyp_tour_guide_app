@@ -62,7 +62,6 @@ class FireStoreMethods {
   }
 
   // Instant Order
-  //haven't test
   Future<String> updateOrder(String uid, int price, bool onDuty) async {
     String res = "Some error occurred";
     String orderID = "instant_$uid";
@@ -82,7 +81,6 @@ class FireStoreMethods {
   }
 
   // E Wallet
-  //haven't test
   Future<String> updateEWallet(String uid, double balance) async {
     String res = "Some error occurred";
     String eWalletId = "ewallet_$uid";

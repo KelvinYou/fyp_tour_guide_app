@@ -19,6 +19,7 @@ class _PersonalDetailState extends State<PersonalDetail> {
   bool isLoading = false;
   var userData = {};
   var tourGuideData = {};
+  Uint8List? _image;
 
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _fullnameController = TextEditingController();

@@ -4,12 +4,14 @@ import 'package:fyp_project/widget/app_theme.dart';
 class TextFieldInput extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool isPass;
+  final bool isReadOnly;
   final String hintText;
   final TextInputType textInputType;
   const TextFieldInput({
     Key? key,
     required this.textEditingController,
     this.isPass = false,
+    this.isReadOnly = false,
     required this.hintText,
     required this.textInputType,
   }) : super(key: key);
@@ -37,6 +39,7 @@ class TextFieldInput extends StatelessWidget {
               hintText: hintText,
             ),
             obscureText: isPass,
+            enabled: !isReadOnly,
           ),
         ),
       ),

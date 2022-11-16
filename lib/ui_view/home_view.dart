@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/widget/app_theme.dart';
 
 import 'package:fyp_project/ui_view/instant_order_view.dart';
-import 'package:fyp_project/ui_view/tour_package.dart';
+import 'package:fyp_project/ui_view/tour_package_view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

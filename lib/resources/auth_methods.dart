@@ -2,8 +2,8 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/models/user.dart' as model;
+import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/resources/storage_methods.dart';
-
 class AuthMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -44,6 +44,10 @@ class AuthMethods {
           email: email,
           icNumber: 0,
           photoUrl: "",
+          description: "",
+          language: "",
+          rating: 0,
+          grade: "",
         );
 
         // adding user in our database
@@ -52,7 +56,17 @@ class AuthMethods {
             .doc(cred.user!.uid)
             .set(_user.toJson());
 
-        res = "success";
+        res = await FireStoreMethods().updateEWallet(
+          cred.user!.uid,
+          0,
+        );
+
+        res = await FireStoreMethods().updateOrder(
+          cred.user!.uid,
+          0,
+          false,
+        );
+
       } else {
         res = "Please enter all the fields";
       }
