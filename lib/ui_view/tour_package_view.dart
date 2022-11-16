@@ -74,11 +74,3 @@ class _TourPackageState extends State<TourPackage> {
     );
   }
 }
-
-// body: ListView(
-//   children: [
-//
-//     Text("hello2"),
-//     Text("hello3"),
-//   ],
-// ),

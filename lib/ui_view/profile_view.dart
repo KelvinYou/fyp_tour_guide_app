@@ -45,6 +45,7 @@ class _ProfileState extends State<Profile> {
           .get();
 
       userData = userSnap.data()!;
+
       setState(() {});
     } catch (e) {
       showSnackBar(
@@ -116,7 +117,7 @@ class _ProfileState extends State<Profile> {
                     CircleAvatar(
                       radius: 56.0,
                       backgroundImage: NetworkImage(
-                        userData['photoUrl'],
+                        userData["photoUrl"],
                       ),
                       backgroundColor: Colors.white,
                     ),

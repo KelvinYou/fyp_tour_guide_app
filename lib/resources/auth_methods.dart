@@ -43,7 +43,7 @@ class AuthMethods {
           phoneNumber: 0,
           email: email,
           icNumber: 0,
-          photoUrl: "",
+          photoUrl: "https://firebasestorage.googleapis.com/v0/b/fyp-travel-guide-6b527.appspot.com/o/default-avatar.jpg?alt=media",
           description: "",
           language: "",
           rating: 0,
