@@ -26,10 +26,9 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
+    super.dispose();
     emailController.dispose();
     passwordController.dispose();
-
-    super.dispose();
   }
 
   void signIn() async {

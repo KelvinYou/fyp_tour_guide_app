@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/widget/text_field_input.dart';
+
 import 'package:fyp_project/bottom_bar_view.dart';
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/resources/auth_methods.dart';
@@ -77,80 +79,28 @@ class _RegisterState extends State<Register> {
                     const SizedBox(height: 10),
 
                     // user name textfield
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 25.0),
-                          child: TextField(
-                            controller: _usernameController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Username',
-                            ),
-                          ),
-                        ),
-                      ),
+                    TextFieldInput(
+                        textEditingController: _usernameController,
+                        hintText: "Username",
+                        textInputType: TextInputType.text),
 
-                    ),
-
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 15),
 
                     // email textfield
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 25.0),
-                          child: TextField(
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Email',
-                            ),
-                          ),
-                        ),
-                      ),
+                    TextFieldInput(
+                        textEditingController: _emailController,
+                        hintText: "Email",
+                        textInputType: TextInputType.emailAddress),
 
-                    ),
-
-                    const SizedBox(height: 10),
-
+                    const SizedBox(height: 15),
                     // password textfield
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 25.0),
-                          child: TextField(
-                            controller: _passwordController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Password',
-                            ),
-                          ),
-                        ),
-                      ),
+                    TextFieldInput(
+                        textEditingController: _passwordController,
+                        hintText: "Password",
+                        isPass: true,
+                        textInputType: TextInputType.text),
 
-                    ),
-
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 15),
 
                     InkWell(
                       child: Padding(

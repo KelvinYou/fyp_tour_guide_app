@@ -68,7 +68,11 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading
+      ? const Center(
+        child: CircularProgressIndicator(),
+      )
+      : Scaffold(
       // appBar: AppBar(
       //   backgroundColor: AppTheme.nearlyWhite,
       //   elevation: 0.0,
@@ -87,66 +91,18 @@ class _ProfileState extends State<Profile> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 56.0,
-                      backgroundImage: AssetImage('assets/erza.jpg'),
+                      backgroundImage: NetworkImage(
+                        userData['photoUrl'],
+                      ),
                       backgroundColor: Colors.white,
                     ),
                     const SizedBox(width: 10.0),
-                    Text(userData['username'] ?? 'sohai'),
+                    Text(userData['username'] ?? ''),
                   ],
                 ),
             ),
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 10),
-            //   child: Row(
-            //     children: [
-            //       const CircleAvatar(
-            //         radius: 56.0,
-            //         backgroundImage: AssetImage('assets/erza.jpg'),
-            //         backgroundColor: Colors.white,
-            //       ),
-            //       const SizedBox(width: 10.0),
-            //       Expanded(
-            //         child: ElevatedButton(
-            //           style: ElevatedButton.styleFrom(
-            //             primary: AppTheme.nearlyWhite,
-            //             side: const BorderSide(width: 1.0, color: AppTheme.primary,),
-            //           ),
-            //           child: const Text(
-            //             'Login',
-            //             style: TextStyle(
-            //               color: AppTheme.primary,
-            //             ),
-            //           ),
-            //           onPressed: () {
-            //             Navigator.push(
-            //               context,
-            //               MaterialPageRoute(builder: (context) => const Login()),
-            //             );
-            //           },
-            //         ),
-            //       ),
-            //       const SizedBox(width: 10.0),
-            //       Expanded(
-            //         child: ElevatedButton(
-            //           style: ElevatedButton.styleFrom(
-            //             primary: AppTheme.primary,
-            //           ),
-            //           child: Text('Register'),
-            //           onPressed: () {
-            //             Navigator.push(
-            //               context,
-            //               MaterialPageRoute(builder: (context) => const Register()),
-            //             );
-            //           },
-            //         ),
-            //       ),
-            //
-            //     ],
-            //   ),
-            // ),
-
 
             const SizedBox(height: 20.0),
             Container(
