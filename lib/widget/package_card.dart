@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/ui_view/package_detail_view.dart';
 
 class PackageCard extends StatefulWidget {
   final snap;
@@ -30,14 +31,23 @@ class _PackageCardState extends State<PackageCard> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [ AppTheme.boxShadow ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
-        child: Column(
-          children: [
-            Text(widget.snap["packageType"]),
-            const SizedBox(height: 10.0),
-            Text(widget.snap["content"]),
-          ],
+      child: InkWell(
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => PackageDetail(
+                packageDetailSnap: widget.snap,
+              ),
+            ),
+          ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+          child: Column(
+            children: [
+              Text(widget.snap["packageId"]),
+              const SizedBox(height: 10.0),
+              Text(widget.snap["packageType"]),
+            ],
+          ),
         ),
       ),
     );

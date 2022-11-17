@@ -50,11 +50,11 @@ class _WalletState extends State<Wallet> {
   }
 
   cashIn() async {
-
+    print("cash in");
   }
 
   cashOut() async {
-
+    print("cash out");
   }
 
   @override

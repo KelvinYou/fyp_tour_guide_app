@@ -17,8 +17,8 @@ class FireStoreMethods {
     String packageId = const Uuid().v1();
     try {
       TourPackage tourPackage = TourPackage(
-        packageID: packageId,
-        ownerID: uid,
+        packageId: packageId,
+        ownerId: uid,
         packageType: packageType,
         content: content,
         duration: duration,
@@ -35,8 +35,8 @@ class FireStoreMethods {
     String res = "Some error occurred";
     try {
       TourPackage tourPackage = TourPackage(
-        packageID: packageId,
-        ownerID: uid,
+        packageId: packageId,
+        ownerId: uid,
         packageType: packageType,
         content: content,
         duration: duration,

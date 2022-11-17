@@ -39,7 +39,7 @@ class _TourPackageState extends State<TourPackage> {
             );
           }
           return Column(
-            children: <Widget>[
+            children: [
               ElevatedButton(
                 onPressed: addPackage,
                 style: ElevatedButton.styleFrom(

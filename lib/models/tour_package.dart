@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TourPackage {
-  final String packageID;
-  final String ownerID;
+  final String packageId;
+  final String ownerId;
   final String packageType;
   final String content;
   final int duration;
 
   const TourPackage(
-      {required this.packageID,
-        required this.ownerID,
+      {required this.packageId,
+        required this.ownerId,
         required this.packageType,
         required this.content,
         required this.duration,
@@ -19,8 +19,8 @@ class TourPackage {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return TourPackage(
-      packageID: snapshot["packageID"],
-      ownerID: snapshot["ownerID"],
+      packageId: snapshot["packageId"],
+      ownerId: snapshot["ownerId"],
       packageType: snapshot["packageType"],
       content: snapshot["content"],
       duration: snapshot["duration"],
@@ -28,8 +28,8 @@ class TourPackage {
   }
 
   Map<String, dynamic> toJson() => {
-    "packageID": packageID,
-    "ownerID": ownerID,
+    "packageId": packageId,
+    "ownerId": ownerId,
     "packageType": packageType,
     "content": content,
     "duration": duration,
