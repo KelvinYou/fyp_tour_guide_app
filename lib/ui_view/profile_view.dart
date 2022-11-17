@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
+import 'package:fyp_project/ui_view/profile_setting_view.dart';
 import 'package:fyp_project/ui_view/register_view.dart';
 import 'package:fyp_project/ui_view/personal_detail_view.dart';
 
@@ -58,17 +59,6 @@ class _ProfileState extends State<Profile> {
     });
   }
 
-  void logout() async {
-    await AuthMethods().signOut();
-    Navigator.of(context)
-        .pushReplacement(
-      MaterialPageRoute(
-        builder: (context) =>
-        const Login(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -94,7 +84,7 @@ class _ProfileState extends State<Profile> {
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const PersonalDetail(),
+                      builder: (context) => const ProfileSetting(),
                     ),
                   ),
                   child: Align(
@@ -253,16 +243,6 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             const SizedBox(height: 20.0),
-            GestureDetector(
-              onTap: logout,
-              child: const Text(
-                "Logout",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
           ],
         ),
       ),

@@ -45,6 +45,7 @@ dependencies:
   image_picker: ^0.8.4+4
   flutter_datetime_picker: ^1.5.1
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,7 +56,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -71,7 +71,6 @@ flutter:
   assets:
     - assets/erza.jpg
     - assets/logo.png
-  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
