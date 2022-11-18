@@ -100,7 +100,23 @@ class _ProfileSettingState extends State<ProfileSetting> {
             ),
             const SizedBox(height: 20.0),
             GestureDetector(
-              onTap: logout,
+              onTap: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Confirm Logout?'),
+                  content: const Text('Logout now'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: logout,
+                      child: const Text('Logout'),
+                    ),
+                  ],
+                ),
+              ),
               child: const Text(
                 "Logout",
                 style: TextStyle(
