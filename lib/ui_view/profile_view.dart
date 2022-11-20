@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/profile_setting_view.dart';
@@ -24,10 +25,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   static const String title = 'Profile';
   var userData = {};
-  int counter = 0;
-  bool isLogin = false;
   bool isLoading = false;
-  String myEmail = '';
 
   @override
   void initState() {
@@ -102,7 +100,29 @@ class _ProfileState extends State<Profile> {
                       backgroundColor: Colors.white,
                     ),
                     const SizedBox(width: 10.0),
-                    Text(userData['username']),
+
+                    Column(
+                      children: [
+                        Text(userData['username']),
+                        Text(userData['grade']),
+                        Row(
+                          children: [
+                            RatingBarIndicator(
+                              rating: userData['rating'],
+                              itemBuilder: (context, index) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              itemCount: 5,
+                              itemSize: 30.0,
+                              direction: Axis.horizontal,
+                            ),
+                            Text(userData['rating'].toString()),
+                          ],
+                        ),
+
+                      ],
+                    )
                   ],
                 ),
             ),
