@@ -66,16 +66,6 @@ class _ProfileState extends State<Profile> {
         child: CircularProgressIndicator(),
       )
       : Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: AppTheme.nearlyWhite,
-      //   elevation: 0.0,
-      //   title: const Text(
-      //     'Profile',
-      //     style: TextStyle(
-      //       color: Colors.black,
-      //     )
-      //   ),
-      // ),
       body: SafeArea(
         child: Column(
           children: [

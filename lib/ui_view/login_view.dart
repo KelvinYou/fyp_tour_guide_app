@@ -41,7 +41,7 @@ class _LoginState extends State<Login> {
     if (res == 'success') {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (context) => const BottomBarView()
+              builder: (context) => const BottomBarView(selectedIndex: 0)
           ),
               (route) => false);
 

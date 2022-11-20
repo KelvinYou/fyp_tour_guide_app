@@ -11,6 +11,25 @@ import 'package:fyp_project/models/bank_card.dart';
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  Future<String> changeProfile(String uid, Uint8List? file) async {
+    String res = "Some error occurred";
+
+    try {
+      if (file != null) {
+        String photoUrl = await StorageMethods().uploadImageToStorage('TourGuideProfilePics', file, false);
+        _firestore.collection('tourGuides').doc(uid).update(
+          {"photoUrl": photoUrl},
+        );
+        res = "success";
+      } else {
+        res = "Please select an image";
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   // Tour Package
   Future<String> addPackage(String uid, String content, String packageType, int duration) async {
     String res = "Some error occurred";

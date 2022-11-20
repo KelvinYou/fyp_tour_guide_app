@@ -14,7 +14,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class BottomBarView extends StatefulWidget {
-  const BottomBarView({super.key});
+  final int selectedIndex;
+  const BottomBarView({super.key, required this.selectedIndex});
 
   @override
   State<BottomBarView> createState() => _MyBottomBarView();
@@ -22,6 +23,12 @@ class BottomBarView extends StatefulWidget {
 
 class _MyBottomBarView extends State<BottomBarView> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    _selectedIndex = widget.selectedIndex;
+  }
+
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   Future<FirebaseApp> _initializeFirebase() async {

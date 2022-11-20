@@ -48,7 +48,7 @@ class _RegisterState extends State<Register> {
       // navigate to the home screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const BottomBarView(),
+          builder: (context) => const BottomBarView(selectedIndex: 0),
           ),
       );
     } else {

@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class AddPackage extends StatefulWidget {
   const AddPackage({super.key});
