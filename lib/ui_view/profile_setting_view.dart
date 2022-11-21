@@ -6,8 +6,8 @@ import 'package:fyp_project/resources/auth_methods.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/change_profile_view.dart';
-import 'package:fyp_project/ui_view/reset_email_view.dart';
-import 'package:fyp_project/ui_view/reset_password_view.dart';
+import 'package:fyp_project/ui_view/change_email_view.dart';
+import 'package:fyp_project/ui_view/change_password_view.dart';
 import 'package:fyp_project/ui_view/personal_detail_view.dart';
 
 class ProfileSetting extends StatefulWidget {

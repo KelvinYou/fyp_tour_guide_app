@@ -47,7 +47,7 @@ class AuthMethods {
           description: "",
           language: "",
           rating: 0,
-          grade: "",
+          grade: "New User",
         );
 
         // adding user in our database
@@ -101,5 +101,43 @@ class AuthMethods {
 
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  Future<String> changePassword(String currentPassword, String newPassword) async {
+    String res = "Some error Occurred";
+    User user = _auth.currentUser!;
+
+    final cred = EmailAuthProvider.credential(email: user.email ?? "", password: currentPassword);
+
+    await user.reauthenticateWithCredential(cred).then((value) async {
+      await user.updatePassword(newPassword).then((_) {
+        res = "success";
+      }).catchError((error) {
+        res = "Some error Occurred";
+      });
+    }).catchError((err) {
+      res = "Wrong old password";
+    });
+
+    return res;
+  }
+
+  Future<String> changeEmail(String currentEmail, String newEmail) async {
+    String res = "Some error Occurred";
+    User user = _auth.currentUser!;
+    //
+    // final cred = EmailAuthProvider.credential(email: user.email ?? "", password: currentPassword);
+    //
+    // await user.reauthenticateWithCredential(cred).then((value) async {
+    //   await user.updatePassword(newPassword).then((_) {
+    //     res = "success";
+    //   }).catchError((error) {
+    //     res = "Some error Occurred";
+    //   });
+    // }).catchError((err) {
+    //   res = "Wrong old password";
+    // });
+
+    return res;
   }
 }

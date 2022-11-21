@@ -86,11 +86,6 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(height: 25.0),
-              // const Text(
-              //   "Login",
-              //   style: AppTheme.headline,
-              // ),
-              // const SizedBox(height: 15),
 
               // email textfield
               TextFieldInput(
