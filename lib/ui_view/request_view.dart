@@ -9,13 +9,17 @@ class Request extends StatefulWidget {
 }
 
 class _RequestState extends State<Request> {
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
+    return isLoading
+        ? const Center(
+      child: CircularProgressIndicator(),
+    ) : Scaffold(
       body: ListView(
         children: [
-          Text("lai request la"),
+          Text("tiada request"),
         ],
       ),
     );

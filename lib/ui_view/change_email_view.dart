@@ -46,6 +46,7 @@ class _ResetPasswordState extends State<ResetEmail> {
       showSnackBar(context, res);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return _isLoading

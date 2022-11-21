@@ -56,7 +56,8 @@ class _PackageDetailState extends State<PackageDetail> {
       ),
       body: Column(
         children: [
-          Text(widget.packageDetailSnap["packageType"]),
+          Text("Content: ${widget.packageDetailSnap["content"]}"),
+          Text("Type: ${widget.packageDetailSnap["packageType"]}"),
           ElevatedButton(onPressed: delete, child: Text("delete")),
         ],
       ),

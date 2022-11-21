@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fyp_project/ui_view/bank_card_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
+
 
 class Wallet extends StatefulWidget {
   const Wallet({super.key});
@@ -126,7 +128,16 @@ class _WalletState extends State<Wallet> {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
                 ),
-                child: Text("hi"),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 60),
+                    ElevatedButton(onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const CardList(),
+                ),
+              ), child: Text("Bank"))
+                  ],
+                ),
               ),
             ),
             Positioned(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -30,7 +31,8 @@ class _TourPackageState extends State<TourPackage> {
         title: const Text('Tour Package'),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('tourPackages').snapshots(),
+        stream: FirebaseFirestore.instance.collection('tourPackages')
+            .where('ownerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots(),
         builder: (context,
         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
