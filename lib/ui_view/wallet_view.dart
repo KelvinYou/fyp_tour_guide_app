@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fyp_project/ui_view/bank_card_view.dart';
+import 'package:fyp_project/ui_view/card_list_view.dart';
+import 'package:fyp_project/ui_view/cash_in_view.dart';
+import 'package:fyp_project/ui_view/transaction_history_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
@@ -52,11 +54,19 @@ class _WalletState extends State<Wallet> {
   }
 
   cashIn() async {
-    print("cash in");
+    Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const CashIn(),
+        )
+    );
   }
 
   cashOut() async {
-    print("cash out");
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const CardList(),
+      )
+    );
   }
 
   @override
@@ -131,11 +141,13 @@ class _WalletState extends State<Wallet> {
                 child: Column(
                   children: [
                     const SizedBox(height: 60),
-                    ElevatedButton(onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const CardList(),
-                ),
-              ), child: Text("Bank"))
+                    ElevatedButton(
+                        onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const TransactionHistory(),
+                        )
+                      ),
+                      child: Text("Transaction History")),
                   ],
                 ),
               ),

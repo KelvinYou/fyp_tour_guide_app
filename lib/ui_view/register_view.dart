@@ -40,7 +40,7 @@ class _RegisterState extends State<Register> {
         password: _passwordController.text,
         username: _usernameController.text,);
 
-    // if string returned is sucess, user has been created
+    // if string returned is success, user has been created
     if (res == "success") {
       setState(() {
         _isLoading = false;

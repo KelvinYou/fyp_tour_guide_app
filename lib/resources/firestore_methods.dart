@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
 
@@ -8,6 +9,8 @@ import 'package:fyp_project/models/tour_package.dart';
 import 'package:fyp_project/models/instant_order.dart';
 import 'package:fyp_project/models/e_wallet.dart';
 import 'package:fyp_project/models/bank_card.dart';
+import 'package:fyp_project/models/transaction_record.dart';
+
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -117,6 +120,63 @@ class FireStoreMethods {
       res = err.toString();
     }
     return res;
+  }
+
+  Future<String> reloadEWallet(String uid, double amount) async {
+    String res = "Some error occurred";
+
+    var eWalletSnap = await FirebaseFirestore.instance
+        .collection('eWallet')
+        .doc("ewallet_${FirebaseAuth.instance.currentUser!.uid}")
+        .get();
+
+    String eWalletId = "ewallet_$uid";
+
+
+    try {
+      _firestore.collection('eWallet').doc(eWalletId).update({"balance": amount + eWalletSnap.data()!["balance"]});
+      res = "success";
+
+      addTransaction(
+        uid,
+        amount,
+        "Receive from Wallet",
+        "Reload Balance",
+        "Reload Balance",
+        "eWallet Balance",
+        "Successful",
+      );
+
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  // Transaction
+  Future<void> addTransaction(String uid, double amount, String transactionType, String receiveFrom,
+      String paymentDetails, String paymentMethod, String status) async {
+    // String res = "Some error occurred";
+    String transactionId = const Uuid().v1();
+
+    try {
+      TransactionRecord transaction = TransactionRecord(
+        transactionId: transactionId,
+        transactionAmount: amount,
+        ownerId: uid,
+        receiveFrom: receiveFrom,
+        transactionType: transactionType,
+        paymentDetails: paymentDetails,
+        paymentMethod: paymentMethod,
+        dateTime: DateTime.now(),
+        status: status,
+      );
+      _firestore.collection('transaction').doc(transactionId).set(transaction.toJson());
+      // res = "success";
+    } catch (err) {
+      // res = err.toString();
+    }
+    // return res;
   }
 
   // Bank Card

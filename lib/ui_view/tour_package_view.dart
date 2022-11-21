@@ -17,6 +17,8 @@ class TourPackage extends StatefulWidget {
 }
 
 class _TourPackageState extends State<TourPackage> {
+  bool ownedOnly = false;
+
   void addPackage() async {
     Navigator.push(
       context,
@@ -31,8 +33,9 @@ class _TourPackageState extends State<TourPackage> {
         title: const Text('Tour Package'),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('tourPackages')
-            .where('ownerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots(),
+        stream: ownedOnly ? FirebaseFirestore.instance.collection('tourPackages')
+            .where('ownerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots() :
+        FirebaseFirestore.instance.collection('tourPackages').snapshots(),
         builder: (context,
         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -50,6 +53,21 @@ class _TourPackageState extends State<TourPackage> {
                 ),
                 child: const Text(
                   'Add',
+                  style: TextStyle(
+                    color: AppTheme.primary,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () => setState(() {
+                  ownedOnly = !ownedOnly;
+                }),
+                style: ElevatedButton.styleFrom(
+                  primary: AppTheme.nearlyWhite,
+                  side: const BorderSide(width: 1.0, color: AppTheme.primary,),
+                ),
+                child: Text(
+                  ownedOnly ? "Show all"  : "Only Show My Packages",
                   style: TextStyle(
                     color: AppTheme.primary,
                   ),
