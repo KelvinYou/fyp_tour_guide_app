@@ -17,6 +17,7 @@ class AddPackage extends StatefulWidget {
 
 class _AddPackageState extends State<AddPackage> {
   final packageTypeController = TextEditingController();
+  final packageTitleController = TextEditingController();
   final contentController = TextEditingController();
   bool isLoading = false;
   int duration = 3;
@@ -29,6 +30,7 @@ class _AddPackageState extends State<AddPackage> {
     try {
       String res = await FireStoreMethods().addPackage(
         uid,
+        packageTitleController.text,
         contentController.text,
         packageTypeController.text,
         duration,
@@ -66,6 +68,13 @@ class _AddPackageState extends State<AddPackage> {
       ),
       body: ListView(
         children: [
+          TextField(
+            controller: packageTitleController,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Package Title',
+            ),
+          ),
           TextField(
             controller: packageTypeController,
             decoration: const InputDecoration(

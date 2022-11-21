@@ -50,7 +50,10 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return _isLoading
+        ? const Center(
+      child: CircularProgressIndicator(),
+    ) : Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
         title: const Text('Change Password'),
@@ -64,21 +67,24 @@ class _ResetPasswordState extends State<ResetPassword> {
             TextFieldInput(
                 textEditingController: currentPassword,
                 hintText: "Old Password",
-                textInputType: TextInputType.emailAddress),
+                isPass: true,
+                textInputType: TextInputType.text),
 
             const SizedBox(height: 20),
 
             TextFieldInput(
                 textEditingController: repeatPassword,
                 hintText: "Repeat Old Password",
-                textInputType: TextInputType.emailAddress),
+                isPass: true,
+                textInputType: TextInputType.text),
 
             const SizedBox(height: 20),
 
             TextFieldInput(
                 textEditingController: newPassword,
                 hintText: "New Password",
-                textInputType: TextInputType.emailAddress),
+                isPass: true,
+                textInputType: TextInputType.text),
 
             const SizedBox(height: 20),
 

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TourPackage {
   final String packageId;
+  final String packageTitle;
   final String ownerId;
   final String packageType;
   final String content;
@@ -9,6 +10,7 @@ class TourPackage {
 
   const TourPackage(
       {required this.packageId,
+        required this.packageTitle,
         required this.ownerId,
         required this.packageType,
         required this.content,
@@ -20,6 +22,7 @@ class TourPackage {
 
     return TourPackage(
       packageId: snapshot["packageId"],
+      packageTitle: snapshot["packageTitle"],
       ownerId: snapshot["ownerId"],
       packageType: snapshot["packageType"],
       content: snapshot["content"],
@@ -29,6 +32,7 @@ class TourPackage {
 
   Map<String, dynamic> toJson() => {
     "packageId": packageId,
+    "packageTitle": packageTitle,
     "ownerId": ownerId,
     "packageType": packageType,
     "content": content,

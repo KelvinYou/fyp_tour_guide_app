@@ -43,9 +43,9 @@ class _PackageCardState extends State<PackageCard> {
           padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
           child: Column(
             children: [
-              Text(widget.snap["packageId"]),
+              Text(widget.snap["packageTitle"]),
               const SizedBox(height: 10.0),
-              Text(widget.snap["packageType"]),
+              Text(widget.snap["content"]),
             ],
           ),
         ),

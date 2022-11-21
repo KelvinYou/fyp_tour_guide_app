@@ -31,30 +31,32 @@ class FireStoreMethods {
   }
 
   // Tour Package
-  Future<String> addPackage(String uid, String content, String packageType, int duration) async {
+  Future<String> addPackage(String uid, String packageTitle, String content, String packageType, int duration) async {
     String res = "Some error occurred";
     String packageId = const Uuid().v1();
     try {
       TourPackage tourPackage = TourPackage(
         packageId: packageId,
+        packageTitle: packageTitle,
         ownerId: uid,
         packageType: packageType,
         content: content,
         duration: duration,
       );
       _firestore.collection('tourPackages').doc(packageId).set(tourPackage.toJson());
-      res = "success";
+      res = "success1";
     } catch (err) {
       res = err.toString();
     }
     return res;
   }
 
-  Future<String> updatePackage(String packageId, String uid, String content, String packageType, int duration) async {
+  Future<String> updatePackage(String packageId, String uid, String packageTitle, String content, String packageType, int duration) async {
     String res = "Some error occurred";
     try {
       TourPackage tourPackage = TourPackage(
         packageId: packageId,
+        packageTitle: packageTitle,
         ownerId: uid,
         packageType: packageType,
         content: content,
@@ -72,7 +74,7 @@ class FireStoreMethods {
   Future<String> deletePackage(String packageId) async {
     String res = "Some error occurred";
     try {
-      await _firestore.collection('tourPackages').doc(packageId).delete();
+      _firestore.collection('tourPackages').doc(packageId).delete();
       res = 'success';
     } catch (err) {
       res = err.toString();
