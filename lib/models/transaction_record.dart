@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TransactionRecord {
   final String transactionId;
-  final double transactionAmount;
+  final String transactionAmount;
   final String ownerId;
   final String receiveFrom;
   final String transactionType;

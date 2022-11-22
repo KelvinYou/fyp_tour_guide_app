@@ -122,6 +122,14 @@ class FireStoreMethods {
     return res;
   }
 
+  String ringgitFormatter(double amount) {
+    if (amount >= 0) {
+      return "+RM ${amount.toStringAsFixed(2)}";
+    } else {
+      return "-RM ${amount.toStringAsFixed(2)}";
+    }
+  }
+
   Future<String> reloadEWallet(String uid, double amount) async {
     String res = "Some error occurred";
 
@@ -132,14 +140,13 @@ class FireStoreMethods {
 
     String eWalletId = "ewallet_$uid";
 
-
     try {
       _firestore.collection('eWallet').doc(eWalletId).update({"balance": amount + eWalletSnap.data()!["balance"]});
       res = "success";
 
       addTransaction(
         uid,
-        amount,
+        ringgitFormatter(amount),
         "Receive from Wallet",
         "Reload Balance",
         "Reload Balance",
@@ -154,7 +161,7 @@ class FireStoreMethods {
   }
 
   // Transaction
-  Future<void> addTransaction(String uid, double amount, String transactionType, String receiveFrom,
+  Future<void> addTransaction(String uid, String amount, String transactionType, String receiveFrom,
       String paymentDetails, String paymentMethod, String status) async {
     // String res = "Some error occurred";
     String transactionId = const Uuid().v1();

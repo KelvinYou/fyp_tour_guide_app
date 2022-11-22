@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/widget/app_theme.dart';
 
 class TransactionDetail extends StatefulWidget {
-  const TransactionDetail({super.key});
-
+  final transactionDetailSnap;
+  const TransactionDetail({super.key, required this.transactionDetailSnap});
   @override
   State<TransactionDetail> createState() => _TransactionDetailState();
 }
@@ -25,7 +25,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
       ),
       body: ListView(
         children: [
-          Text("tiada"),
+          Text("TransactionType: ${widget.transactionDetailSnap["receiveFrom"]}"),
         ],
       ),
     );
