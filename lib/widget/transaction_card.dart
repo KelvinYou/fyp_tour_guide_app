@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
@@ -29,7 +30,9 @@ class _TransactionCardState extends State<TransactionCard> {
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width) - 52;
 
-    return Container(
+    return widget.snap["ownerId"] != FirebaseAuth.instance.currentUser!.uid ? Container(
+
+    ) : Container(
       decoration: BoxDecoration(
         color: AppTheme.nearlyWhite,
         border: Border.all(color: Colors.white),
