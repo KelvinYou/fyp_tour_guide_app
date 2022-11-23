@@ -44,11 +44,11 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     child: ListView.builder(
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (ctx, index) =>
-                          Container(
-                            child: TransactionCard(
-                              snap: snapshot.data!.docs[index].data(),
-                            ),
+                        Container(
+                          child: TransactionCard(
+                            snap: snapshot.data!.docs[index].data(),
                           ),
+                        ),
                     ),
                   ),
                 ),
