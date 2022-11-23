@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fyp_project/models/chatroom.dart';
+import 'package:fyp_project/models/message.dart';
 import 'package:fyp_project/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
 
@@ -126,6 +128,7 @@ class FireStoreMethods {
     if (amount >= 0) {
       return "+RM ${amount.toStringAsFixed(2)}";
     } else {
+      amount = -amount;
       return "-RM ${amount.toStringAsFixed(2)}";
     }
   }
@@ -178,7 +181,7 @@ class FireStoreMethods {
         dateTime: DateTime.now(),
         status: status,
       );
-      _firestore.collection('transaction').doc(transactionId).set(transaction.toJson());
+      _firestore.collection('transactions').doc(transactionId).set(transaction.toJson());
       // res = "success";
     } catch (err) {
       // res = err.toString();
@@ -200,6 +203,48 @@ class FireStoreMethods {
         cardHolder: cardHolder,
       );
       _firestore.collection('bankCard').doc(cardId).set(bankCard.toJson());
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> addChatroom(String chatroomTitle, String tourGuideId,
+      String touristId, String lastMessage) async {
+    String res = "Some error occurred";
+    String chatroomId = const Uuid().v1();
+    try {
+      Chatroom chatroom = Chatroom(
+        chatroomId: chatroomId,
+        chatroomTitle: chatroomTitle,
+        tourGuideId: tourGuideId,
+        touristId: touristId,
+        lastMessage: lastMessage,
+        lastMessageTime: DateTime.now(),
+      );
+      _firestore.collection('chatrooms').doc(chatroomId).set(chatroom.toJson());
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> sendMessage(String chatroomId, String fromId,
+      String content, String type) async {
+    String res = "Some error occurred";
+    String messageId = const Uuid().v1();
+    try {
+      Message message = Message(
+        messageId: messageId,
+        chatroomId: chatroomId,
+        fromId: fromId,
+        content: content,
+        type: type,
+        timestamp: DateTime.now(),
+      );
+      _firestore.collection('messages').doc(messageId).set(message.toJson());
       res = "success";
     } catch (err) {
       res = err.toString();

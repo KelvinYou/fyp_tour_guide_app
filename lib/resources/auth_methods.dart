@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/models/user.dart' as model;
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/resources/storage_methods.dart';
+
 class AuthMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;

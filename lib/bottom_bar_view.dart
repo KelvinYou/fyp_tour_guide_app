@@ -6,7 +6,7 @@ import 'package:fyp_project/widget/app_theme.dart';
 import 'package:fyp_project/ui_view/home_view.dart';
 import 'package:fyp_project/ui_view/request_view.dart';
 import 'package:fyp_project/ui_view/wallet_view.dart';
-import 'package:fyp_project/ui_view/message_view.dart';
+import 'package:fyp_project/ui_view/chatroom_view.dart';
 import 'package:fyp_project/ui_view/profile_view.dart';
 
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class _MyBottomBarView extends State<BottomBarView> {
     Home(),
     Request(),
     Wallet(),
-    Message(),
+    ChatroomView(),
     Profile(
       uid: FirebaseAuth.instance.currentUser!.uid,
     ),
