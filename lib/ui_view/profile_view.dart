@@ -102,6 +102,7 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(width: 10.0),
 
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(userData['username']),
                         Text(userData['grade']),

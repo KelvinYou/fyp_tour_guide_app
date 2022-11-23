@@ -33,7 +33,9 @@ class _ChatroomCardState extends State<ChatroomCard> {
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width) - 52;
 
-    return Container(
+    return widget.snap["tourGuideId"] != FirebaseAuth.instance.currentUser!.uid ? Container(
+
+    ) : Container(
       decoration: BoxDecoration(
         color: AppTheme.nearlyWhite,
         border: Border.all(color: Colors.white),

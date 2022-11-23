@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_project/ui_view/chatroom_detail_view.dart';
+import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
 import 'package:intl/intl.dart';
@@ -10,9 +11,14 @@ import 'package:fyp_project/ui_view/transaction_detail_view.dart';
 
 class MessageCard extends StatefulWidget {
   final snap;
+  final chatroomSnap;
+  final String tourGuideName;
+
   const MessageCard({
     Key? key,
     required this.snap,
+    required this.chatroomSnap,
+    required this.tourGuideName,
   }) : super(key: key);
 
   @override
@@ -27,13 +33,17 @@ class _MessageCardState extends State<MessageCard> {
     super.initState();
   }
 
+
+
   final DateFormat formatter = DateFormat('dd MMM, H:mm');
 
   @override
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width);
 
-    return widget.snap["fromId"] == FirebaseAuth.instance.currentUser!.uid ?
+    return widget.snap["chatroomId"] != widget.chatroomSnap["chatroomId"] ? Container(
+
+    ) : widget.snap["fromId"] == FirebaseAuth.instance.currentUser!.uid ?
       Container(
         width: width,
         alignment: Alignment.centerRight,
@@ -47,6 +57,14 @@ class _MessageCardState extends State<MessageCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            Text(
+              widget.tourGuideName,
+              style: TextStyle(
+                color: AppTheme.lightText,
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+              ),
+            ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
               decoration: BoxDecoration(
@@ -88,6 +106,7 @@ class _MessageCardState extends State<MessageCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           Container(
             padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
             decoration: BoxDecoration(

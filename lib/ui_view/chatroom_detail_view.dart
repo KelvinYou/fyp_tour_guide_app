@@ -20,11 +20,37 @@ class ChatroomDetailView extends StatefulWidget {
 class _ChatroomDetailViewState extends State<ChatroomDetailView> {
   final contentController = TextEditingController();
   bool isLoading = false;
+  String tourGuideName = '';
 
   @override
   void initState() {
     super.initState();
     // sendMessage();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('tourGuides')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      tourGuideName = userSnap.data()!['username'];
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   sendMessage() async {
@@ -70,8 +96,8 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
         ),
         body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('messages')
-              .where('chatroomId', isEqualTo: widget.chatroomDetailSnap["chatroomId"])
-              // .orderBy('timestamp', descending: false)
+              // .where('chatroomId', isEqualTo: widget.chatroomDetailSnap["chatroomId"])
+              .orderBy('timestamp', descending: false)
               .snapshots(),
           builder: (context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -91,6 +117,8 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                           Container(
                             child: MessageCard(
                               snap: snapshot.data!.docs[index].data(),
+                              chatroomSnap: widget.chatroomDetailSnap,
+                              tourGuideName: tourGuideName,
                             ),
                           ),
                     ),
