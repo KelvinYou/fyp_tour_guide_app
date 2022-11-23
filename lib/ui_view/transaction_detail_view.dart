@@ -17,7 +17,6 @@ class _TransactionDetailState extends State<TransactionDetail> {
 
   Widget cardView(String title, String content) {
     double width = (MediaQuery.of(context).size.width) - 50;
-    double height = MediaQuery.of(context).size.height;
 
     return Column(
       children: [
@@ -53,6 +52,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
             ],
           ),
         ),
+
         const Divider(
             color: Colors.black
         ),

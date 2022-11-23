@@ -27,12 +27,14 @@ class _TransactionCardState extends State<TransactionCard> {
 
   @override
   Widget build(BuildContext context) {
+    double width = (MediaQuery.of(context).size.width) - 52;
+
     return Container(
       decoration: BoxDecoration(
         color: AppTheme.nearlyWhite,
         border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(0),
-        boxShadow: const [ AppTheme.boxShadow ],
+        // boxShadow: const [ AppTheme.boxShadow ],
       ),
       child: InkWell(
         onTap: () => Navigator.of(context).push(
@@ -42,28 +44,78 @@ class _TransactionCardState extends State<TransactionCard> {
             ),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
-          child: Column(
-            children: [
-              Row(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+              child: Column(
                 children: [
-                  Text(widget.snap["receiveFrom"]),
-                  const SizedBox(height: 10.0),
-                  Text(widget.snap["paymentMethod"]),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(widget.snap["transactionAmount"]),
-                  const SizedBox(height: 10.0),
-                  Text(formatter.format(widget.snap["dateTime"].toDate())),
-                ],
-              ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.5,
+                        child: Text(
+                          widget.snap["receiveFrom"],
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            color: AppTheme.lightText,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.5,
+                        child: Text(
+                          widget.snap["transactionAmount"],
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                            color: AppTheme.primary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.5,
+                        child: Text(
+                          widget.snap["paymentMethod"],
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            color: AppTheme.lightText,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.5,
+                        child: Text(
+                          formatter.format(widget.snap["dateTime"].toDate()),
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                            color: AppTheme.darkText,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
 
-            ],
-          ),
-        ),
+                ],
+              ),
+            ),
+            const Divider(
+                color: Colors.black
+            ),
+          ],
+        )
       ),
     );
   }

@@ -37,22 +37,22 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             );
           }
           return Column(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 200.0,
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (ctx, index) =>
-                        Container(
-                          child: TransactionCard(
-                            snap: snapshot.data!.docs[index].data(),
-                          ),
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 5.0,
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (ctx, index) =>
+                      Container(
+                        child: TransactionCard(
+                          snap: snapshot.data!.docs[index].data(),
                         ),
-                    ),
+                      ),
                   ),
                 ),
-              ]
+              ),
+            ],
           );
         },
       ),
