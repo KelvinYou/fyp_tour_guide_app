@@ -24,10 +24,10 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
   @override
   void initState() {
     super.initState();
-    // addMessage();
+    // sendMessage();
   }
 
-  addMessage() async {
+  sendMessage() async {
     try {
       String res = await FireStoreMethods().sendMessage(
         widget.chatroomDetailSnap["chatroomId"],
@@ -42,7 +42,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
         });
         showSnackBar(
           context,
-          'Posted!',
+          'Sent!',
         );
       } else {
         showSnackBar(context, res);
@@ -94,6 +94,10 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                     ),
                   ),
                 ),
+                TextField(
+                  controller: contentController,
+                ),
+                ElevatedButton(onPressed: sendMessage, child: Text("Send"))
               ],
             );
           },
