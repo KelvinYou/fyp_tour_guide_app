@@ -35,6 +35,23 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> updatePersonalDetail(String uid, String username, String fullname, double icNumber, double phoneNumber) async {
+    String res = "Some error occurred";
+
+    try {
+      _firestore.collection('tourGuides').doc(uid).update({
+        "username": username,
+        "fullname": fullname,
+        "icNumber": icNumber,
+        "phoneNumber": phoneNumber,
+        },);
+        res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   // Tour Package
   Future<String> addPackage(String uid, String packageTitle, String content, String packageType, int duration) async {
     String res = "Some error occurred";
@@ -245,8 +262,10 @@ class FireStoreMethods {
         timestamp: DateTime.now(),
       );
       _firestore.collection('messages').doc(messageId).set(message.toJson());
+
       _firestore.collection('chatrooms').doc(chatroomId).update({
         "lastMessage": content, "lastMessageTime": DateTime.now()});
+
       res = "success";
     } catch (err) {
       res = err.toString();

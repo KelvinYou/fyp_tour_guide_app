@@ -70,7 +70,9 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
         ),
         body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('messages')
-              .where('chatroomId', isEqualTo: widget.chatroomDetailSnap["chatroomId"]).snapshots(),
+              .where('chatroomId', isEqualTo: widget.chatroomDetailSnap["chatroomId"])
+              // .orderBy('timestamp', descending: false)
+              .snapshots(),
           builder: (context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

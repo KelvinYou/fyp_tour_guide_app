@@ -61,7 +61,9 @@ class _ChatroomViewState extends State<ChatroomView> {
     ) : Scaffold(
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('chatrooms')
-            .where('tourGuideId', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots(),
+          .orderBy('lastMessageTime', descending: true)
+          // .where('tourGuideId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

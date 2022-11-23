@@ -29,7 +29,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('transactions')
           // .where('ownerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          .orderBy('dateTime', descending: true)
+          // .orderBy('dateTime', descending: false)
           .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {

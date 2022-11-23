@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_project/resources/firestore_methods.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
@@ -60,6 +61,41 @@ class _PersonalDetailState extends State<PersonalDetail> {
     });
   }
 
+  updateProfile() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      String res = await FireStoreMethods().updatePersonalDetail(
+        FirebaseAuth.instance.currentUser!.uid,
+        _usernameController.text,
+        _fullnameController.text,
+        double.parse(_icNumberController.text),
+        double.parse(_phoneNumberController.text),
+      );
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(
+          context,
+          'Updated!',
+        );
+      } else {
+        showSnackBar(context, res);
+      }
+    } catch (err) {
+      setState(() {
+        isLoading = false;
+      });
+      showSnackBar(
+        context,
+        err.toString(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -114,7 +150,7 @@ class _PersonalDetailState extends State<PersonalDetail> {
                 textInputType: TextInputType.text),
 
             const SizedBox(height: 10),
-
+            ElevatedButton(onPressed: updateProfile, child: Text("Update"))
           ],
         ),
       );
