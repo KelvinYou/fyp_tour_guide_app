@@ -245,6 +245,8 @@ class FireStoreMethods {
         timestamp: DateTime.now(),
       );
       _firestore.collection('messages').doc(messageId).set(message.toJson());
+      _firestore.collection('chatrooms').doc(chatroomId).update({
+        "lastMessage": content, "lastMessageTime": DateTime.now()});
       res = "success";
     } catch (err) {
       res = err.toString();

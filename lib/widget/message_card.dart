@@ -8,18 +8,18 @@ import 'package:intl/intl.dart';
 
 import 'package:fyp_project/ui_view/transaction_detail_view.dart';
 
-class SenderMessageCard extends StatefulWidget {
+class MessageCard extends StatefulWidget {
   final snap;
-  const SenderMessageCard({
+  const MessageCard({
     Key? key,
     required this.snap,
   }) : super(key: key);
 
   @override
-  State<SenderMessageCard> createState() => _SenderMessageCardState();
+  State<MessageCard> createState() => _MessageCardState();
 }
 
-class _SenderMessageCardState extends State<SenderMessageCard> {
+class _MessageCardState extends State<MessageCard> {
   bool isLoading = false;
 
   @override
@@ -33,9 +33,50 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width);
 
-    return Container(
+    return widget.snap["fromId"] == FirebaseAuth.instance.currentUser!.uid ?
+      Container(
+        width: width,
+        alignment: Alignment.centerRight,
+        margin: EdgeInsets.symmetric(vertical: 5.0),
+        decoration: BoxDecoration(
+          // color: AppTheme.darkText,
+          // border: Border.all(color: Colors.white),
+          // borderRadius: BorderRadius.circular(0),
+          // boxShadow: const [ AppTheme.boxShadow ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                border: Border.all(color: Colors.white),
+                borderRadius: BorderRadius.circular(10),
+                // boxShadow: const [ AppTheme.boxShadow ],
+              ),
+              child: Text(
+                widget.snap["content"],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Text(
+              formatter.format(widget.snap["timestamp"].toDate()),
+              style: TextStyle(
+                color: AppTheme.lightText,
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        )
+    ) : Container(
       width: width,
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       margin: EdgeInsets.symmetric(vertical: 5.0),
       decoration: BoxDecoration(
         // color: AppTheme.darkText,
@@ -45,12 +86,12 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
       ),
 
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.white24,
               border: Border.all(color: Colors.white),
               borderRadius: BorderRadius.circular(10),
               // boxShadow: const [ AppTheme.boxShadow ],
@@ -58,7 +99,7 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
             child: Text(
               widget.snap["content"],
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
               ),

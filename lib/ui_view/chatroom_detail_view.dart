@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
-import 'package:fyp_project/widget/sender_message_card.dart';
+import 'package:fyp_project/widget/message_card.dart';
 
 import 'package:intl/intl.dart';
 
@@ -32,8 +32,9 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
       String res = await FireStoreMethods().sendMessage(
         widget.chatroomDetailSnap["chatroomId"],
         FirebaseAuth.instance.currentUser!.uid,
+        // "Hello world",
         contentController.text,
-        "text"
+        "text",
       );
       if (res == "success") {
         setState(() {
@@ -86,7 +87,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (ctx, index) =>
                           Container(
-                            child: SenderMessageCard(
+                            child: MessageCard(
                               snap: snapshot.data!.docs[index].data(),
                             ),
                           ),
