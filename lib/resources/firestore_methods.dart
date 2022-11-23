@@ -52,6 +52,21 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> updateGuideDetail(String uid, String description, String language) async {
+    String res = "Some error occurred";
+
+    try {
+      _firestore.collection('tourGuides').doc(uid).update({
+        "description": description,
+        "language": language,
+      },);
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   // Tour Package
   Future<String> addPackage(String uid, String packageTitle, String content, String packageType, int duration) async {
     String res = "Some error occurred";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_project/ui_view/guide_detail_view.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
 import 'package:fyp_project/resources/auth_methods.dart';
@@ -62,6 +63,21 @@ class _ProfileSettingState extends State<ProfileSetting> {
               ),
               child: const Text(
                 "edit personal detail",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const GuideDetail(),
+                ),
+              ),
+              child: const Text(
+                "edit guide detail",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
