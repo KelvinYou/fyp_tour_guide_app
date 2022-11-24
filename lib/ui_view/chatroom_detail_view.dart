@@ -115,13 +115,13 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                       reverse: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (ctx, index) =>
-                          Container(
-                            child: MessageCard(
-                              snap: snapshot.data!.docs[index].data(),
-                              chatroomSnap: widget.chatroomDetailSnap,
-                              tourGuideName: tourGuideName,
-                            ),
+                        Container(
+                          child: MessageCard(
+                            snap: snapshot.data!.docs[index].data(),
+                            chatroomSnap: widget.chatroomDetailSnap,
+                            tourGuideName: tourGuideName,
                           ),
+                        ),
                     ),
                   ),
                 ),

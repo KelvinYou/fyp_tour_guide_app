@@ -40,15 +40,26 @@ class _TourPackageState extends State<TourPackage> {
         title: const Text('Tour Package'),
       ),
       body: StreamBuilder(
-        stream: ownedOnly ? FirebaseFirestore.instance.collection('tourPackages')
-            .where('ownerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots() :
-        FirebaseFirestore.instance.collection('tourPackages').snapshots(),
-        builder: (context,
-        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+        stream: tourPackagesCollection.snapshots(),
+        builder: (context, streamSnapshot) {
+          if (streamSnapshot.hasData) {
+            documents = streamSnapshot.data!.docs;
+            //todo Documents list added to filterTitle
+            if (searchText.isNotEmpty) {
+              documents = documents.where((element) {
+                return element
+                    .get('packageTitle')
+                    .toLowerCase()
+                    .contains(searchText.toLowerCase());
+              }).toList();
+            }
+            if (ownedOnly) {
+              documents = documents.where((element) {
+                return element
+                    .get('ownerId')
+                    .contains(FirebaseAuth.instance.currentUser!.uid);
+              }).toList();
+            }
           }
           return Column(
             children: [
@@ -68,7 +79,10 @@ class _TourPackageState extends State<TourPackage> {
                 onPressed: addPackage,
                 style: ElevatedButton.styleFrom(
                   primary: AppTheme.nearlyWhite,
-                  side: const BorderSide(width: 1.0, color: AppTheme.primary,),
+                  side: const BorderSide(
+                    width: 1.0,
+                    color: AppTheme.primary,
+                  ),
                 ),
                 child: const Text(
                   'Add',
@@ -96,11 +110,11 @@ class _TourPackageState extends State<TourPackage> {
                 child: SizedBox(
                     height: 200.0,
                     child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
+                      itemCount: documents.length,
                       itemBuilder: (ctx, index) =>
                           Container(
                             child: PackageCard(
-                              snap: snapshot.data!.docs[index].data(),
+                              snap: documents[index].data(),
                             ),
                           ),
                     ),
