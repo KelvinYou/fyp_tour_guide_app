@@ -166,7 +166,7 @@ class _ProfileState extends State<Profile> {
                                     Icons.person,
                                     size: 35,
                                   ),
-                                  Text("2FA"),
+                                  Text("Verify"),
                                 ],
                               ),
                             ),
@@ -178,7 +178,7 @@ class _ProfileState extends State<Profile> {
                             child: Column(
                               children: [
                                 Icon(
-                                  Icons.person,
+                                  Icons.card_travel,
                                   size: 35,
                                 ),
                                 Text("Licence"),
@@ -192,21 +192,7 @@ class _ProfileState extends State<Profile> {
                             child: Column(
                               children: [
                                 Icon(
-                                  Icons.person,
-                                  size: 35,
-                                ),
-                                Text("History"),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.person,
+                                  Icons.grade,
                                   size: 35,
                                 ),
                                 Text("Grade"),
@@ -255,6 +241,28 @@ class _ProfileState extends State<Profile> {
                         SizedBox(width: 20.0),
                         Text("Chat With Admin"),
                       ],
+                    ),
+                    const Divider(
+                      height: 20,
+                      thickness: 2,
+                      indent: 10,
+                      endIndent: 10,
+                      color: AppTheme.lightGrey,
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ProfileSetting(),
+                        ),
+                      ),
+                      child: Row(
+                        children: const [
+                          SizedBox(width: 20.0),
+                          Icon(Icons.settings),
+                          SizedBox(width: 20.0),
+                          Text("Setting"),
+                        ],
+                      ),
                     ),
                   ],
                 ),

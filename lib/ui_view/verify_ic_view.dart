@@ -17,8 +17,9 @@ class VerifyIcView extends StatefulWidget {
 class _VerifyIcViewState extends State<VerifyIcView> {
   bool isLoading = false;
   Uint8List? _frontImage, _backImage, _holdImage;
-
-
+  String frontIcTitle = "IC Front";
+  String backIcTitle = "IC Back";
+  String holdIcTitle = "IC Hold";
 
   updateImage() async {
     setState(() {
@@ -61,8 +62,8 @@ class _VerifyIcViewState extends State<VerifyIcView> {
     Uint8List im = await pickImage(ImageSource.gallery);
     // set state because we need to display the image we selected on the circle avatar
     setState(() {
-      type == "IC Front" ?
-        _frontImage = im : type == "IC Back" ?
+      type == frontIcTitle ?
+        _frontImage = im : type == backIcTitle ?
           _backImage = im : _holdImage = im;
     });
   }
@@ -77,7 +78,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
               Text(title),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 25.0),
-                child: title == "IC Front" ? _frontImage != null ? Container(
+                child: title == frontIcTitle ? _frontImage != null ? Container(
                   height: 200.0,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -94,7 +95,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                     ),
                   ),
                   child: null /* add child content here */,
-                ) : title == "IC Back" ? _backImage != null ? Container(
+                ) : title == backIcTitle ? _backImage != null ? Container(
                   height: 200.0,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -152,9 +153,9 @@ class _VerifyIcViewState extends State<VerifyIcView> {
           children: [
             const SizedBox(height: 10.0),
             Text("IC Verification"),
-            imageCard("IC Front"),
-            imageCard("IC Back"),
-            imageCard("IC Hold"),
+            imageCard(frontIcTitle),
+            imageCard(backIcTitle),
+            imageCard(holdIcTitle),
             ElevatedButton(onPressed: updateImage, child: Text("Update")),
           ],
         ),

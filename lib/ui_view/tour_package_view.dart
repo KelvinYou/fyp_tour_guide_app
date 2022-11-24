@@ -17,7 +17,14 @@ class TourPackage extends StatefulWidget {
 }
 
 class _TourPackageState extends State<TourPackage> {
+  TextEditingController _searchController = TextEditingController();
   bool ownedOnly = false;
+
+  CollectionReference tourPackagesCollection =
+    FirebaseFirestore.instance.collection('tourPackages');
+  List<DocumentSnapshot> documents = [];
+
+  String searchText = '';
 
   void addPackage() async {
     Navigator.push(
@@ -45,6 +52,18 @@ class _TourPackageState extends State<TourPackage> {
           }
           return Column(
             children: [
+              TextField(
+                controller: _searchController,
+                onChanged: (value) {
+                  setState(() {
+                    searchText = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Search...',
+                  prefixIcon: Icon(Icons.search),
+                ),
+              ),
               ElevatedButton(
                 onPressed: addPackage,
                 style: ElevatedButton.styleFrom(

@@ -97,7 +97,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
         body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('messages')
               // .where('chatroomId', isEqualTo: widget.chatroomDetailSnap["chatroomId"])
-              .orderBy('timestamp', descending: false)
+              .orderBy('timestamp', descending: true)
               .snapshots(),
           builder: (context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -112,6 +112,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                   child: SizedBox(
                     height: 5.0,
                     child: ListView.builder(
+                      reverse: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (ctx, index) =>
                           Container(
