@@ -84,6 +84,10 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
     }
   }
 
+  CollectionReference messagesCollection =
+  FirebaseFirestore.instance.collection('messages');
+  List<DocumentSnapshot> documents = [];
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -95,16 +99,19 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
           title: Text(widget.chatroomDetailSnap["chatroomTitle"]),
         ),
         body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('messages')
-              // .where('chatroomId', isEqualTo: widget.chatroomDetailSnap["chatroomId"])
+          stream: messagesCollection
+              // .where('chatroomId', isEqualTo: )
               .orderBy('timestamp', descending: true)
               .snapshots(),
-          builder: (context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+          builder: (context, streamSnapshot) {
+            if (streamSnapshot.hasData) {
+              documents = streamSnapshot.data!.docs;
+              //todo Documents list added to filterTitle
+              documents = documents.where((element) {
+                return element
+                    .get('chatroomId')
+                    .contains(widget.chatroomDetailSnap["chatroomId"]);
+              }).toList();
             }
             return Column(
               children: [
@@ -113,12 +120,11 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                     height: 5.0,
                     child: ListView.builder(
                       reverse: true,
-                      itemCount: snapshot.data!.docs.length,
+                      itemCount: documents.length,
                       itemBuilder: (ctx, index) =>
                         Container(
                           child: MessageCard(
-                            snap: snapshot.data!.docs[index].data(),
-                            chatroomSnap: widget.chatroomDetailSnap,
+                            snap: documents[index].data(),
                             tourGuideName: tourGuideName,
                           ),
                         ),

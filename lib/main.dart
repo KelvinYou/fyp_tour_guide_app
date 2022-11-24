@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => UserProvider(),),
         ],
         child: MaterialApp(
+          // theme: ,
+          // darkTheme: ,
           title: "Tour Guide App",
           home: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),

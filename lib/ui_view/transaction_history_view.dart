@@ -16,6 +16,10 @@ class TransactionHistory extends StatefulWidget {
 class _TransactionHistoryState extends State<TransactionHistory> {
   bool isLoading = false;
 
+  CollectionReference transactionsCollection =
+  FirebaseFirestore.instance.collection('transactions');
+  List<DocumentSnapshot> documents = [];
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -27,16 +31,24 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         title: const Text('History'),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('transactions')
-          // .where('ownerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        stream: transactionsCollection
           .orderBy('dateTime', descending: true)
           .snapshots(),
-        builder: (context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+        builder: (context, streamSnapshot) {
+          // if (streamSnapshot.connectionState == ConnectionState.waiting) {
+          //   return const Center(
+          //     child: CircularProgressIndicator(),
+          //   );
+          // }
+          if (streamSnapshot.hasData) {
+            documents = streamSnapshot.data!.docs;
+            //todo Documents list added to filterTitle
+
+            documents = documents.where((element) {
+              return element
+                  .get('ownerId')
+                  .contains(FirebaseAuth.instance.currentUser!.uid);
+            }).toList();
           }
           return Column(
             children: [
@@ -44,11 +56,11 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 child: SizedBox(
                   height: 5.0,
                   child: ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
+                    itemCount: documents.length,
                     itemBuilder: (ctx, index) =>
                       Container(
                         child: TransactionCard(
-                          snap: snapshot.data!.docs[index].data(),
+                          snap: documents[index].data(),
                         ),
                       ),
                   ),

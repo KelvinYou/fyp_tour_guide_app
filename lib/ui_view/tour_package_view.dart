@@ -49,7 +49,7 @@ class _TourPackageState extends State<TourPackage> {
               documents = documents.where((element) {
                 return element
                     .get('packageTitle')
-                    .toLowerCase()
+                    // .toLowerCase()
                     .contains(searchText.toLowerCase());
               }).toList();
             }

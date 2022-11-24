@@ -30,9 +30,7 @@ class _TransactionCardState extends State<TransactionCard> {
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width) - 52;
 
-    return widget.snap["ownerId"] != FirebaseAuth.instance.currentUser!.uid ? Container(
-
-    ) : Container(
+    return Container(
       decoration: BoxDecoration(
         color: AppTheme.nearlyWhite,
         border: Border.all(color: Colors.white),

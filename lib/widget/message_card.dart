@@ -11,13 +11,11 @@ import 'package:fyp_project/ui_view/transaction_detail_view.dart';
 
 class MessageCard extends StatefulWidget {
   final snap;
-  final chatroomSnap;
   final String tourGuideName;
 
   const MessageCard({
     Key? key,
     required this.snap,
-    required this.chatroomSnap,
     required this.tourGuideName,
   }) : super(key: key);
 
@@ -41,9 +39,7 @@ class _MessageCardState extends State<MessageCard> {
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width);
 
-    return widget.snap["chatroomId"] != widget.chatroomSnap["chatroomId"] ? Container(
-
-    ) : widget.snap["fromId"] == FirebaseAuth.instance.currentUser!.uid ?
+    return widget.snap["fromId"] == FirebaseAuth.instance.currentUser!.uid ?
       Container(
         width: width,
         alignment: Alignment.centerRight,
