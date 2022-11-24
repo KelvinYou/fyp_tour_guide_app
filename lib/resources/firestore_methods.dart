@@ -236,6 +236,36 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> updateVerifyIC(String uid, Uint8List? frontImg,
+      Uint8List? backImg, Uint8List? holdImg) async {
+    String res = "Some error occurred";
+    String verifyIcId = "ic_$uid";
+
+    try {
+      if (frontImg != null && backImg != null && holdImg != null) {
+        String icFrontPic = await StorageMethods().uploadImageToStorage('TourGuideIcPics', frontImg, false);
+        String icBackPic = await StorageMethods().uploadImageToStorage('TourGuideIcPics', frontImg, false);
+        String icHoldPic = await StorageMethods().uploadImageToStorage('TourGuideIcPics', frontImg, false);
+
+        VerifyIc verifyIc = VerifyIc(
+          verifyIcId: verifyIcId,
+          ownerId: uid,
+          icFrontPic: icFrontPic,
+          icBackPic: icBackPic,
+          icHoldPic: icHoldPic
+        );
+
+        _firestore.collection('icVerifications').doc(verifyIcId).set(verifyIc.toJson());
+        res = "success";
+      } else {
+        res = "Please select an image";
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   Future<String> addChatroom(String chatroomTitle, String tourGuideId,
       String touristId, String lastMessage) async {
     String res = "Some error occurred";
