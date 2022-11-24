@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
-  static const Color primary = Color.fromARGB(255, 81, 43, 107); // green
-  static const Color secondary = Color.fromARGB(255, 130, 105, 146);
+  static const Color primary = Color(0xFF1463F3); // green
+  static const Color secondary = Color(0xFF84A4FC);
 
   static const Color nearlyWhite = Color(0xFFFEFEFE);
 

@@ -6,6 +6,7 @@ import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/profile_setting_view.dart';
 import 'package:fyp_project/ui_view/register_view.dart';
 import 'package:fyp_project/ui_view/personal_detail_view.dart';
+import 'package:fyp_project/ui_view/verify_ic_view.dart';
 
 import 'package:fyp_project/widget/app_theme.dart';
 import 'package:fyp_project/resources/auth_methods.dart';
@@ -153,7 +154,12 @@ class _ProfileState extends State<Profile> {
                       children: [
                         Expanded(
                             flex: 1,
-                            child: Center(
+                            child: GestureDetector(
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const VerifyIcView()),
+                              ),
+                              child: Center(
                               child: Column(
                                 children: [
                                   Icon(
@@ -164,6 +170,7 @@ class _ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
+                          ),
                         ),
                         Expanded(
                           flex: 1,

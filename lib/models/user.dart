@@ -7,11 +7,15 @@ class User {
   final String fullname;
   final int phoneNumber;
   final String email;
+  final bool isEmailVerified;
   final int icNumber;
+  final bool isIcVerified;
   final String photoUrl;
   final String description;
   final String language;
   final double rating;
+  final int rateNumber;
+  final int totalDone;
   final String grade;
 
   const User(
@@ -20,11 +24,15 @@ class User {
         required this.fullname,
         required this.phoneNumber,
         required this.email,
+        required this.isEmailVerified,
         required this.icNumber,
+        required this.isIcVerified,
         required this.photoUrl,
         required this.description,
         required this.language,
         required this.rating,
+        required this.rateNumber,
+        required this.totalDone,
         required this.grade,});
 
   static User fromSnap(DocumentSnapshot snap) {
@@ -36,11 +44,15 @@ class User {
       fullname: snapshot["fullname"],
       phoneNumber: snapshot["phoneNumber"],
       email: snapshot["email"],
+      isEmailVerified: snapshot["isEmailVerified"],
       icNumber: snapshot["icNumber"],
+      isIcVerified: snapshot["isIcVerified"],
       photoUrl: snapshot["photoUrl"],
       description: snapshot["description"],
       language: snapshot["language"],
       rating: snapshot["rating"],
+      rateNumber: snapshot["rateNumber"],
+      totalDone: snapshot["totalDone"],
       grade: snapshot["grade"],
     );
   }
@@ -51,11 +63,15 @@ class User {
     "fullname": fullname,
     "phoneNumber": phoneNumber,
     "email": email,
+    "isEmailVerified": isEmailVerified,
     "icNumber": icNumber,
+    "isIcVerified": isIcVerified,
     "photoUrl": photoUrl,
     "description": description,
     "language": language,
     "rating": rating,
+    "rateNumber": rateNumber,
+    "totalDone": totalDone,
     "grade": grade,
   };
 }

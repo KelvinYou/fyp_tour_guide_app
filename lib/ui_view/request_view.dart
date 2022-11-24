@@ -19,7 +19,7 @@ class _RequestState extends State<Request> {
     ) : Scaffold(
       body: ListView(
         children: [
-          Text("tiada request"),
+          Text("waiting for teammate"),
         ],
       ),
     );

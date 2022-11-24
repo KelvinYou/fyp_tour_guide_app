@@ -43,11 +43,15 @@ class AuthMethods {
           fullname: "",
           phoneNumber: 0,
           email: email,
+          isEmailVerified: false,
           icNumber: 0,
+          isIcVerified: false,
           photoUrl: "https://firebasestorage.googleapis.com/v0/b/fyp-travel-guide-6b527.appspot.com/o/default-avatar.jpg?alt=media",
           description: "",
           language: "",
           rating: 0,
+          rateNumber: 0,
+          totalDone: 0,
           grade: "New User",
         );
 

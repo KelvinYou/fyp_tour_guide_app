@@ -2,16 +2,10 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fyp_project/models/chatroom.dart';
-import 'package:fyp_project/models/message.dart';
 import 'package:fyp_project/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:fyp_project/models/tour_package.dart';
-import 'package:fyp_project/models/instant_order.dart';
-import 'package:fyp_project/models/e_wallet.dart';
-import 'package:fyp_project/models/bank_card.dart';
-import 'package:fyp_project/models/transaction_record.dart';
+import 'package:fyp_project/models/models.dart';
 
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
