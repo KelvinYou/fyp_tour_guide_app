@@ -3,9 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
+import 'package:fyp_project/ui_view/profile_setting_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/chatroom_card.dart';
+import 'package:fyp_project/widget/custom_app_bar.dart';
 
 class ChatroomView extends StatefulWidget {
   const ChatroomView({super.key});
@@ -59,6 +61,7 @@ class _ChatroomViewState extends State<ChatroomView> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
+      appBar: MainAppBar(title: "Message"),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('chatrooms')
           .orderBy('lastMessageTime', descending: true)

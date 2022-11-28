@@ -89,18 +89,19 @@ class _LoginState extends State<Login> {
 
               // email textfield
               TextFieldInput(
-                  textEditingController: emailController,
-                  hintText: "Email",
-                  textInputType: TextInputType.emailAddress),
+                textEditingController: emailController,
+                hintText: "Email",
+                textInputType: TextInputType.emailAddress,
+                iconData: Icons.email),
 
               const SizedBox(height: 20),
 
               // password textfield
               TextFieldInput(
-                  textEditingController: passwordController,
-                  hintText: "Password",
-                  isPass: true,
-                  textInputType: TextInputType.text),
+                textEditingController: passwordController,
+                hintText: "Password",
+                isPass: true,
+                textInputType: TextInputType.text),
 
               const SizedBox(height: 20),
 

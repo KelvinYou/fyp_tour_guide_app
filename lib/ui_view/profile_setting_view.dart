@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_project/ui_view/change_language_view.dart';
 import 'package:fyp_project/ui_view/theme_mode_view.dart';
 import 'package:fyp_project/ui_view/guide_detail_view.dart';
 
@@ -12,6 +13,7 @@ import 'package:fyp_project/ui_view/change_profile_view.dart';
 import 'package:fyp_project/ui_view/change_email_view.dart';
 import 'package:fyp_project/ui_view/change_password_view.dart';
 import 'package:fyp_project/ui_view/personal_detail_view.dart';
+import 'package:fyp_project/ui_view/coming_soon_view.dart';
 
 class ProfileSetting extends StatefulWidget {
   const ProfileSetting({super.key});
@@ -140,7 +142,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
           GestureDetector(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const ThemeModeView(),
+                  builder: (context) => const ChangeLanguageView(),
                 ),
               ),
               child: selectionView(Icons.image_outlined, "System Language")

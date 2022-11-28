@@ -103,27 +103,19 @@ class _GuideDetailState extends State<GuideDetail> {
       ),
       body: ListView(
         children: [
-          const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-            child: Text("Description"),
-          ),
+          const SizedBox(height: 20),
           TextFieldInput(
               textEditingController: _descriptionController,
               hintText: "Description",
               textInputType: TextInputType.text),
 
-          const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-            child: Text("Language"),
-          ),
+          const SizedBox(height: 20),
           TextFieldInput(
               textEditingController: _languageController,
               hintText: "Language",
               textInputType: TextInputType.text),
 
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           ElevatedButton(onPressed: updateProfile, child: Text("Update"))
         ],
       ),

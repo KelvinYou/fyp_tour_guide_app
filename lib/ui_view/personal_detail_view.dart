@@ -109,47 +109,31 @@ class _PersonalDetailState extends State<PersonalDetail> {
         ),
         body: ListView(
           children: [
-            const SizedBox(height: 10),
-            const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                child: Text("Username"),
-            ),
+            const SizedBox(height: 20),
             TextFieldInput(
               textEditingController: _usernameController,
               hintText: "Username",
               textInputType: TextInputType.text),
 
-            const SizedBox(height: 10),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-              child: Text("Full Name"),
-            ),
+            const SizedBox(height: 20),
             TextFieldInput(
                 textEditingController: _fullnameController,
                 hintText: "Full Name",
                 textInputType: TextInputType.text),
 
-            const SizedBox(height: 10),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-              child: Text("Phone Number"),
-            ),
+            const SizedBox(height: 20),
             TextFieldInput(
                 textEditingController: _phoneNumberController,
                 hintText: "Phone Number",
                 textInputType: TextInputType.text),
 
-            const SizedBox(height: 10),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-              child: Text("IC Number"),
-            ),
+            const SizedBox(height: 20),
             TextFieldInput(
                 textEditingController: _icNumberController,
                 hintText: "IC Number",
                 textInputType: TextInputType.text),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             ElevatedButton(onPressed: updateProfile, child: Text("Update"))
           ],
         ),

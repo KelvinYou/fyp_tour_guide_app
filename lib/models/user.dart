@@ -12,7 +12,7 @@ class User {
   final bool isIcVerified;
   final String photoUrl;
   final String description;
-  final String language;
+  final Map<String, dynamic> language;
   final double rating;
   final int rateNumber;
   final int totalDone;

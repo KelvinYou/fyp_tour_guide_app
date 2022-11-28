@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/providers/user_provider.dart';
+import 'package:fyp_project/widget/custom_app_bar.dart';
 
 class Profile extends StatefulWidget {
   final String uid;
@@ -65,29 +66,7 @@ class _ProfileState extends State<Profile> {
         child: CircularProgressIndicator(),
       )
       : Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Profile'),
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const ProfileSetting(),
-                ),
-              ),
-              child: const Align(
-                alignment: Alignment.topRight,
-                child: Icon(
-                  Icons.settings,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: MainAppBar(title: "Profile"),
       body: SafeArea(
         child: Column(
           children: [
