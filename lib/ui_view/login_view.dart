@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:fyp_project/resources/auth_methods.dart';

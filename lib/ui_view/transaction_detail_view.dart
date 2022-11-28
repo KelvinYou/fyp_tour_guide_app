@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:intl/intl.dart';
 
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 
 class TransactionDetail extends StatefulWidget {
   final transactionDetailSnap;

@@ -8,7 +8,7 @@ import 'package:fyp_project/widget/message_card.dart';
 
 import 'package:intl/intl.dart';
 
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 
 class ChatroomDetailView extends StatefulWidget {
   final chatroomDetailSnap;
@@ -18,7 +18,7 @@ class ChatroomDetailView extends StatefulWidget {
 }
 
 class _ChatroomDetailViewState extends State<ChatroomDetailView> {
-  final contentController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
   bool isLoading = false;
   String tourGuideName = '';
 
@@ -63,13 +63,15 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
         "text",
       );
       if (res == "success") {
+        contentController = TextEditingController(text: "");
+
         setState(() {
           isLoading = false;
         });
-        showSnackBar(
-          context,
-          'Sent!',
-        );
+        // showSnackBar(
+        //   context,
+        //   'Sent!',
+        // );
       } else {
         showSnackBar(context, res);
       }
@@ -82,6 +84,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
         err.toString(),
       );
     }
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   CollectionReference messagesCollection =

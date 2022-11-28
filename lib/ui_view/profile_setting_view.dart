@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_project/ui_view/theme_mode_view.dart';
 import 'package:fyp_project/ui_view/guide_detail_view.dart';
 
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/resources/auth_methods.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
@@ -29,120 +31,203 @@ class _ProfileSettingState extends State<ProfileSetting> {
     );
   }
 
+  Widget selectionView(IconData icon, String title) {
+    return Column(
+      children: [
+        const Divider(
+          height: 2,
+          thickness: 2,
+          indent: 0,
+          endIndent: 0,
+          color: AppTheme.lightGrey,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+          color: CupertinoColors.systemGrey5,
+          ),
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(icon),
+                  const SizedBox(width: 10.0),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: CupertinoColors.black,
+                    ),
+                  ),
+                ],
+              ),
+
+              Icon(Icons.chevron_right),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
-        title: const Text('Profile Setting'),
+        title: const Text('Setting'),
       ),
-      body: Center(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
         child: Column(
-          children: [
-            const SizedBox(height: 10.0),
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const ChangeProfile(),
-                ),
-              ),
-              child: const Text(
-                "change profile picture",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10.0),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ChangeProfile(),
               ),
             ),
-            const SizedBox(height: 20.0),
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const PersonalDetail(),
-                ),
-              ),
-              child: const Text(
-                "edit personal detail",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
+            child: selectionView(
+              Icons.image_outlined,
+              "Change Profile Picture"
+            ),
+          ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const PersonalDetail(),
               ),
             ),
-            const SizedBox(height: 20.0),
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const GuideDetail(),
-                ),
-              ),
-              child: const Text(
-                "edit guide detail",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
+            child: selectionView(
+              CupertinoIcons.profile_circled,
+              "Edit Personal Detail"
+            ),
+          ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const GuideDetail(),
               ),
             ),
-            const SizedBox(height: 20.0),
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const ResetEmail(),
-                ),
-              ),
-              child: const Text(
-                "reset email",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
+            child: selectionView(
+                Icons.image_outlined,
+                "Edit Guide Detail"
+            ),
+          ),
+          const Divider(
+            height: 2,
+            thickness: 2,
+            indent: 0,
+            endIndent: 0,
+            color: AppTheme.lightGrey,
+          ),
+          const SizedBox(height: 10.0),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ThemeModeView(),
               ),
             ),
-            const SizedBox(height: 20.0),
-            GestureDetector(
+            child: selectionView(
+              Icons.dark_mode,
+              "Dark Mode"
+            ),
+          ),
+          GestureDetector(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const ResetPassword(),
+                  builder: (context) => const ThemeModeView(),
                 ),
               ),
-              child: const Text(
-                "reset password",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
+              child: selectionView(Icons.image_outlined, "System Language")
+          ),
+          const Divider(
+            height: 2,
+            thickness: 2,
+            indent: 0,
+            endIndent: 0,
+            color: AppTheme.lightGrey,
+          ),
+          const SizedBox(height: 10.0),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ResetEmail(),
               ),
             ),
-            const SizedBox(height: 20.0),
-            GestureDetector(
-              onTap: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Confirm Logout?'),
-                  content: const Text('Logout now'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: logout,
-                      child: const Text('Logout'),
-                    ),
-                  ],
-                ),
+            child: selectionView(Icons.image_outlined, "Reset Email")
+          ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ResetPassword(),
               ),
-              child: const Text(
+            ),
+            child: selectionView(Icons.image_outlined, "Reset Password")
+          ),
+          const Divider(
+            height: 2,
+            thickness: 2,
+            indent: 0,
+            endIndent: 0,
+            color: AppTheme.lightGrey,
+          ),
+          const SizedBox(height: 10.0),
+          const Divider(
+            height: 2,
+            thickness: 2,
+            indent: 0,
+            endIndent: 0,
+            color: AppTheme.lightGrey,
+          ),
+          GestureDetector(
+            onTap: () => showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Confirm Logout?'),
+                content: const Text('Logout now'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: logout,
+                    child: const Text('Logout'),
+                  ),
+                ],
+              ),
+            ),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: CupertinoColors.systemGrey5,
+              ),
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              child: Text(
                 "Logout",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: CupertinoColors.black,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          const Divider(
+            height: 2,
+            thickness: 2,
+            indent: 0,
+            endIndent: 0,
+            color: AppTheme.lightGrey,
+          ),
+        ],
+      ),
       ),
     );
   }

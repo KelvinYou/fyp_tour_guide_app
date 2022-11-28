@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/ui_view/package_detail_view.dart';
 
 class PackageCard extends StatefulWidget {

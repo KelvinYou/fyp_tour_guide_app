@@ -8,7 +8,7 @@ import 'package:fyp_project/ui_view/register_view.dart';
 import 'package:fyp_project/ui_view/personal_detail_view.dart';
 import 'package:fyp_project/ui_view/verify_ic_view.dart';
 
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/resources/auth_methods.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,6 +65,10 @@ class _ProfileState extends State<Profile> {
         child: CircularProgressIndicator(),
       )
       : Scaffold(
+      appBar: AppBar(
+        // backgroundColor: AppTheme.primary,
+        title: const Text('Profile'),
+      ),
       body: SafeArea(
         child: Column(
           children: [

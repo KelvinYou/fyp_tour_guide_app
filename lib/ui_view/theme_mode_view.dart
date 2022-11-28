@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fyp_project/utils/app_theme.dart';
 
-class CardList extends StatefulWidget {
-  const CardList({super.key});
+import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/utils/themeChoice.dart';
+
+class ThemeModeView extends StatefulWidget {
+  const ThemeModeView({super.key});
 
   @override
-  State<CardList> createState() => _CardListState();
+  State<ThemeModeView> createState() => _ThemeModeViewState();
 }
 
-class _CardListState extends State<CardList> {
+class _ThemeModeViewState extends State<ThemeModeView> {
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return isLoading
-      ? const Center(
+        ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primary,
-        title: const Text('Bank Card List'),
+        title: const Text('Theme Mode'),
       ),
-      body: ListView(
-        children: [
-          Text("CardList"),
-        ],
-      ),
+      body: ThemeChoice(),
     );
   }
 

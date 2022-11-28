@@ -6,6 +6,8 @@ class AppTheme {
   static const Color primary = Color(0xFF1463F3); // green
   static const Color secondary = Color(0xFF84A4FC);
 
+  static const Color lightBackground = Color(0xFFC5C5C5);
+
   static const Color nearlyWhite = Color(0xFFFEFEFE);
 
   static const Color lightGrey = Color(0xFFBFBFBF);
@@ -56,63 +58,42 @@ class AppTheme {
   static const Color spacer = Color(0xFFF2F2F2);
   static const String fontName = 'Poppins';
 
-  static const TextTheme textTheme = TextTheme(
-    headline4: display1,
-    headline5: headline,
-    headline6: title,
-    subtitle2: subtitle,
-    bodyText2: body2,
-    bodyText1: body1,
-    caption: caption,
+  static const double APPBAR_ELEVATION = 10;
+
+  static ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    primarySwatch: Colors.blue,
+    accentColor: primary,
+    scaffoldBackgroundColor: Colors.white,
+    appBarTheme: const AppBarTheme(
+      brightness: Brightness.dark,
+      elevation: APPBAR_ELEVATION,
+      textTheme: TextTheme(
+        headline6: TextStyle(
+          fontSize: 18.0,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      color: primary,
+    ),
   );
 
-  static const TextStyle display1 = TextStyle( // h4 -> display1
-    fontFamily: fontName,
-    fontWeight: FontWeight.bold,
-    fontSize: 36,
-    letterSpacing: 0.4,
-    height: 0.9,
-    color: darkerText,
+  static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    primarySwatch: Colors.blue,
+    accentColor: primary,
+    scaffoldBackgroundColor: Colors.black,
+    appBarTheme: const AppBarTheme(
+      elevation: APPBAR_ELEVATION,
+      textTheme: TextTheme(
+        subtitle1: TextStyle(
+          color: primary,
+          fontSize: 18.0,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    ),
   );
-
-  static const TextStyle subtitle = TextStyle( // subtitle2 -> subtitle
-    fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 14,
-    letterSpacing: -0.04,
-    color: darkText,
-  );
-
-  static const TextStyle title = TextStyle( // h6 -> title
-    fontFamily: fontName,
-    fontWeight: FontWeight.bold,
-    fontSize: 16,
-    letterSpacing: 0.18,
-    color: darkerText,
-  );
-
-  static const TextStyle body2 = TextStyle( // body1 -> body2
-    fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 14,
-    letterSpacing: 0.2,
-    color: darkText,
-  );
-
-  static const TextStyle body1 = TextStyle( // body2 -> body1
-    fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 16,
-    letterSpacing: -0.05,
-    color: darkText,
-  );
-
-  static const TextStyle caption = TextStyle( // Caption -> caption
-    fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 12,
-    letterSpacing: 0.2,
-    color: lightText, // was lightText
-  );
-
 }

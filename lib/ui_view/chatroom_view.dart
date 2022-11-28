@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/chatroom_card.dart';
 
 class ChatroomView extends StatefulWidget {

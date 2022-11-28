@@ -7,7 +7,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/ui_view/tour_package_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 
 class PackageDetail extends StatefulWidget {
   final packageDetailSnap;

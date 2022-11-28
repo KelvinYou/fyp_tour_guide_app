@@ -8,7 +8,7 @@ import 'package:fyp_project/ui_view/cash_in_view.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
-import 'package:fyp_project/widget/app_theme.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 
 
 class Wallet extends StatefulWidget {
