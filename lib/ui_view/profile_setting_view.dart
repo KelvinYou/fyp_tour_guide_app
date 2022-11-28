@@ -77,7 +77,6 @@ class _ProfileSettingState extends State<ProfileSetting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppTheme.primary,
         title: const Text('Setting'),
       ),
       body: Container(

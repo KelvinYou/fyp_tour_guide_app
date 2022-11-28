@@ -66,32 +66,31 @@ class _ProfileState extends State<Profile> {
       )
       : Scaffold(
       appBar: AppBar(
-        // backgroundColor: AppTheme.primary,
-        title: const Text('Profile'),
+        backgroundColor: AppTheme.primary,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Profile'),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ProfileSetting(),
+                ),
+              ),
+              child: const Align(
+                alignment: Alignment.topRight,
+                child: Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Column(
           children: [
-            Column(
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileSetting(),
-                    ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                      child: Icon(
-                        Icons.settings,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
             const SizedBox(height: 10.0),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),

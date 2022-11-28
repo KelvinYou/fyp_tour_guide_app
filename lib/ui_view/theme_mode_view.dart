@@ -21,7 +21,6 @@ class _ThemeModeViewState extends State<ThemeModeView> {
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: AppBar(
-        backgroundColor: AppTheme.primary,
         title: const Text('Theme Mode'),
       ),
       body: ThemeChoice(),
