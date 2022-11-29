@@ -77,6 +77,8 @@ class FireStoreMethods {
           photoUrl: photoUrl,
           content: content,
           duration: duration,
+          createDate: DateTime.now(),
+          lastModifyDate: DateTime.now(),
         );
         _firestore.collection('tourPackages').doc(packageId).set(tourPackage.toJson());
         res = "success";
@@ -94,16 +96,15 @@ class FireStoreMethods {
     try {
       if (packagePhoto != null) {
         String photoUrl = await StorageMethods().uploadImageToStorage('TourPackagePics', packagePhoto, false);
-        TourPackage tourPackage = TourPackage(
-          packageId: packageId,
-          packageTitle: packageTitle,
-          ownerId: uid,
-          packageType: packageType,
-          photoUrl: photoUrl,
-          content: content,
-          duration: duration,
-        );
-        _firestore.collection('tourPackages').doc(packageId).set(tourPackage.toJson());
+
+        _firestore.collection('tourPackages').doc(packageId).update({
+          "packageTitle": packageTitle,
+          "packageType": packageType,
+          "photoUrl": photoUrl,
+          "content": content,
+          "duration": duration,
+          "lastModifyDate": DateTime.now(),
+        });
         res = "success";
       } else {
         res = "Please select an image";

@@ -92,7 +92,6 @@ class _LoginState extends State<Login> {
       ),
       body: GestureDetector(
         onTap: () {
-
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: Container(

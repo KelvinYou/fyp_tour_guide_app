@@ -10,7 +10,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
-
+import 'package:numberpicker/numberpicker.dart';
 
 
 class AddPackage extends StatefulWidget {
@@ -24,7 +24,7 @@ class _AddPackageState extends State<AddPackage> {
   final packageTitleController = TextEditingController();
   final contentController = TextEditingController();
   bool isLoading = false;
-  int duration = 3;
+  int _currentDuration = 1;
   List<String> selectedTypes = [];
   Uint8List? _image;
 
@@ -48,7 +48,7 @@ class _AddPackageState extends State<AddPackage> {
         contentController.text,
         selectedTypes,
         _image,
-        duration,
+        _currentDuration,
       );
       if (res == "success") {
         setState(() {
@@ -98,6 +98,48 @@ class _AddPackageState extends State<AddPackage> {
                       textInputType: TextInputType.text,
                       iconData: Icons.backpack_outlined),
                   const SizedBox(height: 20.0,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Text('Duration'),
+                  ),
+                  Center(
+                    child: NumberPicker(
+                      value: _currentDuration,
+                      minValue: 1,
+                      maxValue: 10,
+                      step: 1,
+                      itemHeight: 80,
+                      axis: Axis.horizontal,
+                      onChanged: (value) =>
+                          setState(() => _currentDuration = value),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: Colors.black26),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: () => setState(() {
+                          final newValue = _currentDuration - 1;
+                          _currentDuration = newValue.clamp(1, 10);
+                        }),
+                      ),
+                      Text('Current horizontal int value: $_currentDuration'),
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () => setState(() {
+                          final newValue = _currentDuration + 1;
+                          _currentDuration = newValue.clamp(1, 10);
+                        }),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 10.0,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25.0),
                     child: Text('Package Type'),
@@ -167,23 +209,25 @@ class _AddPackageState extends State<AddPackage> {
             ),
           ),
 
-          const SizedBox(height: 20.0,),
           Expanded(
             flex: 1,
-            child: Container(
-              height: 50,
-              width: double.infinity,
+            child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: ElevatedButton(
-                onPressed: () => submit(
-                    FirebaseAuth.instance.currentUser!.uid
-                  // userProvider.getUser.uid,
-                ),
-                child: const Text("Submit"),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => submit(
+                          FirebaseAuth.instance.currentUser!.uid
+                        // userProvider.getUser.uid,
+                      ),
+                      child: Text("Submit"),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          const SizedBox(height: 20.0,),
         ],
       ),
     );

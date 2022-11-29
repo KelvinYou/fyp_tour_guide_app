@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
@@ -6,6 +8,8 @@ import 'package:fyp_project/ui_view/instant_order_view.dart';
 import 'package:fyp_project/ui_view/tour_package_view.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fyp_project/utils/utils.dart';
+import 'package:fyp_project/widget/main_app_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,7 +19,38 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  static const String title = 'Home';
+  var userData = {};
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('tourGuides')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      userData = userSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   void hourlyOrder() async {
     Navigator.push(
@@ -39,11 +74,15 @@ class _HomeState extends State<Home> {
     );
   }
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading
+      ? const Center(
+        child: CircularProgressIndicator(),
+      )
+    : Scaffold(
+      appBar: MainAppBar(title: "Welcome Back, ${userData["username"]}"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 40.0),
           mainTitle("Tour Guide Training Programs"),
           CarouselSlider(
             options: CarouselOptions(

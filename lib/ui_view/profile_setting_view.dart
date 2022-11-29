@@ -191,7 +191,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
               context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Confirm Logout?'),
-                content: const Text('Logout now'),
+                // content: const Text('Logout now'),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),

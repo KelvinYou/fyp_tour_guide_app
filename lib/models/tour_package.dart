@@ -8,6 +8,8 @@ class TourPackage {
   final String photoUrl;
   final String content;
   final int duration;
+  final DateTime createDate;
+  final DateTime lastModifyDate;
 
   const TourPackage(
       {required this.packageId,
@@ -17,6 +19,8 @@ class TourPackage {
         required this.photoUrl,
         required this.content,
         required this.duration,
+        required this.createDate,
+        required this.lastModifyDate,
       });
 
   static TourPackage fromSnap(DocumentSnapshot snap) {
@@ -30,6 +34,8 @@ class TourPackage {
       photoUrl: snapshot["photoUrl"],
       content: snapshot["content"],
       duration: snapshot["duration"],
+      createDate: snapshot["createDate"],
+      lastModifyDate: snapshot["lastModifyDate"],
     );
   }
 
@@ -41,5 +47,7 @@ class TourPackage {
     "photoUrl": photoUrl,
     "content": content,
     "duration": duration,
+    "createDate": createDate,
+    "lastModifyDate": lastModifyDate,
   };
 }

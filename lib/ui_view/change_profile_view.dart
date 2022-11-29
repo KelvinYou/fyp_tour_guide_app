@@ -117,13 +117,13 @@ class _ChangeProfileState extends State<ChangeProfile> {
               ? CircleAvatar(
             radius: 64,
             backgroundImage: MemoryImage(_image!),
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey,
           )
               : CircleAvatar(
             radius: 64,
             backgroundImage: NetworkImage(
                 userData["photoUrl"]),
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey,
           ),
           IconButton(
             onPressed: selectImage,

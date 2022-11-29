@@ -175,7 +175,7 @@ class _WalletState extends State<Wallet> {
                           child: Column(
                             children: [
                               Icon(
-                                Icons.money_rounded,
+                                Icons.attach_money_sharp,
                                 size: 35,
                               ),
                               Text("Cash In"),
@@ -193,7 +193,7 @@ class _WalletState extends State<Wallet> {
                           child: Column(
                             children: [
                               Icon(
-                                Icons.money,
+                                Icons.money_off,
                                 size: 35,
                               ),
                               Text("Cash Out"),

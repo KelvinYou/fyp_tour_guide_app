@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fyp_project/ui_view/change_profile_view.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/profile_setting_view.dart';
@@ -75,12 +76,19 @@ class _ProfileState extends State<Profile> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 56.0,
-                      backgroundImage: NetworkImage(
-                        userData["photoUrl"],
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ChangeProfile(),
+                        ),
                       ),
-                      backgroundColor: Colors.white,
+                      child: CircleAvatar(
+                        radius: 56.0,
+                        backgroundImage: NetworkImage(
+                          userData["photoUrl"],
+                        ),
+                        backgroundColor: Colors.grey,
+                      ),
                     ),
                     const SizedBox(width: 10.0),
 
