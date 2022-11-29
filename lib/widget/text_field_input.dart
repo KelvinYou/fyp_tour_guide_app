@@ -9,6 +9,7 @@ class TextFieldInput extends StatelessWidget {
   final TextInputType textInputType;
   final IconData iconData;
   final int? maxLines;
+  final String errorMsg;
 
   const TextFieldInput({
     Key? key,
@@ -19,6 +20,7 @@ class TextFieldInput extends StatelessWidget {
     required this.hintText,
     required this.textInputType,
     this.maxLines = 1,
+    this.errorMsg = "",
   }) : super(key: key);
 
   @override
@@ -26,21 +28,56 @@ class TextFieldInput extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: TextField(
-        controller: textEditingController,
-        maxLines: maxLines,
-        keyboardType: textInputType,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: hintText,
-          prefixIcon: iconData != Icons.import_contacts_sharp ? Align(
-            widthFactor: 1.0,
-            heightFactor: 1.0,
-            child: Icon(iconData),
-          )  : null,
-        ),
-        obscureText: isPass,
-        enabled: !isReadOnly,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          errorMsg == "" ?
+            TextField(
+              controller: textEditingController,
+              maxLines: maxLines,
+              keyboardType: textInputType,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: hintText,
+                prefixIcon: iconData != Icons.import_contacts_sharp ? Align(
+                  widthFactor: 1.0,
+                  heightFactor: 1.0,
+                  child: Icon(iconData),
+                )  : null,
+              ),
+              obscureText: isPass,
+              enabled: !isReadOnly,
+            ) : TextField(
+              controller: textEditingController,
+              maxLines: maxLines,
+              keyboardType: textInputType,
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: const BorderSide(color: AppTheme.errorRed, width: 1.0),
+                ),
+                border: OutlineInputBorder(
+
+                ),
+                labelText: hintText,
+                prefixIcon: iconData != Icons.import_contacts_sharp ? Align(
+                  widthFactor: 1.0,
+                  heightFactor: 1.0,
+                  child: Icon(iconData),
+                )  : null,
+              ),
+              obscureText: isPass,
+              enabled: !isReadOnly,
+            ),
+
+          errorMsg == "" ?
+            SizedBox()
+             : Text(
+              errorMsg,
+              style: TextStyle(
+              color: AppTheme.errorRed,
+              ),
+            ),
+        ],
       ),
     );
 

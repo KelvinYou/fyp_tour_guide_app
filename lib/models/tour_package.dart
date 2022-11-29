@@ -4,7 +4,8 @@ class TourPackage {
   final String packageId;
   final String packageTitle;
   final String ownerId;
-  final String packageType;
+  final List<String> packageType;
+  final String photoUrl;
   final String content;
   final int duration;
 
@@ -13,6 +14,7 @@ class TourPackage {
         required this.packageTitle,
         required this.ownerId,
         required this.packageType,
+        required this.photoUrl,
         required this.content,
         required this.duration,
       });
@@ -25,6 +27,7 @@ class TourPackage {
       packageTitle: snapshot["packageTitle"],
       ownerId: snapshot["ownerId"],
       packageType: snapshot["packageType"],
+      photoUrl: snapshot["photoUrl"],
       content: snapshot["content"],
       duration: snapshot["duration"],
     );
@@ -34,7 +37,8 @@ class TourPackage {
     "packageId": packageId,
     "packageTitle": packageTitle,
     "ownerId": ownerId,
-    "packageType": packageType,
+    "packageType": packageType.map((i) => i).toList(),
+    "photoUrl": photoUrl,
     "content": content,
     "duration": duration,
   };

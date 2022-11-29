@@ -85,6 +85,7 @@ class _ChatroomViewState extends State<ChatroomView> {
                         Container(
                           child: ChatroomCard(
                             snap: snapshot.data!.docs[index].data(),
+                            index: index,
                           ),
                         ),
                   ),

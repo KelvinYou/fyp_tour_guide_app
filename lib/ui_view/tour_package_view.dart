@@ -103,7 +103,7 @@ class _TourPackageState extends State<TourPackage> {
                   side: const BorderSide(width: 1.0, color: AppTheme.primary,),
                 ),
                 child: Text(
-                  ownedOnly ? "Show all"  : "Only Show My Packages",
+                  ownedOnly ? "Show all" : "Only Show My Packages",
                   style: TextStyle(
                     color: AppTheme.primary,
                   ),

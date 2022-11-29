@@ -62,39 +62,52 @@ class FireStoreMethods {
   }
 
   // Tour Package
-  Future<String> addPackage(String uid, String packageTitle, String content, String packageType, int duration) async {
+  Future<String> addPackage(String uid, String packageTitle, String content, List<String> packageType, Uint8List? packagePhoto, int duration) async {
     String res = "Some error occurred";
     String packageId = const Uuid().v1();
+
     try {
-      TourPackage tourPackage = TourPackage(
-        packageId: packageId,
-        packageTitle: packageTitle,
-        ownerId: uid,
-        packageType: packageType,
-        content: content,
-        duration: duration,
-      );
-      _firestore.collection('tourPackages').doc(packageId).set(tourPackage.toJson());
-      res = "success1";
+      if (packagePhoto != null) {
+        String photoUrl = await StorageMethods().uploadImageToStorage('TourPackagePics', packagePhoto, false);
+        TourPackage tourPackage = TourPackage(
+          packageId: packageId,
+          packageTitle: packageTitle,
+          ownerId: uid,
+          packageType: packageType,
+          photoUrl: photoUrl,
+          content: content,
+          duration: duration,
+        );
+        _firestore.collection('tourPackages').doc(packageId).set(tourPackage.toJson());
+        res = "success";
+      } else {
+        res = "Please select an image";
+      }
     } catch (err) {
       res = err.toString();
     }
     return res;
   }
 
-  Future<String> updatePackage(String packageId, String uid, String packageTitle, String content, String packageType, int duration) async {
+  Future<String> updatePackage(String packageId, String uid, String packageTitle, String content, List<String> packageType, Uint8List? packagePhoto, int duration) async {
     String res = "Some error occurred";
     try {
-      TourPackage tourPackage = TourPackage(
-        packageId: packageId,
-        packageTitle: packageTitle,
-        ownerId: uid,
-        packageType: packageType,
-        content: content,
-        duration: duration,
-      );
-      _firestore.collection('tourPackages').doc(packageId).set(tourPackage.toJson());
-      res = "success";
+      if (packagePhoto != null) {
+        String photoUrl = await StorageMethods().uploadImageToStorage('TourPackagePics', packagePhoto, false);
+        TourPackage tourPackage = TourPackage(
+          packageId: packageId,
+          packageTitle: packageTitle,
+          ownerId: uid,
+          packageType: packageType,
+          photoUrl: photoUrl,
+          content: content,
+          duration: duration,
+        );
+        _firestore.collection('tourPackages').doc(packageId).set(tourPackage.toJson());
+        res = "success";
+      } else {
+        res = "Please select an image";
+      }
     } catch (err) {
       res = err.toString();
     }

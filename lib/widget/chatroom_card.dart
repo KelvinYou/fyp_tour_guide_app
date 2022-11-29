@@ -10,9 +10,12 @@ import 'package:fyp_project/ui_view/transaction_detail_view.dart';
 
 class ChatroomCard extends StatefulWidget {
   final snap;
+  final int index;
+
   const ChatroomCard({
     Key? key,
     required this.snap,
+    this.index = 0,
   }) : super(key: key);
 
   @override
@@ -37,7 +40,7 @@ class _ChatroomCardState extends State<ChatroomCard> {
 
     ) : Container(
       decoration: BoxDecoration(
-        color: AppTheme.nearlyWhite,
+        color: widget.index % 2 == 0 ? AppTheme.backgroundLightGrey : AppTheme.backgroundNearlyWhite,
         border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(0),
         // boxShadow: const [ AppTheme.boxShadow ],

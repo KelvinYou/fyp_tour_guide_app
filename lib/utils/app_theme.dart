@@ -6,6 +6,11 @@ class AppTheme {
   static const Color primary = Color(0xFF0083CD); // green
   static const Color secondary = Color(0xFF96D9FF);
 
+  static const Color backgroundLightGrey = Color(0xFFF6F6F6);
+  static const Color backgroundNearlyWhite = Color(0xFFFEFEFE);
+
+  static const Color errorRed = Color(0xFFFF0000);
+
   static const Color lightBackground = Color(0xFFC5C5C5);
 
   static const Color nearlyWhite = Color(0xFFFEFEFE);

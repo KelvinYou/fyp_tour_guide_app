@@ -109,7 +109,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
           builder: (context, streamSnapshot) {
             if (streamSnapshot.hasData) {
               documents = streamSnapshot.data!.docs;
-              //todo Documents list added to filterTitle
+
               documents = documents.where((element) {
                 return element
                     .get('chatroomId')

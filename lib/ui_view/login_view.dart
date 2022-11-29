@@ -21,6 +21,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  String emailErrorMsg = "";
+  String passwordErrorMsg = "";
   bool _isLoading = false;
 
   @override
@@ -33,28 +35,52 @@ class _LoginState extends State<Login> {
   void signIn() async {
     setState(() {
       _isLoading = true;
+      emailErrorMsg = "";
+      passwordErrorMsg = "";
     });
 
-    String res = await AuthMethods().loginUser(
-        email: emailController.text, password: passwordController.text);
-    print(res);
-    if (res == 'success') {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const BottomBarView(selectedIndex: 0)
-          ),
-              (route) => false);
+    bool emailFormatCorrected = false;
+    bool passwordFormatCorrected = false;
 
+    if (emailController.text == "") {
       setState(() {
-        _isLoading = false;
+        emailErrorMsg = "Please enter your email address";
       });
     } else {
-      setState(() {
-        _isLoading = false;
-      });
-      showSnackBar(context, res);
-      // showSnackBar(context, res);
+      emailFormatCorrected = true;
     }
+
+    if (passwordController.text == "") {
+      setState(() {
+        passwordErrorMsg = "Please enter your password";
+      });
+    } else {
+      passwordFormatCorrected = true;
+    }
+
+    if (emailFormatCorrected && passwordFormatCorrected) {
+      String res = await AuthMethods().loginUser(
+          email: emailController.text, password: passwordController.text);
+      if (res == 'success') {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => const BottomBarView(selectedIndex: 0)
+            ),
+                (route) => false);
+
+        setState(() {
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(context, res);
+      }
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -64,8 +90,16 @@ class _LoginState extends State<Login> {
         backgroundColor: AppTheme.primary,
         title: const Text('Log In'),
       ),
-      body: SafeArea(
-        child: Center(
+      body: GestureDetector(
+        onTap: () {
+
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          // width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -92,9 +126,10 @@ class _LoginState extends State<Login> {
                 textEditingController: emailController,
                 hintText: "Email",
                 textInputType: TextInputType.emailAddress,
-                iconData: Icons.email_outlined),
+                iconData: Icons.email_outlined,
+                errorMsg: emailErrorMsg,),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10.0),
 
               // password textfield
               TextFieldInput(
@@ -102,11 +137,13 @@ class _LoginState extends State<Login> {
                 hintText: "Password",
                 isPass: true,
                 textInputType: TextInputType.text,
-                iconData: Icons.lock_open_sharp),
+                iconData: Icons.lock_open_sharp,
+                errorMsg: passwordErrorMsg,),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10.0),
 
-              Padding(
+              Container(
+                width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
