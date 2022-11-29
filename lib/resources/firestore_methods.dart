@@ -46,7 +46,7 @@ class FireStoreMethods {
     return res;
   }
 
-  Future<String> updateGuideDetail(String uid, String description, String language) async {
+  Future<String> updateGuideDetail(String uid, String description, Map<String, dynamic> language) async {
     String res = "Some error occurred";
 
     try {

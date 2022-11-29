@@ -3,10 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 
 import 'package:fyp_project/providers/user_provider.dart';
+import 'package:fyp_project/widget/text_field_input.dart';
 import 'package:provider/provider.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
+
+
 
 class AddPackage extends StatefulWidget {
   const AddPackage({super.key});
@@ -16,7 +20,6 @@ class AddPackage extends StatefulWidget {
 }
 
 class _AddPackageState extends State<AddPackage> {
-  final packageTypeController = TextEditingController();
   final packageTitleController = TextEditingController();
   final contentController = TextEditingController();
   bool isLoading = false;
@@ -32,7 +35,7 @@ class _AddPackageState extends State<AddPackage> {
         uid,
         packageTitleController.text,
         contentController.text,
-        packageTypeController.text,
+        "Temp",
         duration,
       );
       if (res == "success") {
@@ -66,37 +69,60 @@ class _AddPackageState extends State<AddPackage> {
         backgroundColor: AppTheme.primary,
         title: const Text('Add Package'),
       ),
-      body: ListView(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextField(
-            controller: packageTitleController,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Package Title',
+          const SizedBox(height: 30.0,),
+          TextFieldInput(
+              textEditingController: packageTitleController,
+              hintText: "Package Title",
+              textInputType: TextInputType.text,
+              iconData: Icons.backpack_outlined),
+          const SizedBox(height: 20.0,),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            child: Text('Package Type'),
+          ),
+          const SizedBox(height: 10.0,),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            child: MultiSelectContainer(
+              maxSelectableCount: 5,
+              items: [
+                MultiSelectCard(value: 'Relax', label: 'Relax'),
+                MultiSelectCard(value: 'Outdoor', label: 'Outdoor'),
+                MultiSelectCard(value: 'Indoor', label: 'Indoor'),
+              ],
+              onMaximumSelected: (allSelectedItems, selectedItem) {
+                showSnackBar(
+                  context,
+                  'The limit has been reached',
+                );
+              },
+              onChange: (allSelectedItems, selectedItem) {
+                print(allSelectedItems);
+                print(selectedItem);
+              },
             ),
           ),
-          TextField(
-            controller: packageTypeController,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Package Type',
+
+          const SizedBox(height: 20.0,),
+          TextFieldInput(
+              textEditingController: contentController,
+              hintText: "Content",
+              textInputType: TextInputType.multiline,
+              maxLines: null),
+          const SizedBox(height: 20.0,),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            child: ElevatedButton(
+              onPressed: () => submit(
+                  FirebaseAuth.instance.currentUser!.uid
+                // userProvider.getUser.uid,
+              ),
+              child: const Text("Submit"),
             ),
-          ),
-          TextField(
-            controller: contentController,
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Content',
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () => submit(
-              FirebaseAuth.instance.currentUser!.uid
-              // userProvider.getUser.uid,
-            ),
-            child: const Text("Submit"),
           ),
         ],
       ),

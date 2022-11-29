@@ -14,7 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/providers/user_provider.dart';
-import 'package:fyp_project/widget/custom_app_bar.dart';
+import 'package:fyp_project/widget/main_app_bar.dart';
 
 class Profile extends StatefulWidget {
   final String uid;

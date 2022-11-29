@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
                 textEditingController: emailController,
                 hintText: "Email",
                 textInputType: TextInputType.emailAddress,
-                iconData: Icons.email),
+                iconData: Icons.email_outlined),
 
               const SizedBox(height: 20),
 
@@ -101,7 +101,8 @@ class _LoginState extends State<Login> {
                 textEditingController: passwordController,
                 hintText: "Password",
                 isPass: true,
-                textInputType: TextInputType.text),
+                textInputType: TextInputType.text,
+                iconData: Icons.lock_open_sharp),
 
               const SizedBox(height: 20),
 

@@ -8,6 +8,7 @@ class TextFieldInput extends StatelessWidget {
   final String hintText;
   final TextInputType textInputType;
   final IconData iconData;
+  final int? maxLines;
 
   const TextFieldInput({
     Key? key,
@@ -17,6 +18,7 @@ class TextFieldInput extends StatelessWidget {
     this.iconData = Icons.import_contacts_sharp,
     required this.hintText,
     required this.textInputType,
+    this.maxLines = 1,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,8 @@ class TextFieldInput extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
         controller: textEditingController,
+        maxLines: maxLines,
+        keyboardType: textInputType,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           labelText: hintText,
