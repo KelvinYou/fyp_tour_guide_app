@@ -9,6 +9,7 @@ import 'package:fyp_project/ui_view/transaction_history_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/widget/main_app_bar.dart';
 
 
 class Wallet extends StatefulWidget {
@@ -79,6 +80,7 @@ class _WalletState extends State<Wallet> {
         child: CircularProgressIndicator(),
       )
       : Scaffold(
+        appBar: MainAppBar(title: "Wallet"),
         body: Stack(
           fit: StackFit.passthrough,
           children: <Widget>[
@@ -91,15 +93,16 @@ class _WalletState extends State<Wallet> {
               height: 250,
               padding: EdgeInsets.symmetric(),
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [AppTheme.primary, AppTheme.secondary])
+                color: AppTheme.secondary
+                  // gradient: LinearGradient(
+                  //     begin: Alignment.centerLeft,
+                  //     end: Alignment.centerRight,
+                  //     colors: [AppTheme.primary, AppTheme.secondary])
               ),
               child: Center(
                 child: Column(
                   children: [
-                    const SizedBox(height: 60.0),
+                    const SizedBox(height: 30.0),
                     Text(
                       "Available Balance",
                       style: TextStyle(
@@ -107,7 +110,7 @@ class _WalletState extends State<Wallet> {
                         fontSize: 16,
                         letterSpacing: 0.4,
                         height: 0.9,
-                        color: AppTheme.lightGrey,
+                        color: AppTheme.primary,
                       ),
                     ),
                     const SizedBox(height: 20.0),
@@ -118,7 +121,7 @@ class _WalletState extends State<Wallet> {
                         fontSize: 36,
                         letterSpacing: 0.4,
                         height: 0.9,
-                        color: AppTheme.white,
+                        color: AppTheme.primary,
                       ),
                     ),
                   ],

@@ -5,7 +5,7 @@ import 'package:fyp_project/main.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 
 import 'package:fyp_project/ui_view/home_view.dart';
-import 'package:fyp_project/ui_view/request_view.dart';
+import 'package:fyp_project/ui_view/order_view.dart';
 import 'package:fyp_project/ui_view/wallet_view.dart';
 import 'package:fyp_project/ui_view/chatroom_view.dart';
 import 'package:fyp_project/ui_view/profile_view.dart';

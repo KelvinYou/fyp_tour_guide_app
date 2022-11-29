@@ -56,7 +56,7 @@ class _AddPackageState extends State<AddPackage> {
         });
         showSnackBar(
           context,
-          'Posted!',
+          'Added!',
         );
         Navigator.of(context).pop();
       } else {

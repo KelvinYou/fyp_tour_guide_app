@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
-import 'package:fyp_project/utils/themeChoice.dart';
 
 class ComingSoonView extends StatefulWidget {
   const ComingSoonView({super.key});

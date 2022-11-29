@@ -3,16 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class BankCard {
   final String cardId;
   final String ownerId;
-  final int cardNumber;
-  final int ccv;
-  final int cardHolder;
+  final String cardNumber;
+  final String ccv;
+  final String expiredDate;
 
   const BankCard(
       {required this.cardId,
         required this.ownerId,
         required this.cardNumber,
         required this.ccv,
-        required this.cardHolder,
+        required this.expiredDate,
       });
 
   static BankCard fromSnap(DocumentSnapshot snap) {
@@ -23,7 +23,7 @@ class BankCard {
       ownerId: snapshot["ownerId"],
       cardNumber: snapshot["cardNumber"],
       ccv: snapshot["ccv"],
-      cardHolder: snapshot["cardHolder"],
+      expiredDate: snapshot["expiredDate"],
     );
   }
 
@@ -32,6 +32,6 @@ class BankCard {
     "ownerId": ownerId,
     "cardNumber": cardNumber,
     "ccv": ccv,
-    "cardHolder": cardHolder,
+    "expiredDate": expiredDate,
   };
 }

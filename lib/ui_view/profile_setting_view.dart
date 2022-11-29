@@ -14,6 +14,7 @@ import 'package:fyp_project/ui_view/change_email_view.dart';
 import 'package:fyp_project/ui_view/change_password_view.dart';
 import 'package:fyp_project/ui_view/personal_detail_view.dart';
 import 'package:fyp_project/ui_view/coming_soon_view.dart';
+import 'package:fyp_project/ui_view/bank_card_view.dart';
 
 class ProfileSetting extends StatefulWidget {
   const ProfileSetting({super.key});
@@ -118,6 +119,17 @@ class _ProfileSettingState extends State<ProfileSetting> {
             child: selectionView(
                 Icons.image_outlined,
                 "Edit Guide Detail"
+            ),
+          ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const BankCardView(),
+              ),
+            ),
+            child: selectionView(
+                Icons.credit_card,
+                "Bank Card"
             ),
           ),
           const Divider(

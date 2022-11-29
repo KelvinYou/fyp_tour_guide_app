@@ -230,8 +230,7 @@ class FireStoreMethods {
   }
 
   // Bank Card
-  //haven't test
-  Future<String> bankCard(String uid, int cardNumber, int ccv, int cardHolder) async {
+  Future<String> addBankCard(String uid, String cardNumber, String ccv, String expiredDate) async {
     String res = "Some error occurred";
     String cardId = const Uuid().v1();
     try {
@@ -240,9 +239,9 @@ class FireStoreMethods {
         ownerId: uid,
         cardNumber: cardNumber,
         ccv: ccv,
-        cardHolder: cardHolder,
+        expiredDate: expiredDate,
       );
-      _firestore.collection('bankCard').doc(cardId).set(bankCard.toJson());
+      _firestore.collection('bankCards').doc(cardId).set(bankCard.toJson());
       res = "success";
     } catch (err) {
       res = err.toString();
