@@ -58,6 +58,7 @@ class _AddPackageState extends State<AddPackage> {
           context,
           'Posted!',
         );
+        Navigator.of(context).pop();
       } else {
         showSnackBar(context, res);
       }
@@ -110,7 +111,7 @@ class _AddPackageState extends State<AddPackage> {
                         MultiSelectCard(value: 'Relax', label: 'Relax'),
                         MultiSelectCard(value: 'Outdoor', label: 'Outdoor'),
                         MultiSelectCard(value: 'Indoor', label: 'Indoor'),
-                        MultiSelectCard(value: 'Advanture', label: 'Adventure'),
+                        MultiSelectCard(value: 'Adventure', label: 'Adventure'),
                         MultiSelectCard(value: 'Nature', label: 'Nature'),
                         MultiSelectCard(value: 'Budget', label: 'Budget'),
                         MultiSelectCard(value: 'Culture', label: 'Culture'),
@@ -136,6 +137,31 @@ class _AddPackageState extends State<AddPackage> {
                       hintText: "Content",
                       textInputType: TextInputType.multiline,
                       maxLines: null),
+                  const SizedBox(height: 20.0,),
+                  GestureDetector(
+                    onTap: selectImage,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 25.0),
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        // color: AppTheme.lightGrey,
+                          border: Border.all(color: Colors.blueAccent, width: 2.0)
+                      ),
+                      child: _image != null
+                          ? Image(
+                        width: double.infinity - 20,
+                        image: MemoryImage(_image!),
+                      )
+                      : Column(
+                        children: [
+                          Image(
+                            width: double.infinity - 20,
+                            image: AssetImage('assets/add-image.png'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -145,6 +171,7 @@ class _AddPackageState extends State<AddPackage> {
           Expanded(
             flex: 1,
             child: Container(
+              height: 50,
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: ElevatedButton(
