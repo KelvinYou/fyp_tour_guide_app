@@ -29,7 +29,7 @@ class FireStoreMethods {
     return res;
   }
 
-  Future<String> updatePersonalDetail(String uid, String username, String fullname, double icNumber, double phoneNumber) async {
+  Future<String> updatePersonalDetail(String uid, String username, String fullname, String icNumber, String phoneNumber) async {
     String res = "Some error occurred";
 
     try {

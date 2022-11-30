@@ -4,6 +4,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/colored_button.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,8 +48,8 @@ class _PersonalDetailState extends State<PersonalDetail> {
       userData = userSnap.data()!;
       _usernameController = TextEditingController(text: userData["username"]);
       _fullnameController = TextEditingController(text: userData["fullname"]);
-      _icNumberController = TextEditingController(text: userData["icNumber"].toString());
-      _phoneNumberController = TextEditingController(text: userData["phoneNumber"].toString());
+      _icNumberController = TextEditingController(text: userData["icNumber"]);
+      _phoneNumberController = TextEditingController(text: userData["phoneNumber"]);
 
       setState(() {});
     } catch (e) {
@@ -72,8 +73,8 @@ class _PersonalDetailState extends State<PersonalDetail> {
         FirebaseAuth.instance.currentUser!.uid,
         _usernameController.text,
         _fullnameController.text,
-        double.parse(_icNumberController.text),
-        double.parse(_phoneNumberController.text),
+        _icNumberController.text,
+        _phoneNumberController.text,
       );
       if (res == "success") {
         setState(() {
@@ -107,35 +108,48 @@ class _PersonalDetailState extends State<PersonalDetail> {
         appBar: SecondaryAppBar(
             title: "Edit Profile"
         ),
-        body: ListView(
-          children: [
-            const SizedBox(height: 20),
-            TextFieldInput(
-              textEditingController: _usernameController,
-              hintText: "Username",
-              textInputType: TextInputType.text),
+        body: Container(
+          // width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                TextFieldInput(
+                    textEditingController: _usernameController,
+                    hintText: "Username",
+                    textInputType: TextInputType.text),
 
-            const SizedBox(height: 20),
-            TextFieldInput(
-                textEditingController: _fullnameController,
-                hintText: "Full Name",
-                textInputType: TextInputType.text),
+                const SizedBox(height: 20),
+                TextFieldInput(
+                    textEditingController: _fullnameController,
+                    hintText: "Full Name",
+                    textInputType: TextInputType.text),
 
-            const SizedBox(height: 20),
-            TextFieldInput(
-                textEditingController: _phoneNumberController,
-                hintText: "Phone Number",
-                textInputType: TextInputType.text),
+                const SizedBox(height: 20),
+                TextFieldInput(
+                    textEditingController: _phoneNumberController,
+                    hintText: "Phone Number",
+                    textInputType: TextInputType.text),
 
-            const SizedBox(height: 20),
-            TextFieldInput(
-                textEditingController: _icNumberController,
-                hintText: "IC Number",
-                textInputType: TextInputType.text),
+                const SizedBox(height: 20),
+                TextFieldInput(
+                    textEditingController: _icNumberController,
+                    hintText: "IC Number",
+                    textInputType: TextInputType.text),
 
-            const SizedBox(height: 20),
-            ElevatedButton(onPressed: updateProfile, child: Text("Update"))
-          ],
+                const SizedBox(height: 20),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: ColoredButton(
+                      onPressed: updateProfile,
+                      childText: "Update"),),
+              ],
+            ),
+          ),
         ),
       );
   }

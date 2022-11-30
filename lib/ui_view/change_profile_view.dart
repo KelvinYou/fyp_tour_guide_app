@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/colored_button.dart';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -111,26 +112,47 @@ class _ChangeProfileState extends State<ChangeProfile> {
       appBar: SecondaryAppBar(
           title: "Change Profile Picture"
       ),
-      body: Column(
-        children: [
-          _image != null
-              ? CircleAvatar(
-            radius: 64,
-            backgroundImage: MemoryImage(_image!),
-            backgroundColor: Colors.grey,
-          )
-              : CircleAvatar(
-            radius: 64,
-            backgroundImage: NetworkImage(
-                userData["photoUrl"]),
-            backgroundColor: Colors.grey,
-          ),
-          IconButton(
-            onPressed: selectImage,
-            icon: const Icon(Icons.add_a_photo),
-          ),
-          ElevatedButton(onPressed: submit, child: Text("Done"))
-        ],
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 40,),
+            GestureDetector(
+              onTap: selectImage,
+              child: _image != null
+                ? CircleAvatar(
+                radius: 64,
+                backgroundImage: MemoryImage(_image!),
+                backgroundColor: Colors.grey,
+              ) : CircleAvatar(
+                radius: 64,
+                backgroundImage: NetworkImage(userData["photoUrl"]),
+                backgroundColor: Colors.grey,
+              ),
+            ),
+            const SizedBox(height: 10,),
+            GestureDetector(
+              onTap: selectImage,
+              child: const Text(
+                "Tap to Change",
+                style: TextStyle(
+                  color: AppTheme.primary,
+                ),
+              ),
+            ),
+            const SizedBox(height: 30,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: ColoredButton(
+                onPressed: submit,
+                childText: "Submit",
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

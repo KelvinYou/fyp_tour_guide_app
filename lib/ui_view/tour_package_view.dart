@@ -8,8 +8,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 
 import 'package:fyp_project/ui_view/add_package_view.dart';
+import 'package:fyp_project/widget/colored_button.dart';
 import 'package:fyp_project/widget/package_card.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/text_field_input.dart';
 
 
 
@@ -52,7 +54,7 @@ class _TourPackageState extends State<TourPackage> {
               documents = documents.where((element) {
                 return element
                     .get('packageTitle')
-                    // .toLowerCase()
+                    .toLowerCase()
                     .contains(searchText.toLowerCase());
               }).toList();
             }
@@ -64,67 +66,49 @@ class _TourPackageState extends State<TourPackage> {
               }).toList();
             }
           }
-          return Column(
-            children: [
-              TextField(
-                controller: _searchController,
-                onChanged: (value) {
-                  setState(() {
-                    searchText = value;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  prefixIcon: Icon(Icons.search),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: addPackage,
-                style: ElevatedButton.styleFrom(
-                  primary: AppTheme.nearlyWhite,
-                  side: const BorderSide(
-                    width: 1.0,
-                    color: AppTheme.primary,
-                  ),
-                ),
-                child: const Text(
-                  'Add',
-                  style: TextStyle(
-                    color: AppTheme.primary,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => setState(() {
-                  ownedOnly = !ownedOnly;
-                }),
-                style: ElevatedButton.styleFrom(
-                  primary: AppTheme.nearlyWhite,
-                  side: const BorderSide(width: 1.0, color: AppTheme.primary,),
-                ),
-                child: Text(
-                  ownedOnly ? "Show all" : "Only Show My Packages",
-                  style: TextStyle(
-                    color: AppTheme.primary,
-                  ),
-                ),
-              ),
-
-              Expanded(
-                child: SizedBox(
-                    height: 200.0,
-                    child: ListView.builder(
-                      itemCount: documents.length,
-                      itemBuilder: (ctx, index) =>
-                          Container(
-                            child: PackageCard(
-                              snap: documents[index].data(),
-                            ),
-                          ),
+          return Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+            ),
+            child: Column(
+                children: [
+                  const SizedBox(height: 20.0),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: ColoredButton(
+                        onPressed: addPackage,
+                        childText: "Add"
                     ),
-                ),
-              ),
-            ]
+                  ),
+                  const SizedBox(height: 10.0),
+                  TextFieldInput(
+                    textEditingController: _searchController,
+                    hintText: "Search",
+                    onChanged: (value) {
+                      setState(() {
+                        searchText = value;
+                      });
+                    },
+                    textInputType: TextInputType.text,
+                    iconData: Icons.search_outlined,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: double.infinity,
+                      child: ListView.builder(
+                        itemCount: documents.length,
+                        itemBuilder: (ctx, index) =>
+                            Container(
+                              child: PackageCard(
+                                snap: documents[index].data(),
+                              ),
+                            ),
+                      ),
+                    ),
+                  ),
+                ]
+            ),
           );
         },
       ),

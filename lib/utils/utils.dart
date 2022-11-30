@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_project/utils/app_theme.dart';
 import 'package:image_picker/image_picker.dart';
 
 // for picking up image from gallery
@@ -16,6 +17,7 @@ showSnackBar(BuildContext context, String text) {
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(text),
+      backgroundColor: AppTheme.backgroundDarkGrey,
     ),
   );
 }

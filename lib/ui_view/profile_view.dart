@@ -293,7 +293,7 @@ class _ProfileState extends State<Profile> {
                             builder: (context) => const ProfileSetting(),
                           ),
                         ),
-                        child: selectionView(Icons.settings, "Setting")
+                        child: selectionView(Icons.group, "About Us")
                     ),
                   ],
                 ),

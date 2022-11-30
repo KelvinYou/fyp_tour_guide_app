@@ -5,10 +5,10 @@ class User {
   final String uid;
   final String username;
   final String fullname;
-  final int phoneNumber;
+  final String phoneNumber;
   final String email;
   final bool isEmailVerified;
-  final int icNumber;
+  final String icNumber;
   final bool isIcVerified;
   final String photoUrl;
   final String description;

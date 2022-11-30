@@ -19,7 +19,7 @@ class _RequestState extends State<Request> {
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: MainAppBar(title: "Order"),
-      body: ListView(
+      body: Column(
         children: [
           Text("waiting for teammate"),
         ],

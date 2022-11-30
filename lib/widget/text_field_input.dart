@@ -10,6 +10,7 @@ class TextFieldInput extends StatelessWidget {
   final IconData iconData;
   final int? maxLines;
   final String errorMsg;
+  final Function(String)? onChanged;
 
   const TextFieldInput({
     Key? key,
@@ -21,6 +22,7 @@ class TextFieldInput extends StatelessWidget {
     required this.textInputType,
     this.maxLines = 1,
     this.errorMsg = "",
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -35,6 +37,7 @@ class TextFieldInput extends StatelessWidget {
             TextField(
               controller: textEditingController,
               maxLines: maxLines,
+              onChanged: onChanged,
               keyboardType: textInputType,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
