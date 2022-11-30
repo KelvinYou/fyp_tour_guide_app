@@ -120,26 +120,39 @@ class _GuideDetailState extends State<GuideDetail> {
 
     return Row(
       children: [
-        Text(language),
-        RatingBar.builder(
-          initialRating: rating,
-          itemBuilder: (context, index) => Icon(
-            Icons.star,
-            color: Colors.amber,
-          ),
-          itemCount: 5,
-          itemSize: 30.0,
-          direction: Axis.horizontal,
-          onRatingUpdate: (rating) {
-            setState(() {
-              language == "Malay" ? malayRtg = rating.toInt()
-                : language == "English" ? englishRtg = rating.toInt()
-                : language == "Mandarin" ? mandarinRtg = rating.toInt()
-                : tamilRtg = rating.toInt();
-            });
-          },
+        Expanded(
+          flex: 3,
+          child: Text(language),
         ),
-        Text(rating == null ? '0' : rating.toString()),
+        Expanded(
+          flex: 4,
+          child: RatingBar.builder(
+            initialRating: rating,
+            itemBuilder: (context, index) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            itemCount: 5,
+            itemSize: 24.0,
+            direction: Axis.horizontal,
+            onRatingUpdate: (rating) {
+              setState(() {
+                language == "Malay" ? malayRtg = rating.toInt()
+                    : language == "English" ? englishRtg = rating.toInt()
+                    : language == "Mandarin" ? mandarinRtg = rating.toInt()
+                    : tamilRtg = rating.toInt();
+              });
+            },
+          ),
+        ),
+        Text(
+          rating.toInt().toString(),
+          style: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.onPrimary
+          ),
+        ),
+
       ],
     );
   }
@@ -150,60 +163,67 @@ class _GuideDetailState extends State<GuideDetail> {
         ? const Center(
       child: CircularProgressIndicator(),
     )
-        : Scaffold(
+    : Scaffold(
       appBar: SecondaryAppBar(
           title: "Guide Detail"
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          TextFieldInput(
-              textEditingController: _descriptionController,
-              hintText: "Description",
-              textInputType: TextInputType.text),
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(height: 20),
+                  TextFieldInput(
+                    textEditingController: _descriptionController,
+                    hintText: "Description",
+                    textInputType: TextInputType.text,
+                    maxLines: null,
+                  ),
 
-          // MultiSelectContainer(
-          //   maxSelectableCount: 5,
-          //   items: [
-          //     MultiSelectCard(value: 'Malay', label: 'Malay'),
-          //     MultiSelectCard(value: 'English', label: 'English'),
-          //     MultiSelectCard(value: 'Chinese', label: 'Chinese'),
-          //
-          //   ],
-          //   onMaximumSelected: (allSelectedItems, selectedItem) {
-          //     showSnackBar(
-          //       context,
-          //       'The limit has been reached',
-          //     );
-          //   },
-          //   onChange: (allSelectedItems, selectedItem) {
-          //
-          //   }
-          // ),
-          SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Prefered Language(s)"),
-                SizedBox(height: 10),
-                languageList("Malay"),
-                languageList("English"),
-                languageList("Mandarin"),
-                languageList("Tamil"),
-              ],
-            ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Text(
+                            "Prefered Language(s)",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        languageList("Malay"),
+                        Divider(),
+                        languageList("English"),
+                        Divider(),
+                        languageList("Mandarin"),
+                        Divider(),
+                        languageList("Tamil"),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 20),
+                child: ColoredButton(
+                    onPressed: updateProfile,
+                    childText: "Update"
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
-            child: ElevatedButton(
-              onPressed: updateProfile,
-              child: Text("Update")),
-          ),
-        ],
+        ),
       ),
     );
   }

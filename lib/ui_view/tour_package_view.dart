@@ -24,7 +24,7 @@ class TourPackage extends StatefulWidget {
 
 class _TourPackageState extends State<TourPackage> {
   TextEditingController _searchController = TextEditingController();
-  bool ownedOnly = false;
+  bool ownedOnly = true;
 
   CollectionReference tourPackagesCollection =
     FirebaseFirestore.instance.collection('tourPackages');
@@ -81,7 +81,16 @@ class _TourPackageState extends State<TourPackage> {
                         childText: "Add"
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                    child: const Divider(
+                      thickness: 1,
+                      indent: 0,
+                      endIndent: 0,
+                      color: AppTheme.lightGrey,
+                    ),
+                  ),
+
                   TextFieldInput(
                     textEditingController: _searchController,
                     hintText: "Search",
@@ -92,6 +101,17 @@ class _TourPackageState extends State<TourPackage> {
                     },
                     textInputType: TextInputType.text,
                     iconData: Icons.search_outlined,
+                  ),
+                  const SizedBox(height: 20.0),
+                  Center(
+                    child: Text(
+                      "My Tour Packages",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: SizedBox(
