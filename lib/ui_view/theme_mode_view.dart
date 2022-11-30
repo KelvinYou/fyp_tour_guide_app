@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/utils/themeChoice.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
 class ThemeModeView extends StatefulWidget {
   const ThemeModeView({super.key});
@@ -20,8 +21,8 @@ class _ThemeModeViewState extends State<ThemeModeView> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: AppBar(
-        title: const Text('Theme Mode'),
+      appBar: SecondaryAppBar(
+          title: "Theme Mode"
       ),
       body: ThemeChoice(),
     );

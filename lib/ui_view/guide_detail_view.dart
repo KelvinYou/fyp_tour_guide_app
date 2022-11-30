@@ -4,6 +4,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -150,9 +151,8 @@ class _GuideDetailState extends State<GuideDetail> {
       child: CircularProgressIndicator(),
     )
         : Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: const Text('Guide Detail'),
+      appBar: SecondaryAppBar(
+          title: "Guide Detail"
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

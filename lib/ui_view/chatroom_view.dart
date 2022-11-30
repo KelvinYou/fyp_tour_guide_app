@@ -7,7 +7,7 @@ import 'package:fyp_project/ui_view/profile_setting_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/chatroom_card.dart';
-import 'package:fyp_project/widget/main_app_bar.dart';
+import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
 
 class ChatroomView extends StatefulWidget {
   const ChatroomView({super.key});

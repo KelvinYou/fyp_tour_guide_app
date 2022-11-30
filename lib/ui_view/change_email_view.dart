@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:fyp_project/utils/utils.dart';
@@ -53,9 +54,8 @@ class _ResetPasswordState extends State<ResetEmail> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: const Text('Change Email'),
+      appBar: SecondaryAppBar(
+          title: "Change Email"
       ),
       body: Center(
         child: Column(

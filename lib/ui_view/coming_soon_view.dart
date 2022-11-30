@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
 class ComingSoonView extends StatefulWidget {
   const ComingSoonView({super.key});
@@ -19,8 +20,8 @@ class _ComingSoonViewState extends State<ComingSoonView> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: AppBar(
-        title: const Text('Coming Soon'),
+      appBar: SecondaryAppBar(
+          title: "Coming Soon"
       ),
       body: Text("Coming soon. pls wait for announcement.."),
     );

@@ -3,12 +3,12 @@ import 'package:fyp_project/utils/app_theme.dart';
 
 class ColoredButton extends StatelessWidget {
 
-  final Widget child;
+  final String childText;
   final VoidCallback onPressed;
 
   ColoredButton({
     required this.onPressed,
-    required this.child,});
+    required this.childText,});
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,22 @@ class ColoredButton extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 25.0),
             constraints: BoxConstraints(
                 maxWidth: 200.0,
-                minHeight: 50.0),
+                minHeight: 40.0
+            ),
             alignment: Alignment.center,
-            child: child
+            child: Text(
+              childText,
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.white,
+              ),
+            ),
         ),
       ),
       splashColor: Colors.black12,
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(5.0),
       ),
     );
   }

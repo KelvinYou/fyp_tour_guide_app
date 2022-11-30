@@ -4,20 +4,21 @@ import 'package:fyp_project/bottom_bar_view.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 
-class CashIn extends StatefulWidget {
-  const CashIn({super.key});
+class ReloadView extends StatefulWidget {
+  const ReloadView({super.key});
 
   @override
-  State<CashIn> createState() => _CashInState();
+  State<ReloadView> createState() => _ReloadViewState();
 }
 
-class _CashInState extends State<CashIn> {
+class _ReloadViewState extends State<ReloadView> {
   final reloadController = TextEditingController();
   bool isLoading = false;
 
@@ -66,9 +67,8 @@ class _CashInState extends State<CashIn> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: const Text('Reload'),
+      appBar: SecondaryAppBar(
+          title: "Reload"
       ),
       body: Column(
         children: [

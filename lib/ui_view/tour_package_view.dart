@@ -9,6 +9,7 @@ import 'package:fyp_project/utils/app_theme.dart';
 
 import 'package:fyp_project/ui_view/add_package_view.dart';
 import 'package:fyp_project/widget/package_card.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
 
 
@@ -38,9 +39,8 @@ class _TourPackageState extends State<TourPackage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: const Text('Tour Package'),
+      appBar: SecondaryAppBar(
+          title: "Tour Package"
       ),
       body: StreamBuilder(
         stream: tourPackagesCollection.snapshots(),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 
 import 'package:fyp_project/providers/user_provider.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -78,9 +79,8 @@ class _AddPackageState extends State<AddPackage> {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: const Text('Add Package'),
+      appBar: SecondaryAppBar(
+          title: "Add Package"
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

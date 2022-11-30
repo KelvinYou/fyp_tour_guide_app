@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/utils/themeModeNotifier.dart';
+import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:fyp_project/resources/auth_methods.dart';
@@ -12,6 +14,8 @@ import 'package:fyp_project/bottom_bar_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/ui_view/register_view.dart';
 import 'package:provider/provider.dart';
+
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -87,12 +91,12 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Center(
-          child: Text('Welcome To Travel Guide'),
-        ),
+    return _isLoading
+        ? const Center(
+      child: CircularProgressIndicator(),
+    ) : Scaffold(
+      appBar: const SecondaryAppBar(
+          title: "Welcome To Travel Guide"
       ),
       body: GestureDetector(
         onTap: () {
@@ -103,92 +107,90 @@ class _LoginState extends State<Login> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 30.0),
-                child: const Image(
-                  width: 150,
-                  image: AssetImage('assets/logo.png'),
-                ),
-              ),
-              const SizedBox(height: 5.0),
-              const Text(
-                "Travel Guide",
-                style: TextStyle(
-                  color: AppTheme.primary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(height: 25.0),
-
-              // email textfield
-              TextFieldInput(
-                textEditingController: emailController,
-                hintText: "Email",
-                textInputType: TextInputType.emailAddress,
-                iconData: Icons.email_outlined,
-                errorMsg: emailErrorMsg,),
-
-              const SizedBox(height: 10.0),
-
-              // password textfield
-              TextFieldInput(
-                textEditingController: passwordController,
-                hintText: "Password",
-                isPass: true,
-                textInputType: TextInputType.text,
-                iconData: Icons.lock_open_sharp,
-                errorMsg: passwordErrorMsg,),
-
-              const SizedBox(height: 10.0),
-
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Theme.of(context).colorScheme.primary,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 50.0),
+                Container(
+                  margin: const EdgeInsets.only(left: 30.0),
+                  child: const Image(
+                    width: 150,
+                    image: AssetImage('assets/logo.png'),
                   ),
-                  child: Text('Login'),
-                  onPressed: signIn,
+                ),
+                const SizedBox(height: 5.0),
+                const Text(
+                  "Travel Guide",
+                  style: TextStyle(
+                    color: AppTheme.primary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+                const SizedBox(height: 25.0),
+
+                // email textfield
+                TextFieldInput(
+                  textEditingController: emailController,
+                  hintText: "Email",
+                  textInputType: TextInputType.emailAddress,
+                  iconData: Icons.email_outlined,
+                  errorMsg: emailErrorMsg,),
+
+                const SizedBox(height: 10.0),
+
+                // password textfield
+                TextFieldInput(
+                  textEditingController: passwordController,
+                  hintText: "Password",
+                  isPass: true,
+                  textInputType: TextInputType.text,
+                  iconData: Icons.lock_open_sharp,
+                  errorMsg: passwordErrorMsg,),
+
+                const SizedBox(height: 10.0),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: ColoredButton(
+                      childText: "login",
+                      onPressed: signIn
+                  ),
                 ),
 
-              ),
+                const SizedBox(height: 10),
 
-              const SizedBox(height: 10),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Not a member?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const Register(),
-                      ),
-                    ),
-                    child: Text(
-                      " Register Now",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Not a member?",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                  ),
-                ],
-              )
-            ],
-          )
-        )
-      )
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const Register(),
+                        ),
+                      ),
+                      child: Text(
+                        " Register Now",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 

@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fyp_project/ui_view/card_list_view.dart';
-import 'package:fyp_project/ui_view/cash_in_view.dart';
+import 'package:fyp_project/ui_view/bank_card_view.dart';
+import 'package:fyp_project/ui_view/reload_view.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
-import 'package:fyp_project/widget/main_app_bar.dart';
+import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
 
 
 class Wallet extends StatefulWidget {
@@ -57,7 +57,7 @@ class _WalletState extends State<Wallet> {
   cashIn() async {
     Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const CashIn(),
+          builder: (context) => const ReloadView(),
         )
     );
   }
@@ -65,7 +65,7 @@ class _WalletState extends State<Wallet> {
   cashOut() async {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const CardList(),
+        builder: (context) => const BankCardView(),
       )
     );
   }

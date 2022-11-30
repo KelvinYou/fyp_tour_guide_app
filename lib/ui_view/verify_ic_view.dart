@@ -5,6 +5,7 @@ import 'package:fyp_project/bottom_bar_view.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:image_picker/image_picker.dart';
 
 class VerifyIcView extends StatefulWidget {
@@ -143,9 +144,8 @@ class _VerifyIcViewState extends State<VerifyIcView> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: const Text('Two-Factor Authentication'),
+      appBar: SecondaryAppBar(
+          title: "Two-Factor Authentication"
       ),
       body: SingleChildScrollView(
         child: Column(

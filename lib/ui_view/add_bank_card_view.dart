@@ -5,6 +5,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/utils/utils.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 class AddBankCardView extends StatefulWidget {
@@ -60,8 +61,8 @@ class _AddBankCardViewState extends State<AddBankCardView> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: AppBar(
-        title: const Text('Add New Bank Card'),
+      appBar: SecondaryAppBar(
+          title: "Add New Bank Card"
       ),
       body: Column(
         children: [

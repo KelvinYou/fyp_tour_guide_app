@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
 import 'package:intl/intl.dart';
 
@@ -68,9 +69,8 @@ class _TransactionDetailState extends State<TransactionDetail> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: const Text('Details'),
+      appBar: SecondaryAppBar(
+          title: "Details"
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),

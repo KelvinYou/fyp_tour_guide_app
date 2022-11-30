@@ -15,6 +15,7 @@ import 'package:fyp_project/ui_view/change_password_view.dart';
 import 'package:fyp_project/ui_view/personal_detail_view.dart';
 import 'package:fyp_project/ui_view/coming_soon_view.dart';
 import 'package:fyp_project/ui_view/bank_card_view.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
 class ProfileSetting extends StatefulWidget {
   const ProfileSetting({super.key});
@@ -79,8 +80,8 @@ class _ProfileSettingState extends State<ProfileSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Setting'),
+      appBar: SecondaryAppBar(
+          title: "Setting"
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,

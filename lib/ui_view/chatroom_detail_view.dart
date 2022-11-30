@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/message_card.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
 import 'package:intl/intl.dart';
 
@@ -97,9 +98,8 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppTheme.primary,
-          title: Text(widget.chatroomDetailSnap["chatroomTitle"]),
+        appBar: SecondaryAppBar(
+          title: widget.chatroomDetailSnap["chatroomTitle"]
         ),
         body: StreamBuilder(
           stream: messagesCollection

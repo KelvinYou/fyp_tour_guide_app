@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fyp_project/ui_view/profile_setting_view.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 
-class MainAppBar extends StatelessWidget with PreferredSizeWidget {
+class SecondaryAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final IconData rightButton;
-  const MainAppBar({
+  const SecondaryAppBar({
     Key? key,
     required this.title,
     this.rightButton = Icons.settings,
@@ -15,23 +15,18 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
 
     return AppBar(
+      iconTheme: IconThemeData(
+          color: Colors.white
+      ),
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.primary,
-      title: Text(title),
-      elevation: 0,
-      actions: <Widget>[
-        Padding(
-            padding: EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const ProfileSetting(),
-                ),
-              ),
-              child: Icon( rightButton ),
-            )
+      title: Text(
+          title,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSecondary,
         ),
-      ],
+      ),
+      elevation: 0,
     );
 
   }

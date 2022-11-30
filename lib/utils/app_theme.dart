@@ -17,7 +17,6 @@ class AppTheme {
   static const Color backgroundDarkGrey = Color(0xFF383838);
 
 
-
   static const Color errorRed = Color(0xFFFF0000);
 
   static const Color dividerGrey = Color(0xFFD3D3D3);
@@ -60,7 +59,6 @@ class AppTheme {
   // reference
 
   static const Color white = Color(0xFFFFFFFF);
-  static const Color nearlyBlack = Color(0xFF213333);
 
   static const Color darkGrey = Color(0xFF7C7C7C);
 
@@ -68,9 +66,7 @@ class AppTheme {
   static const Color darkerText = Color(0xFF17262A);
   static const Color lightText = Color(0xFF4A6572);
   static const Color deactivatedText = Color(0xFF767676);
-  static const Color dismissibleBackground = Color(0xFF364A54);
 
-  static const Color spacer = Color(0xFFF2F2F2);
   static const String fontName = 'Poppins';
 
   static const double APPBAR_ELEVATION = 10;
@@ -84,19 +80,19 @@ class AppTheme {
       brightness: Brightness.light,
       primary: primary,
       onPrimary: Colors.black,
-      secondary: Colors.green,
+      secondary: secondary,
       onSecondary: Colors.white,
-      primaryContainer: Colors.orange,
+      primaryContainer: backgroundLightGrey,
       error: Colors.black,
       onError: Colors.white,
       background: backgroundLightGrey,
-      onBackground: Colors.white,
+      onBackground: Colors.red,
       surface: Colors.pink,
-      onSurface: Colors.white,
+      onSurface: Colors.black12,
     ),
     scaffoldBackgroundColor: backgroundLightGrey,
     dividerTheme: DividerThemeData(
-      color: AppTheme.dividerGrey,
+      color: AppTheme.dividerDarkGrey,
     ),
     appBarTheme: const AppBarTheme(
       brightness: Brightness.dark,
@@ -122,17 +118,17 @@ class AppTheme {
       onPrimary: Colors.white,
       secondary: Colors.green,
       onSecondary: Colors.white,
-      primaryContainer: Colors.pink,
+      primaryContainer: backgroundDarkGrey,
       error: Colors.black,
       onError: Colors.white,
       background: backgroundDarkGrey,
       onBackground: Colors.white,
       surface: Colors.pink,
-      onSurface: Colors.white,
+      onSurface: Colors.black12,
     ),
     scaffoldBackgroundColor: backgroundDarkGrey,
     dividerTheme: DividerThemeData(
-      color: AppTheme.dividerDarkGrey,
+      color: AppTheme.dividerGrey,
     ),
     appBarTheme: const AppBarTheme(
       elevation: APPBAR_ELEVATION,

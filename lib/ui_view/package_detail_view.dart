@@ -9,6 +9,7 @@ import 'package:fyp_project/ui_view/tour_package_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:intl/intl.dart';
 
 class PackageDetail extends StatefulWidget {
@@ -34,10 +35,7 @@ class _PackageDetailState extends State<PackageDetail> {
       setState(() {
         isLoading = false;
       });
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const TourPackage()
-          ), (route) => false);
+      Navigator.of(context).pop();
       showSnackBar(context, "Package removed successfully");
     } else {
       setState(() {
@@ -49,20 +47,14 @@ class _PackageDetailState extends State<PackageDetail> {
 
   final DateFormat formatter = DateFormat('dd MMM, H:mm');
 
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.'
-  ];
   @override
   Widget build(BuildContext context) {
     return isLoading
       ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: Text(widget.packageDetailSnap["packageTitle"]),
+      appBar: SecondaryAppBar(
+        title: widget.packageDetailSnap["packageTitle"]
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -9,7 +9,7 @@ import 'package:fyp_project/ui_view/tour_package_view.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fyp_project/utils/utils.dart';
-import 'package:fyp_project/widget/main_app_bar.dart';
+import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
