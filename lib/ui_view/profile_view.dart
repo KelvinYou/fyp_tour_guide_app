@@ -16,6 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/providers/user_provider.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
+import 'package:fyp_project/widget/main_container.dart';
 
 class Profile extends StatefulWidget {
   final String uid;
@@ -76,12 +77,17 @@ class _ProfileState extends State<Profile> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 10.0),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 30.0),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -108,6 +114,7 @@ class _ProfileState extends State<Profile> {
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                         SizedBox(height: 5.0),
@@ -143,6 +150,7 @@ class _ProfileState extends State<Profile> {
                               userData['rating'].toString(),
                               style: TextStyle(
                                 fontSize: 16,
+                                color: Theme.of(context).colorScheme.onPrimary
                               ),
                             ),
                           ],
@@ -152,19 +160,10 @@ class _ProfileState extends State<Profile> {
                     )
                   ],
                 ),
-            ),
+              ),
 
-            const SizedBox(height: 20.0),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                decoration: BoxDecoration(
-                  color: AppTheme.nearlyWhite,
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: const [ AppTheme.boxShadow ],
-                ),
+              const SizedBox(height: 20.0),
+              MainContainer(
                 child: Column(
                   children: [
                     Align(
@@ -178,13 +177,13 @@ class _ProfileState extends State<Profile> {
                     Row(
                       children: [
                         Expanded(
-                            flex: 1,
-                            child: GestureDetector(
-                              onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const VerifyIcView()),
-                              ),
-                              child: Center(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const VerifyIcView()),
+                            ),
+                            child: Center(
                               child: Column(
                                 children: [
                                   Icon(
@@ -230,71 +229,27 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-            ),
-            const SizedBox(height: 20.0),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                decoration: BoxDecoration(
-                  color: AppTheme.nearlyWhite,
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: const [ AppTheme.boxShadow ],
+              const SizedBox(height: 20.0),
+              GestureDetector(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileSetting(),
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(width: 20.0),
-                        Icon(Icons.help_center),
-                        const SizedBox(width: 20.0),
-                        Text("Help Center"),
-                      ],
-                    ),
-                    const Divider(
-                      height: 20,
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 10,
-                      color: AppTheme.lightGrey,
-                    ),
-                    Row(
-                      children: const [
-                        SizedBox(width: 20.0),
-                        Icon(Icons.chat_outlined),
-                        SizedBox(width: 20.0),
-                        Text("Chat With Admin"),
-                      ],
-                    ),
-                    const Divider(
-                      height: 20,
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 10,
-                      color: AppTheme.lightGrey,
-                    ),
-                    GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const ProfileSetting(),
-                        ),
-                      ),
-                      child: Row(
-                        children: const [
-                          SizedBox(width: 20.0),
-                          Icon(Icons.settings),
-                          SizedBox(width: 20.0),
-                          Text("Setting"),
-                        ],
-                      ),
-                    ),
-                  ],
+                child: MainContainer(
+                  child: Row(
+                    children: const [
+                      SizedBox(width: 20.0),
+                      Icon(Icons.settings),
+                      SizedBox(width: 20.0),
+                      Text("Setting"),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20.0),
-          ],
+              const SizedBox(height: 20.0),
+            ],
+          ),
         ),
       ),
     );

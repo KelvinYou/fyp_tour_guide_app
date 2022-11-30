@@ -295,7 +295,8 @@ class FireStoreMethods {
           ownerId: uid,
           icFrontPic: icFrontPic,
           icBackPic: icBackPic,
-          icHoldPic: icHoldPic
+          icHoldPic: icHoldPic,
+          status: "Pending",
         );
 
         _firestore.collection('icVerifications').doc(verifyIcId).set(verifyIc.toJson());

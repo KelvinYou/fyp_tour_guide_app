@@ -74,24 +74,30 @@ class _ChatroomViewState extends State<ChatroomView> {
               child: CircularProgressIndicator(),
             );
           }
-          return Column(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: 5.0,
-                  child: ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (ctx, index) =>
-                        Container(
-                          child: ChatroomCard(
-                            snap: snapshot.data!.docs[index].data(),
-                            index: index,
+          return Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 5.0,
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (ctx, index) =>
+                          Container(
+                            child: ChatroomCard(
+                              snap: snapshot.data!.docs[index].data(),
+                              index: index,
+                            ),
                           ),
-                        ),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

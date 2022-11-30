@@ -194,7 +194,7 @@ class _MyBottomBarView extends State<BottomBarView> {
           ),
         ],
         currentIndex: _selectedIndex,
-        unselectedItemColor: AppTheme.secondary,
+        unselectedItemColor: Colors.grey,
         selectedItemColor: AppTheme.primary,
         onTap: _onItemTapped,
       ),

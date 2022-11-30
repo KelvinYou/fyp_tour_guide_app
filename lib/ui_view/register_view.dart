@@ -115,94 +115,100 @@ class _RegisterState extends State<Register> {
         onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 50.0),
-              Container(
-                margin: const EdgeInsets.only(left: 30.0),
-                child: const Image(
-                  width: 150,
-                  image: AssetImage('assets/logo.png'),
-                ),
-              ),
-              const SizedBox(height: 5.0),
-              const Text(
-                "Travel Guide",
-                style: TextStyle(
-                  color: AppTheme.primary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              const SizedBox(height: 25.0),
-              // user name textfield
-              TextFieldInput(
-                textEditingController: _usernameController,
-                hintText: "Username",
-                textInputType: TextInputType.text,
-                errorMsg: usernameErrorMsg,),
-
-              const SizedBox(height: 10.0),
-
-              // email textfield
-              TextFieldInput(
-                textEditingController: _emailController,
-                hintText: "Email",
-                textInputType: TextInputType.emailAddress,
-                errorMsg: emailErrorMsg,),
-
-              const SizedBox(height: 10.0),
-              // password textfield
-              TextFieldInput(
-                textEditingController: _passwordController,
-                hintText: "Password",
-                isPass: true,
-                textInputType: TextInputType.text,
-                errorMsg: passwordErrorMsg,),
-
-              const SizedBox(height: 10.0),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: ColoredButton(
-                    childText: "Register",
-                    onPressed: signUpUser,
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Have an account?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+        child: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 50.0),
+                Container(
+                  margin: const EdgeInsets.only(left: 30.0),
+                  child: const Image(
+                    width: 150,
+                    image: AssetImage('assets/logo.png'),
                   ),
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const Login(),
-                      ),
-                    ),
-                    child: Text(
-                      " Login",
+                ),
+                const SizedBox(height: 5.0),
+                const Text(
+                  "Travel Guide",
+                  style: TextStyle(
+                    color: AppTheme.primary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+                ),
+                const SizedBox(height: 25.0),
+                // user name textfield
+                TextFieldInput(
+                  textEditingController: _usernameController,
+                  hintText: "Username",
+                  textInputType: TextInputType.text,
+                  errorMsg: usernameErrorMsg,),
+
+                const SizedBox(height: 10.0),
+
+                // email textfield
+                TextFieldInput(
+                  textEditingController: _emailController,
+                  hintText: "Email",
+                  textInputType: TextInputType.emailAddress,
+                  errorMsg: emailErrorMsg,),
+
+                const SizedBox(height: 10.0),
+                // password textfield
+                TextFieldInput(
+                  textEditingController: _passwordController,
+                  hintText: "Password",
+                  isPass: true,
+                  textInputType: TextInputType.text,
+                  errorMsg: passwordErrorMsg,),
+
+                const SizedBox(height: 10.0),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: ColoredButton(
+                      childText: "Register",
+                      onPressed: signUpUser,
+                  ),
+                ),
+                const SizedBox(height: 10),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Have an account?",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const Login(),
+                        ),
+                      ),
+                      child: Text(
+                        " Login",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
 
-                ],
-              )
-            ],
-          )
-        )
-      )
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 

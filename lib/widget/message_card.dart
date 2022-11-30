@@ -46,7 +46,7 @@ class _MessageCardState extends State<MessageCard> {
         margin: EdgeInsets.symmetric(vertical: 5.0),
         decoration: BoxDecoration(
           // color: AppTheme.darkText,
-          border: Border.all(color: Colors.white),
+          // border: Border.all(color: Colors.white),
           // borderRadius: BorderRadius.circular(0),
           // boxShadow: const [ AppTheme.boxShadow ],
         ),

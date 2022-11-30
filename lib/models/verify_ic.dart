@@ -3,11 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class VerifyIc {
   final String verifyIcId;
   final String ownerId;
-  // final bool isEmailVerify;
-  // final bool isIcVerify;
   final String icFrontPic;
   final String icBackPic;
   final String icHoldPic;
+  final String status;
 
   const VerifyIc(
       {required this.verifyIcId,
@@ -15,6 +14,7 @@ class VerifyIc {
         required this.icFrontPic,
         required this.icBackPic,
         required this.icHoldPic,
+        required this.status,
       });
 
   static VerifyIc fromSnap(DocumentSnapshot snap) {
@@ -26,6 +26,7 @@ class VerifyIc {
       icFrontPic: snapshot["icFrontPic"],
       icBackPic: snapshot["icBackPic"],
       icHoldPic: snapshot["icHoldPic"],
+      status: snapshot["status"],
     );
   }
 
@@ -35,5 +36,6 @@ class VerifyIc {
     "icFrontPic": icFrontPic,
     "icBackPic": icBackPic,
     "icHoldPic": icHoldPic,
+    "status": status,
   };
 }
