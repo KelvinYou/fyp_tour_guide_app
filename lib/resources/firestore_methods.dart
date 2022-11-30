@@ -203,6 +203,36 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> withdrawEWallet(String uid, double amount) async {
+    String res = "Some error occurred";
+
+    var eWalletSnap = await FirebaseFirestore.instance
+        .collection('eWallet')
+        .doc("ewallet_${FirebaseAuth.instance.currentUser!.uid}")
+        .get();
+
+    String eWalletId = "ewallet_$uid";
+
+    try {
+      _firestore.collection('eWallet').doc(eWalletId).update({"balance": eWalletSnap.data()!["balance"] - amount});
+      res = "success";
+
+      addTransaction(
+        uid,
+        ringgitFormatter(-amount),
+        "Deduct from Wallet",
+        "Withdraw Balance to Bank",
+        "Withdraw Balance to Bank",
+        "eWallet Balance",
+        "Successful",
+      );
+
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   // Transaction
   Future<void> addTransaction(String uid, String amount, String transactionType, String receiveFrom,
       String paymentDetails, String paymentMethod, String status) async {

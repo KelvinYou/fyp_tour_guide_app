@@ -12,14 +12,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 
-class ReloadView extends StatefulWidget {
-  const ReloadView({super.key});
+class WithdrawView extends StatefulWidget {
+  const WithdrawView({super.key});
 
   @override
-  State<ReloadView> createState() => _ReloadViewState();
+  State<WithdrawView> createState() => _WithdrawViewState();
 }
 
-class _ReloadViewState extends State<ReloadView> {
+class _WithdrawViewState extends State<WithdrawView> {
   final reloadController = TextEditingController();
   String reloadErrorMsg = "";
   bool isLoading = false;
@@ -59,7 +59,7 @@ class _ReloadViewState extends State<ReloadView> {
 
     if (reloadFormatCorrected) {
       try {
-        String res = await FireStoreMethods().reloadEWallet(
+        String res = await FireStoreMethods().withdrawEWallet(
           FirebaseAuth.instance.currentUser!.uid,
           reloadAmount,
         );
@@ -71,6 +71,10 @@ class _ReloadViewState extends State<ReloadView> {
             MaterialPageRoute(
               builder: (context) => const BottomBarView(selectedIndex: 2),
             ), (Route<dynamic> route) => false,
+          );
+          showSnackBar(
+            context,
+            'Withdraw Successfully!',
           );
         } else {
           showSnackBar(context, res);
@@ -94,19 +98,19 @@ class _ReloadViewState extends State<ReloadView> {
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: SecondaryAppBar(
-          title: "Reload"
+          title: "Withdraw"
       ),
       body: Column(
         children: [
           const SizedBox(height: 20),
           TextFieldInput(
             textEditingController: reloadController,
-            hintText: "Reload Amount: RM",
+            hintText: "Withdraw Amount: RM",
             textInputType: TextInputType.number,
             iconData: Icons.attach_money,
             errorMsg: reloadErrorMsg,
           ),
-          Text("Min reload amount is RM10"),
+          Text("Min withdraw amount is RM10"),
           const SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.0),

@@ -9,9 +9,12 @@ import 'package:fyp_project/ui_view/transaction_detail_view.dart';
 
 class TransactionCard extends StatefulWidget {
   final snap;
+  final int index;
+
   const TransactionCard({
     Key? key,
     required this.snap,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -32,8 +35,8 @@ class _TransactionCardState extends State<TransactionCard> {
 
     return Container(
       decoration: BoxDecoration(
-        color: AppTheme.nearlyWhite,
-        border: Border.all(color: Colors.white),
+        color: widget.index % 2 == 0 ?
+        AppTheme.backgroundLightGrey : AppTheme.backgroundNearlyWhite,
         borderRadius: BorderRadius.circular(0),
         // boxShadow: const [ AppTheme.boxShadow ],
       ),
@@ -48,7 +51,10 @@ class _TransactionCardState extends State<TransactionCard> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 25.0,
+                  vertical: 15,
+              ),
               child: Column(
                 children: [
                   Row(
@@ -111,9 +117,6 @@ class _TransactionCardState extends State<TransactionCard> {
 
                 ],
               ),
-            ),
-            const Divider(
-                color: Colors.black
             ),
           ],
         )

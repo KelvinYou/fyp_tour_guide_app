@@ -61,6 +61,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       Container(
                         child: TransactionCard(
                           snap: documents[index].data(),
+                          index: index,
                         ),
                       ),
                   ),

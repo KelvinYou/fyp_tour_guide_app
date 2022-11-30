@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/ui_view/bank_card_view.dart';
 import 'package:fyp_project/ui_view/reload_view.dart';
+import 'package:fyp_project/ui_view/withdraw_view.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
@@ -65,7 +66,7 @@ class _WalletState extends State<Wallet> {
   cashOut() async {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const BankCardView(),
+        builder: (context) => const WithdrawView(),
       )
     );
   }
@@ -130,7 +131,7 @@ class _WalletState extends State<Wallet> {
               ),
             ),
             Positioned(
-              top: 210,
+              top: 180,
               child: Container(
                 height: height,
                 width: width,
@@ -141,22 +142,10 @@ class _WalletState extends State<Wallet> {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
                 ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 60),
-                    ElevatedButton(
-                        onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const TransactionHistory(),
-                        )
-                      ),
-                      child: Text("Transaction History")),
-                  ],
-                ),
               ),
             ),
             Positioned(
-              top: 160,
+              top: 120,
               child: Container(
                 height: 100,
                 width: width * 0.9,
@@ -181,7 +170,7 @@ class _WalletState extends State<Wallet> {
                                 Icons.attach_money_sharp,
                                 size: 35,
                               ),
-                              Text("Cash In"),
+                              Text("Reload"),
                             ],
                           ),
                         ),
@@ -199,7 +188,29 @@ class _WalletState extends State<Wallet> {
                                 Icons.money_off,
                                 size: 35,
                               ),
-                              Text("Cash Out"),
+                              Text("Withdraw"),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const VerticalDivider(),
+                    Expanded(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const TransactionHistory(),
+                            )
+                        ),
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.history,
+                                size: 35,
+                              ),
+                              Text("History"),
                             ],
                           ),
                         ),

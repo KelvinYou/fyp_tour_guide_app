@@ -114,7 +114,7 @@ class _ProfileState extends State<Profile> {
                                 color: Colors.amber,
                               ),
                               itemCount: 5,
-                              itemSize: 30.0,
+                              itemSize: 24.0,
                               direction: Axis.horizontal,
                             ),
                             Text(userData['rating'].toString()),
