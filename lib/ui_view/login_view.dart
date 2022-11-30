@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/utils/themeModeNotifier.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:fyp_project/resources/auth_methods.dart';
@@ -10,6 +11,7 @@ import 'package:fyp_project/ui_view/home_view.dart';
 import 'package:fyp_project/bottom_bar_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/ui_view/register_view.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -87,8 +89,10 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppTheme.primary,
-        title: const Text('Log In'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Center(
+          child: Text('Welcome To Travel Guide'),
+        ),
       ),
       body: GestureDetector(
         onTap: () {
@@ -97,7 +101,7 @@ class _LoginState extends State<Login> {
         child: Container(
           // width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.background,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +150,7 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: AppTheme.primary,
+                    primary: Theme.of(context).colorScheme.primary,
                   ),
                   child: Text('Login'),
                   onPressed: signIn,
@@ -171,11 +175,11 @@ class _LoginState extends State<Login> {
                         builder: (context) => const Register(),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       " Register Now",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),

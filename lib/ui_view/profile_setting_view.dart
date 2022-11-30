@@ -47,7 +47,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
         Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-          color: CupertinoColors.systemGrey5,
+          color: AppTheme.backgroundLightGrey,
           ),
           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: Row(
@@ -84,6 +84,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: AppTheme.backgroundLightGrey,
+        ),
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -117,7 +120,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
               ),
             ),
             child: selectionView(
-                Icons.image_outlined,
+                Icons.person_pin_circle_outlined,
                 "Edit Guide Detail"
             ),
           ),
@@ -132,6 +135,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                 "Bank Card"
             ),
           ),
+
           const Divider(
             height: 2,
             thickness: 2,
@@ -139,7 +143,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
             endIndent: 0,
             color: AppTheme.lightGrey,
           ),
+
           const SizedBox(height: 10.0),
+
           GestureDetector(
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
@@ -157,7 +163,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   builder: (context) => const ChangeLanguageView(),
                 ),
               ),
-              child: selectionView(Icons.image_outlined, "System Language")
+              child: selectionView(Icons.language_outlined, "System Language")
           ),
           const Divider(
             height: 2,
@@ -173,7 +179,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                 builder: (context) => const ResetEmail(),
               ),
             ),
-            child: selectionView(Icons.image_outlined, "Reset Email")
+            child: selectionView(Icons.email_outlined, "Reset Email")
           ),
           GestureDetector(
             onTap: () => Navigator.of(context).push(
@@ -181,7 +187,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                 builder: (context) => const ResetPassword(),
               ),
             ),
-            child: selectionView(Icons.image_outlined, "Reset Password")
+            child: selectionView(Icons.security_outlined, "Reset Password")
           ),
           const Divider(
             height: 2,

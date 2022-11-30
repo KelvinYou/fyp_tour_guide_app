@@ -16,6 +16,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
 
     return AppBar(
       centerTitle: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Text(title),
       elevation: 0,
       actions: <Widget>[

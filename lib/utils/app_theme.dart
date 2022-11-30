@@ -3,15 +3,26 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
+  // Light Theme
   static const Color primary = Color(0xFF0083CD); // green
   static const Color secondary = Color(0xFF96D9FF);
 
   static const Color backgroundLightGrey = Color(0xFFF6F6F6);
   static const Color backgroundNearlyWhite = Color(0xFFFEFEFE);
 
+  // Dark Theme
+  static const Color darkPrimary = Color(0xFF5B86AB);
+  static const Color darkSecondary = Color(0xFF83AAC5);
+
+  static const Color backgroundDarkGrey = Color(0xFF383838);
+
+
+
   static const Color errorRed = Color(0xFFFF0000);
 
-  static const Color lightBackground = Color(0xFFC5C5C5);
+  static const Color dividerGrey = Color(0xFFD3D3D3);
+  static const Color dividerDarkGrey = Color(0xFF656565);
+
 
   static const Color nearlyWhite = Color(0xFFFEFEFE);
 
@@ -47,7 +58,6 @@ class AppTheme {
   );
 
   // reference
-  static const Color notWhite = Color(0xFFEDF0F2);
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color nearlyBlack = Color(0xFF213333);
@@ -70,7 +80,24 @@ class AppTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     primarySwatch: Colors.blue,
     accentColor: primary,
-    scaffoldBackgroundColor: Colors.white,
+    colorScheme: ColorScheme(
+      brightness: Brightness.light,
+      primary: primary,
+      onPrimary: Colors.black,
+      secondary: Colors.green,
+      onSecondary: Colors.white,
+      primaryContainer: Colors.orange,
+      error: Colors.black,
+      onError: Colors.white,
+      background: backgroundLightGrey,
+      onBackground: Colors.white,
+      surface: Colors.pink,
+      onSurface: Colors.white,
+    ),
+    scaffoldBackgroundColor: backgroundLightGrey,
+    dividerTheme: DividerThemeData(
+      color: AppTheme.dividerGrey,
+    ),
     appBarTheme: const AppBarTheme(
       brightness: Brightness.dark,
       elevation: APPBAR_ELEVATION,
@@ -89,7 +116,24 @@ class AppTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     primarySwatch: Colors.blue,
     accentColor: primary,
-    scaffoldBackgroundColor: Colors.black,
+    colorScheme: const ColorScheme(
+      brightness: Brightness.dark,
+      primary: darkPrimary,
+      onPrimary: Colors.white,
+      secondary: Colors.green,
+      onSecondary: Colors.white,
+      primaryContainer: Colors.pink,
+      error: Colors.black,
+      onError: Colors.white,
+      background: backgroundDarkGrey,
+      onBackground: Colors.white,
+      surface: Colors.pink,
+      onSurface: Colors.white,
+    ),
+    scaffoldBackgroundColor: backgroundDarkGrey,
+    dividerTheme: DividerThemeData(
+      color: AppTheme.dividerDarkGrey,
+    ),
     appBarTheme: const AppBarTheme(
       elevation: APPBAR_ELEVATION,
       textTheme: TextTheme(
