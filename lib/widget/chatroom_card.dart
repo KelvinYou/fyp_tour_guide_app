@@ -41,7 +41,7 @@ class _ChatroomCardState extends State<ChatroomCard> {
     ) : Container(
       decoration: BoxDecoration(
         color: widget.index % 2 == 0 ? AppTheme.backgroundLightGrey : AppTheme.backgroundNearlyWhite,
-        border: Border.all(color: Colors.white),
+        // border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(0),
         // boxShadow: const [ AppTheme.boxShadow ],
       ),

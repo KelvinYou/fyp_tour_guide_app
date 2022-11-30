@@ -103,8 +103,29 @@ class _ProfileState extends State<Profile> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(userData['username']),
-                        Text(userData['grade']),
+                        Text(
+                          userData['username'],
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            boxShadow: const [ AppTheme.boxShadow ],
+                            color: Colors.yellow,
+                          ),
+                          child: Text(
+                            userData['grade'],
+                            style: TextStyle(
+                              color: Colors.orange,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
                         Row(
                           children: [
                             RatingBarIndicator(
@@ -117,7 +138,13 @@ class _ProfileState extends State<Profile> {
                               itemSize: 24.0,
                               direction: Axis.horizontal,
                             ),
-                            Text(userData['rating'].toString()),
+                            SizedBox(width: 10.0),
+                            Text(
+                              userData['rating'].toString(),
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
                           ],
                         ),
 
@@ -147,7 +174,7 @@ class _ProfileState extends State<Profile> {
                         style: AppTheme.subHeadline,
                       ),
                     ),
-                    const SizedBox(height: 5.0),
+                    const SizedBox(height: 20.0),
                     Row(
                       children: [
                         Expanded(
@@ -161,7 +188,7 @@ class _ProfileState extends State<Profile> {
                               child: Column(
                                 children: [
                                   Icon(
-                                    Icons.person,
+                                    Icons.person_pin_outlined,
                                     size: 35,
                                   ),
                                   Text("Verify"),
@@ -190,7 +217,7 @@ class _ProfileState extends State<Profile> {
                             child: Column(
                               children: [
                                 Icon(
-                                  Icons.grade,
+                                  Icons.grade_outlined,
                                   size: 35,
                                 ),
                                 Text("Grade"),

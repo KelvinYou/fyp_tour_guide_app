@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/colored_button.dart';
 
 import 'package:fyp_project/widget/text_field_input.dart';
 
@@ -23,6 +24,7 @@ class InstantOrder extends StatefulWidget {
 class _InstantOrderState extends State<InstantOrder> {
   TextEditingController _priceController = TextEditingController();
   var instantOrderData = {};
+  String priceErrorMsg = "";
   bool isOnDuty = false;
   bool isReadOnly = true;
   bool isLoading = true;
@@ -94,33 +96,58 @@ class _InstantOrderState extends State<InstantOrder> {
         appBar: SecondaryAppBar(
             title: "Hourly Order Detail"
         ),
-        body: ListView(
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text("On duty")),
-            Switch(
-              value: isOnDuty,
-              onChanged: (value) {
-                isReadOnly ?
-                setState(() {}) : setState(() {
-                  isOnDuty = value;
-                  print(isOnDuty);
-                });
-              },
-              activeTrackColor: Colors.lightGreenAccent,
-              activeColor: Colors.green,
-            ),
-            Text("Price Per Hour"),
-            TextFieldInput(
+        body: Container(
+          decoration: BoxDecoration(
+            color: AppTheme.nearlyWhite,
+          ),
+          child: Column(
+            children: [
+              SizedBox(height: 10.0,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "On duty",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+
+                    Switch(
+                      value: isOnDuty,
+                      onChanged: (value) {
+                        isReadOnly ?
+                        setState(() {}) : setState(() {
+                          isOnDuty = value;
+                          print(isOnDuty);
+                        });
+                      },
+                      activeTrackColor: Colors.lightBlueAccent,
+                      activeColor: AppTheme.primary,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20.0,),
+              TextFieldInput(
                 textEditingController: _priceController,
                 isReadOnly: isReadOnly,
                 hintText: "Price",
-                textInputType: TextInputType.number),
-            ElevatedButton(
-                onPressed: () => edit(),
-                child: Text(isReadOnly ? "Edit" : "Save")),
-          ],
+                textInputType: TextInputType.number,
+                errorMsg: priceErrorMsg,),
+              SizedBox(height: 20.0,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: ColoredButton(
+                  onPressed: edit,
+                  childText: isReadOnly ? "Edit" : "Save",
+                ),
+              ),
+            ],
+          ),
         ),
       );
   }

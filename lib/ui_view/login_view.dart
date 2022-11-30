@@ -50,7 +50,13 @@ class _LoginState extends State<Login> {
 
     if (emailController.text == "") {
       setState(() {
-        emailErrorMsg = "Please enter your email address";
+        emailErrorMsg = "Please enter your email address.";
+      });
+    } else if (!RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(emailController.text)) {
+      setState(() {
+        emailErrorMsg = "Incorrect email format.\nPlease enter the correct email.";
       });
     } else {
       emailFormatCorrected = true;
@@ -58,7 +64,11 @@ class _LoginState extends State<Login> {
 
     if (passwordController.text == "") {
       setState(() {
-        passwordErrorMsg = "Please enter your password";
+        passwordErrorMsg = "Please enter your password.";
+      });
+    } else if (passwordController.text.length < 6) {
+      setState(() {
+        passwordErrorMsg = "Please enter at least 6 or more characters.";
       });
     } else {
       passwordFormatCorrected = true;

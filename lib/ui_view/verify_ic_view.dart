@@ -91,7 +91,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   height: 200.0,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/erza.jpg"),
+                      image: AssetImage("assets/ic_front.jfif"),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -108,7 +108,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   height: 200.0,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/erza.jpg"),
+                      image: AssetImage("assets/ic_back.jfif"),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -125,7 +125,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   height: 200.0,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/erza.jpg"),
+                      image: AssetImage("assets/ic_hold.jpg"),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -145,14 +145,13 @@ class _VerifyIcViewState extends State<VerifyIcView> {
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: SecondaryAppBar(
-          title: "Two-Factor Authentication"
+          title: "IC Verification"
       ),
       body: SingleChildScrollView(
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10.0),
-            Text("IC Verification"),
             imageCard(frontIcTitle),
             imageCard(backIcTitle),
             imageCard(holdIcTitle),
