@@ -16,6 +16,7 @@ import 'package:fyp_project/ui_view/personal_detail_view.dart';
 import 'package:fyp_project/ui_view/coming_soon_view.dart';
 import 'package:fyp_project/ui_view/bank_card_view.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/main_container.dart';
 
 class ProfileSetting extends StatefulWidget {
   const ProfileSetting({super.key});
@@ -38,17 +39,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
   Widget selectionView(IconData icon, String title) {
     return Column(
       children: [
-        const Divider(
-          height: 2,
-          thickness: 2,
-          indent: 0,
-          endIndent: 0,
-          color: AppTheme.lightGrey,
-        ),
         Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-          color: AppTheme.backgroundLightGrey,
           ),
           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: Row(
@@ -60,10 +53,10 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   const SizedBox(width: 10.0),
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      color: CupertinoColors.black,
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
                   ),
                 ],
@@ -85,126 +78,155 @@ class _ProfileSettingState extends State<ProfileSetting> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
+        height: double.infinity,
         decoration: BoxDecoration(
-          color: AppTheme.backgroundLightGrey,
+          color: Theme.of(context).colorScheme.background,
         ),
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 10.0),
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ChangeProfile(),
-              ),
-            ),
-            child: selectionView(
-              Icons.image_outlined,
-              "Change Profile Picture"
-            ),
-          ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const PersonalDetail(),
-              ),
-            ),
-            child: selectionView(
-              CupertinoIcons.profile_circled,
-              "Edit Personal Detail"
-            ),
-          ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const GuideDetail(),
-              ),
-            ),
-            child: selectionView(
-                Icons.person_pin_circle_outlined,
-                "Edit Guide Detail"
-            ),
-          ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const BankCardView(),
-              ),
-            ),
-            child: selectionView(
-                Icons.credit_card,
-                "Bank Card"
-            ),
-          ),
-
-          const Divider(
-            height: 2,
-            thickness: 2,
-            indent: 0,
-            endIndent: 0,
-            color: AppTheme.lightGrey,
-          ),
-
-          const SizedBox(height: 10.0),
-
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ThemeModeView(),
-              ),
-            ),
-            child: selectionView(
-              Icons.dark_mode,
-              "Dark Mode"
-            ),
-          ),
-          GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const ChangeLanguageView(),
+          MainContainer(
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ChangeProfile(),
+                    ),
+                  ),
+                  child: selectionView(
+                      Icons.image_outlined,
+                      "Change Profile Picture"
+                  ),
                 ),
-              ),
-              child: selectionView(Icons.language_outlined, "System Language")
-          ),
-          const Divider(
-            height: 2,
-            thickness: 2,
-            indent: 0,
-            endIndent: 0,
-            color: AppTheme.lightGrey,
-          ),
-          const SizedBox(height: 10.0),
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ResetEmail(),
-              ),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                  color: AppTheme.lightGrey,
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PersonalDetail(),
+                    ),
+                  ),
+                  child: selectionView(
+                      CupertinoIcons.profile_circled,
+                      "Edit Personal Detail"
+                  ),
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                  color: AppTheme.lightGrey,
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const GuideDetail(),
+                    ),
+                  ),
+                  child: selectionView(
+                      Icons.person_pin_circle_outlined,
+                      "Edit Guide Detail"
+                  ),
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                  color: AppTheme.lightGrey,
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const BankCardView(),
+                    ),
+                  ),
+                  child: selectionView(
+                      Icons.credit_card,
+                      "Bank Card"
+                  ),
+                ),
+              ],
             ),
-            child: selectionView(Icons.email_outlined, "Reset Email")
           ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ResetPassword(),
-              ),
+
+          const SizedBox(height: 20.0),
+
+          MainContainer(
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ThemeModeView(),
+                    ),
+                  ),
+                  child: selectionView(
+                      Icons.dark_mode,
+                      "Light / Dark Mode"
+                  ),
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                  color: AppTheme.lightGrey,
+                ),
+                GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ChangeLanguageView(),
+                      ),
+                    ),
+                    child: selectionView(Icons.language_outlined, "System Language")
+                ),
+              ],
             ),
-            child: selectionView(Icons.security_outlined, "Reset Password")
           ),
-          const Divider(
-            height: 2,
-            thickness: 2,
-            indent: 0,
-            endIndent: 0,
-            color: AppTheme.lightGrey,
+
+          const SizedBox(height: 20.0),
+
+          MainContainer(
+            child: Column(
+              children: [
+                GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ResetEmail(),
+                      ),
+                    ),
+                    child: selectionView(Icons.email_outlined, "Reset Email")
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                  color: AppTheme.lightGrey,
+                ),
+                GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ResetPassword(),
+                      ),
+                    ),
+                    child: selectionView(Icons.security_outlined, "Reset Password")
+                ),
+              ],
+            )
           ),
-          const SizedBox(height: 10.0),
-          const Divider(
-            height: 2,
-            thickness: 2,
-            indent: 0,
-            endIndent: 0,
-            color: AppTheme.lightGrey,
-          ),
+
+          const SizedBox(height: 20.0),
+
           GestureDetector(
             onTap: () => showDialog<String>(
               context: context,
@@ -214,37 +236,40 @@ class _ProfileSettingState extends State<ProfileSetting> {
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text('Cancel'),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
                   ),
                   TextButton(
                     onPressed: logout,
-                    child: const Text('Logout'),
+                    child: const Text(
+                      'Logout',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: CupertinoColors.systemGrey5,
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-              child: Text(
-                "Logout",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: CupertinoColors.black,
+            child: MainContainer(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0),
+                child: Center(
+                  child: Text(
+                    "Logout",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-          const Divider(
-            height: 2,
-            thickness: 2,
-            indent: 0,
-            endIndent: 0,
-            color: AppTheme.lightGrey,
           ),
         ],
       ),

@@ -16,14 +16,14 @@ class SecondaryAppBar extends StatelessWidget with PreferredSizeWidget {
 
     return AppBar(
       iconTheme: IconThemeData(
-          color: Colors.white
+          color: Theme.of(context).colorScheme.onPrimary
       ),
       centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.background,
       title: Text(
           title,
         style: TextStyle(
-          color: Theme.of(context).colorScheme.onSecondary,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
       elevation: 0,

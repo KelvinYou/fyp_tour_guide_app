@@ -61,29 +61,35 @@ class ThemeChoiceState extends State<ThemeChoice> {
       _selectedThemeMode = themeModeNotifier.getThemeMode();
     });
     // build the Widget
-    return Column(
-      children: <Widget>[
-        Column(
-          children: _createOptions(themeModeNotifier),
-        ),
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Current ThemeMode:',
-              ),
-              Text(
-                '$_selectedThemeMode',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ],
+    return Container(
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background
+      ),
+      child: Column(
+        children: <Widget>[
+          Column(
+            children: _createOptions(themeModeNotifier),
           ),
-        ),
-        SizedBox(
-          height: 100,
-        ),
-      ],
+          // Expanded(
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Text(
+          //         'Current ThemeMode:',
+          //       ),
+          //       Text(
+          //         '$_selectedThemeMode',
+          //         style: Theme.of(context).textTheme.headline4,
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          SizedBox(
+            height: 100,
+          ),
+        ],
+      ),
     );
   }
 }

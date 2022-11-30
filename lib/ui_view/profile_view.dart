@@ -61,6 +61,40 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+  Widget selectionView(IconData icon, String title) {
+    return Column(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+          ),
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(icon),
+                  const SizedBox(width: 10.0),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
+                ],
+              ),
+
+              Icon(Icons.chevron_right),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -164,13 +198,17 @@ class _ProfileState extends State<Profile> {
 
               const SizedBox(height: 20.0),
               MainContainer(
+                needPadding: true,
                 child: Column(
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         " My Status",
-                        style: AppTheme.subHeadline,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20.0),
@@ -230,24 +268,36 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileSetting(),
-                  ),
-                ),
-                child: MainContainer(
-                  child: Row(
-                    children: const [
-                      SizedBox(width: 20.0),
-                      Icon(Icons.settings),
-                      SizedBox(width: 20.0),
-                      Text("Setting"),
-                    ],
-                  ),
+
+              MainContainer(
+                child: Column(
+                  children: [
+                    GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileSetting(),
+                          ),
+                        ),
+                        child: selectionView(Icons.settings, "Setting")
+                    ),
+                    const Divider(
+                      height: 1,
+                      thickness: 1,
+                      indent: 0,
+                      endIndent: 0,
+                      color: AppTheme.lightGrey,
+                    ),
+                    GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileSetting(),
+                          ),
+                        ),
+                        child: selectionView(Icons.settings, "Setting")
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20.0),
             ],
           ),
         ),
