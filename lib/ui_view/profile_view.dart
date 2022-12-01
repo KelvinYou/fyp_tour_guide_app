@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fyp_project/ui_view/change_profile_view.dart';
+import 'package:fyp_project/ui_view/grade_view.dart';
+import 'package:fyp_project/ui_view/licence_view.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/profile_setting_view.dart';
@@ -236,29 +238,41 @@ class _ProfileState extends State<Profile> {
                         ),
                         Expanded(
                           flex: 1,
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.card_travel,
-                                  size: 35,
-                                ),
-                                Text("Licence"),
-                              ],
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LicenceView()),
+                            ),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.card_travel,
+                                    size: 35,
+                                  ),
+                                  Text("Licence"),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                         Expanded(
                           flex: 1,
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.grade_outlined,
-                                  size: 35,
-                                ),
-                                Text("Grade"),
-                              ],
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const GradeView()),
+                            ),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.grade_outlined,
+                                    size: 35,
+                                  ),
+                                  Text("Grade"),
+                                ],
+                              ),
                             ),
                           ),
                         ),

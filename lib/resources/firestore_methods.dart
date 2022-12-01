@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fyp_project/models/tour_licence.dart';
 import 'package:fyp_project/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
 
@@ -286,9 +287,9 @@ class FireStoreMethods {
 
     try {
       if (frontImg != null && backImg != null && holdImg != null) {
-        String icFrontPic = await StorageMethods().uploadImageToStorage('TourGuideIcPics', frontImg, false);
-        String icBackPic = await StorageMethods().uploadImageToStorage('TourGuideIcPics', frontImg, false);
-        String icHoldPic = await StorageMethods().uploadImageToStorage('TourGuideIcPics', frontImg, false);
+        String icFrontPic = await StorageMethods().uploadImageToStorage('TourGuideIcFrontPics', frontImg, false);
+        String icBackPic = await StorageMethods().uploadImageToStorage('TourGuideIcBackPics', backImg, false);
+        String icHoldPic = await StorageMethods().uploadImageToStorage('TourGuideIcHoldPics', holdImg, false);
 
         VerifyIc verifyIc = VerifyIc(
           verifyIcId: verifyIcId,
@@ -304,6 +305,45 @@ class FireStoreMethods {
       } else {
         res = "Please select an image";
       }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> updateLicence(String uid, Uint8List? licenceFile) async {
+    String res = "Some error occurred";
+    String licenceId = "licence_$uid";
+
+    try {
+      if (licenceFile != null) {
+        String licencePhotoUrl = await StorageMethods().uploadImageToStorage('TourGuideLicencePics', licenceFile, false);
+
+        TourLicence tourLicence = TourLicence(
+          licenceId: licenceId,
+          ownerId: uid,
+          licencePhotoUrl: licencePhotoUrl,
+          status: "Pending",
+        );
+
+        _firestore.collection('licences').doc(licenceId).set(tourLicence.toJson());
+        res = "success";
+      } else {
+        res = "Please select an image";
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> deleteVerifyIC(String uid) async {
+    String res = "Some error occurred";
+    String verifyIcId = "ic_$uid";
+
+    try {
+      _firestore.collection('icVerifications').doc(verifyIcId).delete();
+      res = "success";
     } catch (err) {
       res = err.toString();
     }

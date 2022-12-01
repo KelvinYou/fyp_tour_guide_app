@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/colored_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class VerifyIcView extends StatefulWidget {
@@ -21,6 +23,42 @@ class _VerifyIcViewState extends State<VerifyIcView> {
   String frontIcTitle = "IC Front";
   String backIcTitle = "IC Back";
   String holdIcTitle = "IC Hold";
+  String status = "";
+  var icData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var icSnap = await FirebaseFirestore.instance
+          .collection('icVerifications')
+          .doc("ic_${FirebaseAuth.instance.currentUser!.uid}")
+          .get();
+
+      if (icSnap.exists) {
+        icData = icSnap.data()!;
+
+        setState(() {
+          status = icSnap.data()!["status"];
+        });
+      }
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   updateImage() async {
     setState(() {
@@ -69,6 +107,40 @@ class _VerifyIcViewState extends State<VerifyIcView> {
     });
   }
 
+  deleteSubmittion() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      String res = await FireStoreMethods().deleteVerifyIC(
+        FirebaseAuth.instance.currentUser!.uid,
+      );
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(
+          context,
+          'Deleted!',
+        );
+      } else {
+        showSnackBar(context, res);
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (err) {
+      setState(() {
+        isLoading = false;
+      });
+      showSnackBar(
+        context,
+        err.toString(),
+      );
+    }
+  }
+
   Widget imageCard(String title) {
     return GestureDetector(
       onTap: () => selectImg(title),
@@ -84,7 +156,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: MemoryImage(_frontImage!),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ) : Container(
@@ -92,7 +164,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/ic_front.jfif"),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                   child: null /* add child content here */,
@@ -101,7 +173,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: MemoryImage(_backImage!),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ) : Container(
@@ -109,7 +181,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/ic_back.jfif"),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                   child: null /* add child content here */,
@@ -118,7 +190,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: MemoryImage(_holdImage!),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ) : Container(
@@ -126,7 +198,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/ic_hold.jpg"),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                   child: null /* add child content here */,
@@ -147,16 +219,77 @@ class _VerifyIcViewState extends State<VerifyIcView> {
       appBar: SecondaryAppBar(
           title: "IC Verification"
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10.0),
-            imageCard(frontIcTitle),
-            imageCard(backIcTitle),
-            imageCard(holdIcTitle),
-            ElevatedButton(onPressed: updateImage, child: Text("Update")),
-          ],
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: SingleChildScrollView(
+          child: status == "" ? Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10.0),
+              imageCard(frontIcTitle),
+              imageCard(backIcTitle),
+              imageCard(holdIcTitle),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: ColoredButton(
+                  onPressed: updateImage,
+                  childText: "Update",
+                ),
+              ),
+            ],
+          ) : Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              status == "Pending" ? (
+                Text("Your IC Verification submittion is pending for review.\n"
+                    "Please wait for about 3 working days.")
+              ) : (
+                Text("Your IC have been verify")
+              ),
+
+              const SizedBox(height: 10.0),
+              Container(
+                height: 200.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      icData["icFrontPic"],
+                    ),
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
+              ),
+              Container(
+                height: 200.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      icData["icBackPic"],
+                    ),
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
+              ),
+              Container(
+                height: 200.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      icData["icHoldPic"],
+                    ),
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
+              ),
+              IconButton(
+                  onPressed: deleteSubmittion,
+                  icon: Icon(Icons.delete_outline_outlined),
+              ),
+            ],
+          ),
         ),
       ),
     );
