@@ -192,21 +192,21 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       "Light / Dark Mode"
                   ),
                 ),
-                const Divider(
-                  height: 1,
-                  thickness: 1,
-                  indent: 0,
-                  endIndent: 0,
-                  color: AppTheme.lightGrey,
-                ),
-                GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ChangeLanguageView(),
-                      ),
-                    ),
-                    child: selectionView(Icons.language_outlined, "System Language")
-                ),
+                // const Divider(
+                //   height: 1,
+                //   thickness: 1,
+                //   indent: 0,
+                //   endIndent: 0,
+                //   color: AppTheme.lightGrey,
+                // ),
+                // GestureDetector(
+                //     onTap: () => Navigator.of(context).push(
+                //       MaterialPageRoute(
+                //         builder: (context) => const ChangeLanguageView(),
+                //       ),
+                //     ),
+                //     child: selectionView(Icons.language_outlined, "System Language")
+                // ),
               ],
             ),
           ),

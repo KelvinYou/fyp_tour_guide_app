@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
-class ComingSoonView extends StatefulWidget {
-  const ComingSoonView({super.key});
+class InstantOrderListView extends StatefulWidget {
+  const InstantOrderListView({super.key});
 
   @override
-  State<ComingSoonView> createState() => _ComingSoonViewState();
+  State<InstantOrderListView> createState() => _InstantOrderListViewState();
 }
 
-class _ComingSoonViewState extends State<ComingSoonView> {
+class _InstantOrderListViewState extends State<InstantOrderListView> {
   bool isLoading = false;
 
   @override
@@ -21,17 +21,17 @@ class _ComingSoonViewState extends State<ComingSoonView> {
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: SecondaryAppBar(
-          title: "Coming Soon"
+          title: "Instant Order List"
       ),
       body: GestureDetector(
-          onTap: () {
+        onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: Container(
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.background,
           ),
           child: SingleChildScrollView(
             child: Column(

@@ -30,7 +30,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
       appBar: SecondaryAppBar(
           title: "History"
       ),
-      body: StreamBuilder(
+      body: GestureDetector(
+        onTap: () {
+      FocusScope.of(context).requestFocus(new FocusNode());
+    },
+    child: Container(
+    // width: double.infinity,
+    height: double.infinity,
+    decoration: BoxDecoration(
+    color: Theme.of(context).colorScheme.background,
+    ),
+    child: StreamBuilder(
         stream: transactionsCollection
           .orderBy('dateTime', descending: true)
           .snapshots(),
@@ -70,6 +80,8 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             ],
           );
         },
+      ),
+      ),
       ),
     );
   }
