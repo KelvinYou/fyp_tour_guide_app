@@ -114,7 +114,7 @@ class _WithdrawViewState extends State<WithdrawView> {
           const SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.0),
-            child: ColoredButton(onPressed: submit, childText: "Reload eWallet"),
+            child: ColoredButton(onPressed: submit, childText: "Withdraw"),
           ),
         ],
       ),

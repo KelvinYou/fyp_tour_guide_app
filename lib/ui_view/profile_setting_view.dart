@@ -132,8 +132,26 @@ class _ProfileSettingState extends State<ProfileSetting> {
                     ),
                   ),
                   child: selectionView(
-                      Icons.person_pin_circle_outlined,
+                      Icons.shopping_bag_outlined,
                       "Edit Guide Detail"
+                  ),
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                  color: AppTheme.lightGrey,
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PersonalDetail(),
+                    ),
+                  ),
+                  child: selectionView(
+                      Icons.person_pin_circle_outlined,
+                      "Verify IC"
                   ),
                 ),
                 const Divider(
@@ -170,7 +188,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                     ),
                   ),
                   child: selectionView(
-                      Icons.dark_mode,
+                      Icons.dark_mode_outlined,
                       "Light / Dark Mode"
                   ),
                 ),

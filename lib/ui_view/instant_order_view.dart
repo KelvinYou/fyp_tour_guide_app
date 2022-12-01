@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_project/bottom_bar_view.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 
@@ -26,7 +27,7 @@ class _InstantOrderState extends State<InstantOrder> {
   var instantOrderData = {};
   String priceErrorMsg = "";
   bool isOnDuty = false;
-  bool isReadOnly = true;
+  // bool isReadOnly = true;
   bool isLoading = true;
 
   @override
@@ -63,28 +64,28 @@ class _InstantOrderState extends State<InstantOrder> {
 
   void edit() async {
     String res;
-    isReadOnly ?
+
+    res = await FireStoreMethods().updateOrder(
+      FirebaseAuth.instance.currentUser!.uid,
+      int.parse(_priceController.text),
+      isOnDuty,
+    );
+    if (res == "success") {
       setState(() {
-        isReadOnly = false;
-      }) : {
-      res = await FireStoreMethods().updateOrder(
-        FirebaseAuth.instance.currentUser!.uid,
-        int.parse(_priceController.text),
-        isOnDuty,
-      ),
-      if (res == "success") {
-        setState(() {
-          isLoading = false;
-          isReadOnly = true;
-        }),
-        showSnackBar(
-          context,
-          'Update Successfully!',
+        isLoading = false;
+      });
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const BottomBarView(selectedIndex: 0),
         ),
-      } else {
-        showSnackBar(context, res)
-      }
-    };
+      );
+      showSnackBar(
+        context,
+        'Update Successfully!',
+      );
+    } else {
+      showSnackBar(context, res);
+    }
   }
 
   Widget build(BuildContext context) {
@@ -102,6 +103,10 @@ class _InstantOrderState extends State<InstantOrder> {
           ),
           child: Column(
             children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Divider(),
+              ),
               SizedBox(height: 10.0,),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
@@ -119,8 +124,7 @@ class _InstantOrderState extends State<InstantOrder> {
                     Switch(
                       value: isOnDuty,
                       onChanged: (value) {
-                        isReadOnly ?
-                        setState(() {}) : setState(() {
+                        setState(() {
                           isOnDuty = value;
                           print(isOnDuty);
                         });
@@ -134,7 +138,7 @@ class _InstantOrderState extends State<InstantOrder> {
               SizedBox(height: 20.0,),
               TextFieldInput(
                 textEditingController: _priceController,
-                isReadOnly: isReadOnly,
+                // isReadOnly: isReadOnly,
                 hintText: "Price",
                 textInputType: TextInputType.number,
                 errorMsg: priceErrorMsg,),
@@ -143,7 +147,7 @@ class _InstantOrderState extends State<InstantOrder> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: ColoredButton(
                   onPressed: edit,
-                  childText: isReadOnly ? "Edit" : "Save",
+                  childText: "Update",
                 ),
               ),
             ],

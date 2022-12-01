@@ -28,6 +28,18 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
           color: Theme.of(context).colorScheme.onSecondary,
         ),
       ),
+      // flexibleSpace: Container(
+      //   decoration: BoxDecoration(
+      //     gradient: LinearGradient(
+      //       begin: Alignment.topCenter,
+      //       end: Alignment.bottomCenter,
+      //       colors: <Color>[
+      //         Theme.of(context).colorScheme.primary,
+      //         Theme.of(context).colorScheme.secondary,
+      //       ],
+      //     ),
+      //   ),
+      // ),
       elevation: 0,
       actions: <Widget>[
         rightButton != null && VoidCallback != null ?

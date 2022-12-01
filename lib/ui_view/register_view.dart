@@ -147,7 +147,9 @@ class _RegisterState extends State<Register> {
                   textEditingController: _usernameController,
                   hintText: "Username",
                   textInputType: TextInputType.text,
-                  errorMsg: usernameErrorMsg,),
+                  errorMsg: usernameErrorMsg,
+                  iconData: Icons.person,
+                ),
 
                 const SizedBox(height: 10.0),
 
@@ -156,7 +158,9 @@ class _RegisterState extends State<Register> {
                   textEditingController: _emailController,
                   hintText: "Email",
                   textInputType: TextInputType.emailAddress,
-                  errorMsg: emailErrorMsg,),
+                  errorMsg: emailErrorMsg,
+                  iconData: Icons.email_outlined,
+                ),
 
                 const SizedBox(height: 10.0),
                 // password textfield
@@ -165,7 +169,9 @@ class _RegisterState extends State<Register> {
                   hintText: "Password",
                   isPass: true,
                   textInputType: TextInputType.text,
-                  errorMsg: passwordErrorMsg,),
+                  errorMsg: passwordErrorMsg,
+                  iconData: Icons.lock_open_sharp,
+                ),
 
                 const SizedBox(height: 10.0),
 
