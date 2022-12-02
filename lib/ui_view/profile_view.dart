@@ -37,6 +37,14 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     getData();
+
+    // AuthMethods().signOut();
+    // Navigator.of(context).pushAndRemoveUntil(
+    //     MaterialPageRoute(
+    //       builder: (context) =>
+    //       const Login(),
+    //     ), (Route<dynamic> route) => false
+    // );
   }
 
   getData() async {

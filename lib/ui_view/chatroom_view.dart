@@ -28,9 +28,9 @@ class _ChatroomViewState extends State<ChatroomView> {
   addChat() async {
     try {
       String res = await FireStoreMethods().addChatroom(
-        "chatroomTitle1",
+        "Tour Guide 3",
         FirebaseAuth.instance.currentUser!.uid,
-        "Dunno who laide",
+        "Name 3",
         "[No message]"
       );
       if (res == "success") {

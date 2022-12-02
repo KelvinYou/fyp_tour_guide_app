@@ -91,14 +91,13 @@ class _LoginState extends State<Login> {
         setState(() {
           _isLoading = false;
         });
-        showSnackBar(context, res);
+
       }
     }
     setState(() {
       _isLoading = false;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return _isLoading
