@@ -24,5 +24,8 @@ showSnackBar(BuildContext context, String text) {
       ),
       backgroundColor: Theme.of(context).colorScheme.errorContainer,
     ),
+    // SnackBar(
+    //   content: Text(text),
+    // ),
   );
 }

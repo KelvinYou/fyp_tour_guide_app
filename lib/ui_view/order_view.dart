@@ -124,53 +124,76 @@ class _RequestState extends State<Request> {
               ),
               const SizedBox(height: 20,),
               MainContainer(
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const InstantOrderListView(),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Text("Hourly Order"),
-                          ],
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Column(
+                    children: [
+                      Text(
+                        "My Booking Received",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
                         ),
-                        Icon(Icons.chevron_right)
-                      ],
-                    ),
-                  ),
-                  const Divider(
-                    height: 1,
-                    thickness: 1,
-                    indent: 0,
-                    endIndent: 0,
-                    color: AppTheme.lightGrey,
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const PackageBookingListView(),
                       ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Text("Tour Package"),
-                          ],
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const InstantOrderListView(),
+                          ),
                         ),
-                        Icon(Icons.chevron_right)
-                      ],
-                    ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.background,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  Text("Hourly Order"),
+                                ],
+                              ),
+                              Icon(Icons.chevron_right)
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        height: 1,
+                        thickness: 1,
+                        indent: 0,
+                        endIndent: 0,
+                        color: AppTheme.lightGrey,
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const PackageBookingListView(),
+                          ),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.background,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  Text("Tour Package Order"),
+                                ],
+                              ),
+                              Icon(Icons.chevron_right)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
               ),
             ],
           ),

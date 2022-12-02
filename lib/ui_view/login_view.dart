@@ -100,10 +100,13 @@ class _LoginState extends State<Login> {
   }
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return
+    //   _isLoading
+    //     ? const Center(
+    //   child: CircularProgressIndicator(),
+    // ) :
+    Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const SecondaryAppBar(
           title: "Welcome To Travel Guide"
       ),
@@ -135,7 +138,16 @@ class _LoginState extends State<Login> {
                   style: TextStyle(
                     color: AppTheme.primary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 24,
+                    fontSize: 26,
+                  ),
+                ),
+                const SizedBox(height: 5.0),
+                const Text(
+                  "App For Tour Guide",
+                  style: TextStyle(
+                    color: AppTheme.primary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(height: 25.0),

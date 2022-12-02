@@ -99,6 +99,7 @@ class AuthMethods {
         res = "Please enter all the fields";
       }
     } catch (err) {
+      print(err.toString());
       return err.toString();
     }
     return res;

@@ -82,7 +82,7 @@ class AppTheme {
       onPrimary: Colors.black,
       primaryContainer: backgroundLightGrey,
       onPrimaryContainer: Colors.black,
-      errorContainer: Colors.black12,
+      errorContainer: darkGrey,
       onErrorContainer: Colors.white,
       shadow: lightGrey,
       secondary: secondary,

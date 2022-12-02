@@ -69,7 +69,7 @@ class FireStoreMethods {
 
     try {
       if (packagePhoto != null) {
-        String photoUrl = await StorageMethods().uploadImageToStorage('TourPackagePics', packagePhoto, false);
+        String photoUrl = await StorageMethods().uploadImageToStorageList('TourPackagePics', packageId, packagePhoto, false);
         TourPackage tourPackage = TourPackage(
           packageId: packageId,
           packageTitle: packageTitle,
