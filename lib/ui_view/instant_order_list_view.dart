@@ -37,7 +37,7 @@ class _InstantOrderListViewState extends State<InstantOrderListView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Coming soon. pls wait for announcement.."),
+                Text("Coming soon. Waiting for teammate.."),
               ],
             ),
           ),

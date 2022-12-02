@@ -49,8 +49,8 @@ class _BookPackageCardState extends State<BookPackageCard> {
             children: [
               Text("RM ${widget.snap["budget"]}"),
               Text("Waiting for accept"),
-              Text(formatter.format(widget.snap["bookingDate"].toDate())),
               const SizedBox(height: 10.0),
+              Text(formatter.format(widget.snap["bookingDate"].toDate())),
               // Text(widget.snap["content"]),
             ],
           ),

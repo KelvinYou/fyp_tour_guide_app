@@ -34,6 +34,8 @@ class _AddBankCardViewState extends State<AddBankCardView> {
       isLoading = true;
     });
 
+
+
     try {
       String res = await FireStoreMethods().addBankCard(
         FirebaseAuth.instance.currentUser!.uid,

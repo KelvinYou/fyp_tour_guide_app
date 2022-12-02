@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fyp_project/ui_view/change_profile_view.dart';
-import 'package:fyp_project/ui_view/grade_view.dart';
+import 'package:fyp_project/ui_view/rating_view.dart';
 import 'package:fyp_project/ui_view/licence_view.dart';
 
 import 'package:fyp_project/ui_view/login_view.dart';
@@ -203,17 +203,6 @@ class _ProfileState extends State<Profile> {
                 needPadding: true,
                 child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        " My Status",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
                     Row(
                       children: [
                         Expanded(
@@ -261,7 +250,7 @@ class _ProfileState extends State<Profile> {
                           child: GestureDetector(
                             onTap: () => Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const GradeView()),
+                              MaterialPageRoute(builder: (context) => const RatingView()),
                             ),
                             child: Center(
                               child: Column(
@@ -270,7 +259,27 @@ class _ProfileState extends State<Profile> {
                                     Icons.grade_outlined,
                                     size: 35,
                                   ),
-                                  Text("Grade"),
+                                  Text("Rating"),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const RatingView()),
+                            ),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.history,
+                                    size: 35,
+                                  ),
+                                  Text("History"),
                                 ],
                               ),
                             ),

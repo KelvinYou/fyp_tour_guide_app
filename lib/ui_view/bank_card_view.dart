@@ -100,13 +100,21 @@ class _BankCardViewState extends State<BankCardView> {
                     itemCount: documents.length,
                     itemBuilder: (ctx, index) =>
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 25.0),
                           child: BankCardCard(
                             snap: documents[index].data(),
                             index: index,
                           ),
                         ),
                   ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                child: const Divider(
+                  thickness: 1,
+                  indent: 0,
+                  endIndent: 0,
+                  color: AppTheme.lightGrey,
                 ),
               ),
             ],

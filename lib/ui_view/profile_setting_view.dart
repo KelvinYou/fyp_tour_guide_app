@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/ui_view/change_language_view.dart';
 import 'package:fyp_project/ui_view/theme_mode_view.dart';
 import 'package:fyp_project/ui_view/guide_detail_view.dart';
+import 'package:fyp_project/ui_view/verify_ic_view.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/resources/auth_methods.dart';
@@ -146,7 +147,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const PersonalDetail(),
+                      builder: (context) => const VerifyIcView(),
                     ),
                   ),
                   child: selectionView(

@@ -16,8 +16,13 @@ pickImage(ImageSource source) async {
 showSnackBar(BuildContext context, String text) {
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text(text),
-      backgroundColor: AppTheme.backgroundDarkGrey,
+      content: Text(
+          text,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onErrorContainer,
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.errorContainer,
     ),
   );
 }

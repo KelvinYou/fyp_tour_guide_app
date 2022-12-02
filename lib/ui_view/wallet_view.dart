@@ -94,7 +94,7 @@ class _WalletState extends State<Wallet> {
               height: 250,
               padding: EdgeInsets.symmetric(),
               decoration: BoxDecoration(
-                color: AppTheme.secondary
+                color: Theme.of(context).colorScheme.secondary
                   // gradient: LinearGradient(
                   //     begin: Alignment.centerLeft,
                   //     end: Alignment.centerRight,
@@ -111,7 +111,7 @@ class _WalletState extends State<Wallet> {
                         fontSize: 16,
                         letterSpacing: 0.4,
                         height: 0.9,
-                        color: AppTheme.primary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                     const SizedBox(height: 20.0),
@@ -122,7 +122,7 @@ class _WalletState extends State<Wallet> {
                         fontSize: 36,
                         letterSpacing: 0.4,
                         height: 0.9,
-                        color: AppTheme.primary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ],
@@ -136,8 +136,7 @@ class _WalletState extends State<Wallet> {
                 height: height,
                 width: width,
                 decoration: BoxDecoration(
-                  color: AppTheme.nearlyWhite,
-                  border: Border.all(color: Colors.white),
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
@@ -152,10 +151,19 @@ class _WalletState extends State<Wallet> {
                 margin: EdgeInsets.symmetric(horizontal: width * 0.05),
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 decoration: BoxDecoration(
-                  color: AppTheme.nearlyWhite,
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: const [ AppTheme.boxShadow ],
+                  color: Theme.of(context).colorScheme.background,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.shadow,
+                      offset: Offset(
+                        0.0,
+                        1.0,
+                      ),
+                      blurRadius: 10.0,
+                      spreadRadius: 0.5,
+                    )
+                  ],
                 ),
                 child: Row(
                   children: [

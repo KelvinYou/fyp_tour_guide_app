@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_project/resources/firestore_methods.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/utils/utils.dart';
 import 'package:intl/intl.dart';
 
 import 'package:fyp_project/ui_view/transaction_detail_view.dart';
@@ -27,7 +30,16 @@ class _BankCardCardState extends State<BankCardCard> {
     super.initState();
   }
 
-  final DateFormat formatter = DateFormat('dd MMM, H:mm');
+
+  delete() async {
+    String res = await FireStoreMethods().deleteBankCard(widget.snap["cardId"]);
+
+    if (res == "success") {
+      showSnackBar(context, "Bank card removed successfully");
+    } else {
+      showSnackBar(context, res);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,53 +51,46 @@ class _BankCardCardState extends State<BankCardCard> {
           AppTheme.backgroundLightGrey
           : AppTheme.backgroundNearlyWhite,
         borderRadius: BorderRadius.circular(0),
-        // boxShadow: const [ AppTheme.boxShadow ],
       ),
-      child: InkWell(
-        // onTap: () => Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) => TransactionDetail(
-        //       transactionDetailSnap: widget.snap,
-        //     ),
-        //   ),
-        // ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 25.0,
-                  vertical: 20,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Image.network(
-                        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/800px-Mastercard-logo.svg.png',
-                        height: 30,
-                        width: 30,
-                      ),
-                      const SizedBox(width: 30.0),
-                      Text(
-                        "•••• •••• •••• ${widget.snap["cardNumber"].substring(
-                            widget.snap["cardNumber"].length - 4
-                        )}",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Icon(Icons.chevron_right),
-                ],
-              ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20,
             ),
-          ],
-        )
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Image.network(
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/800px-Mastercard-logo.svg.png',
+                      height: 30,
+                      width: 30,
+                    ),
+                    const SizedBox(width: 30.0),
+                    Text(
+                      "•••• •••• •••• ${widget.snap["cardNumber"].substring(
+                          widget.snap["cardNumber"].length - 4
+                      )}",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+                IconButton(
+                    onPressed: delete,
+                    icon: Icon(CupertinoIcons.trash),
+                ),
+
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

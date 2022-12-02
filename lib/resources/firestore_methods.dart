@@ -280,6 +280,17 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> deleteBankCard(String cardId) async {
+    String res = "Some error occurred";
+    try {
+      _firestore.collection('bankCards').doc(cardId).delete();
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   Future<String> updateVerifyIC(String uid, Uint8List? frontImg,
       Uint8List? backImg, Uint8List? holdImg) async {
     String res = "Some error occurred";

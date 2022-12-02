@@ -11,8 +11,8 @@ class AppTheme {
   static const Color backgroundNearlyWhite = Color(0xFFFEFEFE);
 
   // Dark Theme
-  static const Color darkPrimary = Color(0xFF5B86AB);
-  static const Color darkSecondary = Color(0xFF83AAC5);
+  static const Color darkPrimary = Color(0xFF004F79);
+  static const Color darkSecondary = Color(0xFF587F91);
 
   static const Color backgroundDarkGrey = Color(0xFF383838);
 
@@ -82,6 +82,8 @@ class AppTheme {
       onPrimary: Colors.black,
       primaryContainer: backgroundLightGrey,
       onPrimaryContainer: Colors.black,
+      errorContainer: Colors.black12,
+      onErrorContainer: Colors.white,
       shadow: lightGrey,
       secondary: secondary,
       onSecondary: Colors.white,
@@ -120,8 +122,10 @@ class AppTheme {
       onPrimary: Colors.white,
       primaryContainer: backgroundDarkGrey,
       onPrimaryContainer: Colors.black,
+      errorContainer: Colors.black,
+      onErrorContainer: lightGrey,
       shadow: Colors.black,
-      secondary: Colors.green,
+      secondary: darkSecondary,
       onSecondary: Colors.white,
       error: Colors.black,
       onError: Colors.white,

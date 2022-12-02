@@ -207,8 +207,30 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text("Hourly Order"),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "On duty",
+                                      style: TextStyle(
+                                      ),
+                                    ),
+
+                                    Switch(
+                                      value: instantOrderData["onDuty"],
+                                      onChanged: (value) {
+                                        setState(() {
+                                        });
+                                      },
+                                      activeTrackColor: Colors.lightBlueAccent,
+                                      activeColor: AppTheme.primary,
+                                    ),
+                                  ],
+                                ),
+                                Text("Price: RM ${instantOrderData["price"].toStringAsFixed(2)}  / Hour"),
                               ],
                             ),
                             Icon(Icons.chevron_right)

@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
-class GradeView extends StatefulWidget {
-  const GradeView({super.key});
+class RatingView extends StatefulWidget {
+  const RatingView({super.key});
 
   @override
-  State<GradeView> createState() => _GradeViewState();
+  State<RatingView> createState() => _RatingViewState();
 }
 
-class _GradeViewState extends State<GradeView> {
+class _RatingViewState extends State<RatingView> {
   bool isLoading = false;
 
   @override
@@ -21,7 +21,7 @@ class _GradeViewState extends State<GradeView> {
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: SecondaryAppBar(
-          title: "Grade"
+          title: "Rating"
       ),
       body: Text("Coming soon. pls wait for announcement.."),
     );
