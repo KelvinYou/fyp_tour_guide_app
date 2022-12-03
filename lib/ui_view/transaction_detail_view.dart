@@ -72,17 +72,13 @@ class _TransactionDetailState extends State<TransactionDetail> {
       appBar: SecondaryAppBar(
           title: "Details"
       ),
-      body: GestureDetector(
-        onTap: () {
-      FocusScope.of(context).requestFocus(new FocusNode());
-    },
-    child: Container(
-    // width: double.infinity,
-    height: double.infinity,
-    decoration: BoxDecoration(
-    color: Theme.of(context).colorScheme.background,
-    ),
-    child: Padding(
+      body: Container(
+      // width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.background,
+      ),
+      child: Padding(
         padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
         child: ListView(
           children: [
@@ -107,7 +103,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
             cardView("Transaction No.", widget.transactionDetailSnap["transactionId"]),
           ],
         ),
-      ),),),
+      ),),
     );
   }
 

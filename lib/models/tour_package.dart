@@ -7,6 +7,7 @@ class TourPackage {
   final List<String> packageType;
   final String photoUrl;
   final String content;
+  final double price;
   final int duration;
   final DateTime createDate;
   final DateTime lastModifyDate;
@@ -18,6 +19,7 @@ class TourPackage {
         required this.packageType,
         required this.photoUrl,
         required this.content,
+        required this.price,
         required this.duration,
         required this.createDate,
         required this.lastModifyDate,
@@ -33,6 +35,7 @@ class TourPackage {
       packageType: snapshot["packageType"],
       photoUrl: snapshot["photoUrl"],
       content: snapshot["content"],
+      price: snapshot["price"],
       duration: snapshot["duration"],
       createDate: snapshot["createDate"],
       lastModifyDate: snapshot["lastModifyDate"],
@@ -46,6 +49,7 @@ class TourPackage {
     "packageType": packageType.map((i) => i).toList(),
     "photoUrl": photoUrl,
     "content": content,
+    "price": price,
     "duration": duration,
     "createDate": createDate,
     "lastModifyDate": lastModifyDate,

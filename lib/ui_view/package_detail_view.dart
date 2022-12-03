@@ -12,6 +12,7 @@ import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
 import 'package:intl/intl.dart';
+import 'package:fyp_project/widget/image_full_screen.dart';
 
 class PackageDetail extends StatefulWidget {
   final packageDetailSnap;
@@ -46,6 +47,15 @@ class _PackageDetailState extends State<PackageDetail> {
     }
   }
 
+  Widget getTextWidgets(List<String> strings)
+  {
+    List<Widget> list = <Widget>[];
+    for(var i = 0; i < strings.length; i++){
+      list.add(new Text(strings[i]));
+    }
+    return new Row(children: list);
+  }
+
   final DateFormat formatter = DateFormat('dd MMM, H:mm');
 
   @override
@@ -57,62 +67,91 @@ class _PackageDetailState extends State<PackageDetail> {
       appBar: SecondaryAppBar(
         title: widget.packageDetailSnap["packageTitle"]
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Text("Type(s): ${
-                widget.packageDetailSnap["packageType"]
-                  .reduce((value, element) => value + ', ' + element)
-              }"),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Text("Content: ${widget.packageDetailSnap["content"]}"),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Text("Duration: ${widget.packageDetailSnap["duration"].toString()} days"),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Image(
-                width: double.infinity - 20,
-                image: NetworkImage( widget.packageDetailSnap["photoUrl"]),
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                          : null,
+      body: Container(
+      // width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text("Type(s): ${
+                    widget.packageDetailSnap["packageType"]
+                        .reduce((value, element) => value + ', ' + element)
+                }"),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text("Type(s): ${
+                  widget.packageDetailSnap["packageType"]
+                    .reduce((value, element) => value + ', ' + element)
+                }"),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text("Content: ${widget.packageDetailSnap["content"]}"),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text("Duration: ${widget.packageDetailSnap["duration"].toString()} days"),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                ),
+                child: GestureDetector(
+                  child: Hero(
+                    tag: 'imageHero',
+                    child: Image(
+                      height: 300,
+                      width: double.infinity,
+                      // width: double.infinity - 20,
+                      image: NetworkImage( widget.packageDetailSnap["photoUrl"]),
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return ImageFullScreen(imageUrl: widget.packageDetailSnap["photoUrl"],);
+                    }));
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Text("Create Date: ${formatter.format(widget.packageDetailSnap["createDate"].toDate())}"),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Text("Last Modify Date: ${formatter.format(widget.packageDetailSnap["lastModifyDate"].toDate())}"),
-            ),
-            SizedBox(height: 20,),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: ColoredButton(
-                onPressed: delete,
-                childText: "Delete",
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text("Create Date: ${formatter.format(widget.packageDetailSnap["createDate"].toDate())}"),
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text("Last Modify Date: ${formatter.format(widget.packageDetailSnap["lastModifyDate"].toDate())}"),
+              ),
+              SizedBox(height: 20,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: ColoredButton(
+                  onPressed: delete,
+                  childText: "Delete",
+                ),
+              ),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

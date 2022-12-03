@@ -63,7 +63,9 @@ class FireStoreMethods {
   }
 
   // Tour Package
-  Future<String> addPackage(String uid, String packageTitle, String content, List<String> packageType, Uint8List? packagePhoto, int duration) async {
+  Future<String> addPackage(String uid, String packageTitle, String content,
+      double price, List<String> packageType, Uint8List? packagePhoto,
+      int duration) async {
     String res = "Some error occurred";
     String packageId = const Uuid().v1();
 
@@ -77,6 +79,7 @@ class FireStoreMethods {
           packageType: packageType,
           photoUrl: photoUrl,
           content: content,
+          price: price,
           duration: duration,
           createDate: DateTime.now(),
           lastModifyDate: DateTime.now(),
