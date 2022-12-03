@@ -84,11 +84,11 @@ class _ChangeProfileState extends State<ChangeProfile> {
           context,
           'Posted!',
         );
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const BottomBarView(selectedIndex: 4),
-          ),
-        );
+        // Navigator.of(context).pushReplacement(
+        //   MaterialPageRoute(
+        //     builder: (context) => const BottomBarView(selectedIndex: 4),
+        //   ),
+        // );
       } else {
         showSnackBar(context, res);
       }

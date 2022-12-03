@@ -76,9 +76,17 @@ class AuthMethods {
         res = "Please enter all the fields";
       }
     } catch (err) {
-      return err.toString();
+      String errorMsg = err.toString();
+      res = capitalize(
+          errorMsg.substring(errorMsg.indexOf('/'),
+              errorMsg.indexOf(']')).replaceAll(RegExp(r'/'), '').replaceAll(RegExp(r'-'), ' ')
+      );
     }
     return res;
+  }
+
+  String capitalize(String string) {
+    return "${string[0].toUpperCase()}${string.substring(1).toLowerCase()}";
   }
 
   // logging in user
@@ -99,8 +107,11 @@ class AuthMethods {
         res = "Please enter all the fields";
       }
     } catch (err) {
-      print(err.toString());
-      return err.toString();
+      String errorMsg = err.toString();
+      res = capitalize(
+          errorMsg.substring(errorMsg.indexOf('/'),
+              errorMsg.indexOf(']')).replaceAll(RegExp(r'/'), '').replaceAll(RegExp(r'-'), ' ')
+      );
     }
     return res;
   }
@@ -122,6 +133,7 @@ class AuthMethods {
         res = "Some error Occurred";
       });
     }).catchError((err) {
+      print(err.toString());
       res = "Wrong old password";
     });
 

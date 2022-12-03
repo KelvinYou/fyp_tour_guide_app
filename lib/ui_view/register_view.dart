@@ -111,11 +111,7 @@ class _RegisterState extends State<Register> {
       appBar: const SecondaryAppBar(
         title: "Register an Account"
       ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
-        child: Container(
+      body: Container(
           height: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
@@ -214,7 +210,6 @@ class _RegisterState extends State<Register> {
             ),
           ),
         ),
-      ),
     );
   }
 

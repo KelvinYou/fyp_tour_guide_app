@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
         setState(() {
           _isLoading = false;
         });
-
+        showSnackBar(context, res);
       }
     }
     setState(() {
@@ -110,18 +110,14 @@ class _LoginState extends State<Login> {
       appBar: const SecondaryAppBar(
           title: "Welcome To Travel Guide"
       ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
-        child: Container(
+      body: Container(
           // width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
           ),
-          child: SingleChildScrollView(
-            child: Column(
+            child: SingleChildScrollView(
+    child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50.0),
@@ -210,7 +206,6 @@ class _LoginState extends State<Login> {
                 )
               ],
             ),
-          ),
         ),
       ),
     );

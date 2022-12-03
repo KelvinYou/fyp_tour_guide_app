@@ -28,6 +28,7 @@ class _GuideDetailState extends State<GuideDetail> {
   int englishRtg = 0;
   int mandarinRtg = 0;
   int tamilRtg = 0;
+  String descErrorMsg = "";
 
   Uint8List? _image;
   TextEditingController _descriptionController = TextEditingController();
@@ -42,6 +43,7 @@ class _GuideDetailState extends State<GuideDetail> {
     setState(() {
       isLoading = true;
     });
+
     try {
       var userSnap = await FirebaseFirestore.instance
           .collection('tourGuides')
@@ -49,7 +51,10 @@ class _GuideDetailState extends State<GuideDetail> {
           .get();
 
       userData = userSnap.data()!;
-      _descriptionController = TextEditingController(text: userData["description"]);
+      _descriptionController = TextEditingController(
+        text: userData["description"] == "" ?
+        "Hey there, have a nice day ~"
+          : userData["description"]);
 
       setState(() {
         malayRtg = userData["language"]["Malay"];
@@ -63,6 +68,7 @@ class _GuideDetailState extends State<GuideDetail> {
         e.toString(),
       );
     }
+
     setState(() {
       isLoading = false;
     });
