@@ -17,6 +17,7 @@ import 'package:fyp_project/ui_view/edit_profile_view.dart';
 import 'package:fyp_project/ui_view/coming_soon_view.dart';
 import 'package:fyp_project/ui_view/bank_card_view.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/dialogs.dart';
 import 'package:fyp_project/widget/main_container.dart';
 
 class ProfileSetting extends StatefulWidget {
@@ -247,33 +248,14 @@ class _ProfileSettingState extends State<ProfileSetting> {
           const SizedBox(height: 20.0),
 
           GestureDetector(
-            onTap: () => showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: const Text('Confirm Logout?'),
-                // content: const Text('Logout now'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: logout,
-                    child: const Text(
-                      'Logout',
-                      style: TextStyle(
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            onTap: () async {
+              final action = await Dialogs.yesAbortDialog(
+                  context, 'Confirm to logout?', '',
+                  'Logout');
+              if (action == DialogAction.yes) {
+                logout();
+              }
+            },
             child: MainContainer(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0),

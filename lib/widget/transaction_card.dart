@@ -36,7 +36,8 @@ class _TransactionCardState extends State<TransactionCard> {
     return Container(
       decoration: BoxDecoration(
         color: widget.index % 2 == 0 ?
-        AppTheme.backgroundLightGrey : AppTheme.backgroundNearlyWhite,
+        Theme.of(context).colorScheme.secondaryContainer
+        : Theme.of(context).colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(0),
         // boxShadow: const [ AppTheme.boxShadow ],
       ),

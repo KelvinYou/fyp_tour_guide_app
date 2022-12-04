@@ -22,7 +22,37 @@ class BookPackageDetail extends StatefulWidget {
 
 class _BookPackageDetailState extends State<BookPackageDetail> {
   bool isLoading = false;
+  var bookingData = {};
   List<String> selectedTypes = [];
+
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var bookingSnap = await FirebaseFirestore.instance
+          .collection('tourPackages')
+          .doc(widget.bookPackageDetailSnap["packageId"])
+          .get();
+
+      bookingData = bookingSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   delete() async {
     setState(() {

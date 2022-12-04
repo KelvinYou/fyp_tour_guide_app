@@ -6,6 +6,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/utils/utils.dart';
+import 'package:fyp_project/widget/dialogs.dart';
 import 'package:intl/intl.dart';
 
 import 'package:fyp_project/ui_view/transaction_detail_view.dart';
@@ -48,8 +49,8 @@ class _BankCardCardState extends State<BankCardCard> {
     return Container(
       decoration: BoxDecoration(
         color: widget.index % 2 == 0 ?
-          AppTheme.backgroundLightGrey
-          : AppTheme.backgroundNearlyWhite,
+          Theme.of(context).colorScheme.secondaryContainer
+          : Theme.of(context).colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(0),
       ),
       child: Column(
@@ -83,7 +84,14 @@ class _BankCardCardState extends State<BankCardCard> {
                   ],
                 ),
                 IconButton(
-                    onPressed: delete,
+                    onPressed: () async {
+                      final action = await Dialogs.yesAbortDialog(
+                      context, 'Confirm to delete?', '',
+                      'Delete');
+                      if (action == DialogAction.yes) {
+                        delete();
+                      }
+                    },
                     icon: Icon(CupertinoIcons.trash),
                 ),
 

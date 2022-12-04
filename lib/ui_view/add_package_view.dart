@@ -91,11 +91,11 @@ class _AddPackageState extends State<AddPackage> {
   Widget build(BuildContext context) {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
 
-    return isLoading ? LoadingView() : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
           title: "Add Package"
       ),
-      body: Container(
+      body: isLoading ? LoadingView() : Container(
         // width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(

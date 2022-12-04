@@ -83,7 +83,7 @@ class _AddBankCardViewState extends State<AddBankCardView> {
             const SizedBox(height: 30.0,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: TextFormField(
+              child: TextField(
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   CardNumberFormatter(),
@@ -102,6 +102,7 @@ class _AddBankCardViewState extends State<AddBankCardView> {
                   border: OutlineInputBorder(),
                   hintText: 'XXXX XXXX XXXX XXXX',
                   labelText: 'Card Number',
+                  counterText: "",
                 ),
                 maxLength: 19,
                 onChanged: (value) {
@@ -111,35 +112,41 @@ class _AddBankCardViewState extends State<AddBankCardView> {
                 },
               ),
             ),
-            const SizedBox(height: 5,),
+            const SizedBox(height: 20,),
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
+                    child: Column(
+                      children: [
+                        TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'XXX',
+                            labelText: 'CCV',
+                            counterText: "",
+                          ),
+                          maxLength: 3,
+                          onChanged: (value) {
+                            setState(() {
+                              ccvNumber = value;
+                            });
+                          },
+                        ),
+
                       ],
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'XXX',
-                        labelText: 'Card Number',
-                      ),
-                      maxLength: 3,
-                      onChanged: (value) {
-                        setState(() {
-                          ccvNumber = value;
-                        });
-                      },
-                    ),
+                    )
                   ),
                   const SizedBox(width: 20,),
                   Expanded(
-                    child: TextFormField(
+                    child: TextField(
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         ExpiredDateFormatter(),
@@ -150,6 +157,7 @@ class _AddBankCardViewState extends State<AddBankCardView> {
                         border: OutlineInputBorder(),
                         hintText: 'MM/YY',
                         labelText: 'Expired Date',
+                        counterText: "",
                       ),
                       maxLength: 5,
                       onChanged: (value) {
@@ -165,7 +173,7 @@ class _AddBankCardViewState extends State<AddBankCardView> {
 
             ),
 
-            const SizedBox(height: 10.0),
+            const SizedBox(height: 20.0),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: ColoredButton(
