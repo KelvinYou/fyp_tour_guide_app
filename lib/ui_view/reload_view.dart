@@ -89,30 +89,34 @@ class _ReloadViewState extends State<ReloadView> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
           title: "Reload"
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          TextFieldInput(
-            textEditingController: reloadController,
-            hintText: "Reload Amount: RM",
-            textInputType: TextInputType.number,
-            iconData: Icons.attach_money,
-            errorMsg: reloadErrorMsg,
-          ),
-          Text("Min reload amount is RM10"),
-          const SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
-            child: ColoredButton(onPressed: submit, childText: "Reload eWallet"),
-          ),
-        ],
+      body: Container(
+        // width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            TextFieldInput(
+              textEditingController: reloadController,
+              hintText: "Reload Amount: RM",
+              textInputType: TextInputType.number,
+              iconData: Icons.attach_money,
+              errorMsg: reloadErrorMsg,
+            ),
+            Text("Min reload amount is RM10"),
+            const SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: ColoredButton(onPressed: submit, childText: "Reload eWallet"),
+            ),
+          ],
+        ),
       ),
     );
   }

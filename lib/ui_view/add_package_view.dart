@@ -31,6 +31,7 @@ class _AddPackageState extends State<AddPackage> {
   int _currentDuration = 1;
   List<String> selectedTypes = [];
   Uint8List? _image;
+  String stateOfCountry = "";
 
   selectImage() async {
     Uint8List im = await pickImage(ImageSource.gallery);
@@ -54,6 +55,7 @@ class _AddPackageState extends State<AddPackage> {
         selectedTypes,
         _image,
         _currentDuration,
+        stateOfCountry,
       );
       if (res == "success") {
         setState(() {

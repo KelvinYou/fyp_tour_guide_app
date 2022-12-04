@@ -6,6 +6,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 import 'package:fyp_project/widget/colored_button.dart';
 
@@ -65,14 +66,11 @@ class _AddBankCardViewState extends State<AddBankCardView> {
   }
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
           title: "Add New Bank Card"
       ),
-      body: Container(
+      body: isLoading ? LoadingView() : Container(
       // width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(

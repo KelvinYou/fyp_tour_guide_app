@@ -9,7 +9,7 @@ class TourPackage {
   final String content;
   final double price;
   final int duration;
-  // final String state;
+  final String stateOfCountry;
   final DateTime createDate;
   final DateTime lastModifyDate;
 
@@ -22,6 +22,7 @@ class TourPackage {
         required this.content,
         required this.price,
         required this.duration,
+        required this.stateOfCountry,
         required this.createDate,
         required this.lastModifyDate,
       });
@@ -38,6 +39,7 @@ class TourPackage {
       content: snapshot["content"],
       price: snapshot["price"],
       duration: snapshot["duration"],
+      stateOfCountry: snapshot["stateOfCountry"],
       createDate: snapshot["createDate"],
       lastModifyDate: snapshot["lastModifyDate"],
     );
@@ -52,6 +54,7 @@ class TourPackage {
     "content": content,
     "price": price,
     "duration": duration,
+    "stateOfCountry": stateOfCountry,
     "createDate": createDate,
     "lastModifyDate": lastModifyDate,
   };

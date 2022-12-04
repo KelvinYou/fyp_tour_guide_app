@@ -11,14 +11,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 
-class PersonalDetail extends StatefulWidget {
-  const PersonalDetail({super.key});
+class EditProfileView extends StatefulWidget {
+  const EditProfileView({super.key});
 
   @override
-  State<PersonalDetail> createState() => _PersonalDetailState();
+  State<EditProfileView> createState() => _EditProfileViewState();
 }
 
-class _PersonalDetailState extends State<PersonalDetail> {
+class _EditProfileViewState extends State<EditProfileView> {
   bool isLoading = false;
   var userData = {};
   var tourGuideData = {};

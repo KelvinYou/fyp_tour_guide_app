@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fyp_project">
    <application
-        android:label="fyp_project"
+        android:label="Travel Guider"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

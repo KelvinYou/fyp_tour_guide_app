@@ -98,8 +98,9 @@ class _InstantOrderState extends State<InstantOrder> {
             title: "Hourly Order Detail"
         ),
         body: Container(
+          height: double.infinity,
           decoration: BoxDecoration(
-            color: AppTheme.nearlyWhite,
+            color: Theme.of(context).colorScheme.background,
           ),
           child: Column(
             children: [

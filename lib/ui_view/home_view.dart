@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fyp_project/ui_view/change_profile_view.dart';
 import 'package:fyp_project/ui_view/guide_detail_view.dart';
-import 'package:fyp_project/ui_view/personal_detail_view.dart';
+import 'package:fyp_project/ui_view/edit_profile_view.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 
 import 'package:fyp_project/ui_view/instant_order_view.dart';
@@ -15,6 +15,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
 import 'package:fyp_project/widget/main_container.dart';
+import 'package:fyp_project/ui_view/verify_ic_view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -183,7 +184,7 @@ class _HomeState extends State<Home> {
                         IconButton(
                             onPressed: () => Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const PersonalDetail(),
+                                builder: (context) => const EditProfileView(),
                               ),
                             ),
                             icon: Icon(Icons.edit_note_outlined)
@@ -343,7 +344,7 @@ class _HomeState extends State<Home> {
                     GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const PersonalDetail(),
+                          builder: (context) => const VerifyIcView(),
                         ),
                       ),
                       child: selectionView(

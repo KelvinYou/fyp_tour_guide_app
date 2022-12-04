@@ -13,7 +13,7 @@ import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/change_profile_view.dart';
 import 'package:fyp_project/ui_view/change_email_view.dart';
 import 'package:fyp_project/ui_view/change_password_view.dart';
-import 'package:fyp_project/ui_view/personal_detail_view.dart';
+import 'package:fyp_project/ui_view/edit_profile_view.dart';
 import 'package:fyp_project/ui_view/coming_soon_view.dart';
 import 'package:fyp_project/ui_view/bank_card_view.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
@@ -111,7 +111,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const PersonalDetail(),
+                      builder: (context) => const EditProfileView(),
                     ),
                   ),
                   child: selectionView(

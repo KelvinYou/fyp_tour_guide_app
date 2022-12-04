@@ -65,9 +65,13 @@ class FireStoreMethods {
   // Tour Package
   Future<String> addPackage(String uid, String packageTitle, String content,
       double price, List<String> packageType, Uint8List? packagePhoto,
-      int duration) async {
+      int duration, String stateOfCountry) async {
     String res = "Some error occurred";
     String packageId = const Uuid().v1();
+
+    if (stateOfCountry == "") {
+      stateOfCountry == "No specified";
+    }
 
     try {
       if (packagePhoto != null) {
@@ -81,6 +85,7 @@ class FireStoreMethods {
           content: content,
           price: price,
           duration: duration,
+          stateOfCountry: stateOfCountry,
           createDate: DateTime.now(),
           lastModifyDate: DateTime.now(),
         );
@@ -407,7 +412,6 @@ class FireStoreMethods {
         _firestore.collection('chatrooms').doc(chatroomId).update({
           "lastMessage": "[Tour package sent]", "lastMessageTime": DateTime.now()});
       }
-
 
       res = "success";
     } catch (err) {

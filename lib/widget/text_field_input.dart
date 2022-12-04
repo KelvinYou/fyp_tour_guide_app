@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 
 class TextFieldInput extends StatelessWidget {
@@ -11,6 +12,7 @@ class TextFieldInput extends StatelessWidget {
   final int? maxLines;
   final String errorMsg;
   final Function(String)? onChanged;
+  final List<TextInputFormatter>? textInputFormatter;
 
   const TextFieldInput({
     Key? key,
@@ -23,6 +25,7 @@ class TextFieldInput extends StatelessWidget {
     this.maxLines = 1,
     this.errorMsg = "",
     this.onChanged,
+    this.textInputFormatter,
   }) : super(key: key);
 
   @override
@@ -33,44 +36,30 @@ class TextFieldInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          errorMsg == "" ?
-            TextField(
-              controller: textEditingController,
-              maxLines: maxLines,
-              onChanged: onChanged,
-              keyboardType: textInputType,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: hintText,
-                prefixIcon: iconData != Icons.import_contacts_sharp ? Align(
-                  widthFactor: 1.0,
-                  heightFactor: 1.0,
-                  child: Icon(iconData),
-                )  : null,
-              ),
-              obscureText: isPass,
-              enabled: !isReadOnly,
-            ) : TextField(
-              controller: textEditingController,
-              maxLines: maxLines,
-              keyboardType: textInputType,
-              decoration: InputDecoration(
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: const BorderSide(color: AppTheme.errorRed, width: 1.0),
+          TextField(
+            inputFormatters: textInputFormatter,
+            controller: textEditingController,
+            maxLines: maxLines,
+            onChanged: onChanged,
+            textInputAction: TextInputAction.done,
+            keyboardType: textInputType,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: errorMsg == "" ? Theme.of(context).colorScheme.primary : AppTheme.errorRed,
+                  width: 1.0
                 ),
-                border: OutlineInputBorder(
-
-                ),
-                labelText: hintText,
-                prefixIcon: iconData != Icons.import_contacts_sharp ? Align(
-                  widthFactor: 1.0,
-                  heightFactor: 1.0,
-                  child: Icon(iconData),
-                )  : null,
               ),
-              obscureText: isPass,
-              enabled: !isReadOnly,
+              labelText: hintText,
+              prefixIcon: iconData != Icons.import_contacts_sharp ? Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Icon(iconData),
+              )  : null,
             ),
+            obscureText: isPass,
+            enabled: !isReadOnly,
+          ),
 
           errorMsg == "" ?
             SizedBox()

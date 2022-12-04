@@ -8,7 +8,7 @@ import 'package:fyp_project/ui_view/licence_view.dart';
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:fyp_project/ui_view/profile_setting_view.dart';
 import 'package:fyp_project/ui_view/register_view.dart';
-import 'package:fyp_project/ui_view/personal_detail_view.dart';
+import 'package:fyp_project/ui_view/edit_profile_view.dart';
 import 'package:fyp_project/ui_view/verify_ic_view.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';

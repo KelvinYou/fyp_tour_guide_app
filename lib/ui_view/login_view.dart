@@ -117,7 +117,7 @@ class _LoginState extends State<Login> {
             color: Theme.of(context).colorScheme.background,
           ),
             child: SingleChildScrollView(
-    child: Column(
+        child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50.0),
