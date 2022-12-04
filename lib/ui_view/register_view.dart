@@ -168,7 +168,6 @@ class _RegisterState extends State<Register> {
                   errorMsg: passwordErrorMsg,
                   iconData: Icons.lock_open_sharp,
                 ),
-
                 const SizedBox(height: 10.0),
 
                 Padding(

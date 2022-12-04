@@ -27,7 +27,7 @@ class _AddPackageState extends State<AddPackage> {
   final packageTitleController = TextEditingController();
   final contentController = TextEditingController();
   final priceController = TextEditingController();
-  bool isLoading = true;
+  bool isLoading = false;
   int _currentDuration = 1;
   List<String> selectedTypes = [];
   Uint8List? _image;
