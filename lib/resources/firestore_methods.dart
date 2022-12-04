@@ -400,8 +400,14 @@ class FireStoreMethods {
       );
       _firestore.collection('messages').doc(messageId).set(message.toJson());
 
-      _firestore.collection('chatrooms').doc(chatroomId).update({
-        "lastMessage": content, "lastMessageTime": DateTime.now()});
+      if(type == "text") {
+        _firestore.collection('chatrooms').doc(chatroomId).update({
+          "lastMessage": content, "lastMessageTime": DateTime.now()});
+      } else if (type == "tourPackage") {
+        _firestore.collection('chatrooms').doc(chatroomId).update({
+          "lastMessage": "[Tour package sent]", "lastMessageTime": DateTime.now()});
+      }
+
 
       res = "success";
     } catch (err) {

@@ -5,6 +5,7 @@ import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/providers/user_provider.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class _AddPackageState extends State<AddPackage> {
   final packageTitleController = TextEditingController();
   final contentController = TextEditingController();
   final priceController = TextEditingController();
-  bool isLoading = false;
+  bool isLoading = true;
   int _currentDuration = 1;
   List<String> selectedTypes = [];
   Uint8List? _image;
@@ -88,7 +89,7 @@ class _AddPackageState extends State<AddPackage> {
   Widget build(BuildContext context) {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
 
-    return Scaffold(
+    return isLoading ? LoadingView() : Scaffold(
       appBar: SecondaryAppBar(
           title: "Add Package"
       ),

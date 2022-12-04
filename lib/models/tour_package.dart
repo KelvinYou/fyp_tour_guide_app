@@ -9,6 +9,7 @@ class TourPackage {
   final String content;
   final double price;
   final int duration;
+  // final String state;
   final DateTime createDate;
   final DateTime lastModifyDate;
 

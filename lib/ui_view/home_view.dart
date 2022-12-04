@@ -124,6 +124,9 @@ class _HomeState extends State<Home> {
   }
 
   Widget build(BuildContext context) {
+    double width = MediaQuery. of(context). size. width;
+    double height = MediaQuery. of(context). size. height;
+
     return isLoading
       ? const Center(
         child: CircularProgressIndicator(),
@@ -210,12 +213,16 @@ class _HomeState extends State<Home> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Description : ${
-                                  userData["description"] != "" ?
-                                  userData["description"]
-                                      : "No description"}",
-                            ),
+                            SizedBox(
+                              width: 100,
+                              child: Text(
+                                "Description : ${
+                                    userData["description"] != "" ?
+                                    userData["description"]
+                                        : "No description"}",
+                              ),
+                            )
+
                           ],
                         ),
 

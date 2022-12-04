@@ -75,6 +75,7 @@ class AppTheme {
     brightness: Brightness.light,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     primarySwatch: Colors.blue,
+    fontFamily: 'Schyler',
     accentColor: primary,
     colorScheme: ColorScheme(
       brightness: Brightness.light,

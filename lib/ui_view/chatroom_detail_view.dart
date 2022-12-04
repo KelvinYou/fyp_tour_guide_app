@@ -21,8 +21,7 @@ class ChatroomDetailView extends StatefulWidget {
 }
 
 class _ChatroomDetailViewState extends State<ChatroomDetailView> {
-  // TextEditingController contentController = TextEditingController();
-  String content = "";
+  TextEditingController contentController = TextEditingController();
   bool isLoading = false;
   String tourGuideName = '';
 
@@ -63,13 +62,14 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
         widget.chatroomDetailSnap["chatroomId"],
         FirebaseAuth.instance.currentUser!.uid,
         // "Hello world",
-        content,
+        contentController.text,
         "text",
       );
       if (res == "success") {
+        contentController.text = "";
+
         setState(() {
           isLoading = false;
-          content = "";
         });
       } else {
         showSnackBar(context, res);
@@ -157,6 +157,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                     // inputFormatters: [
                     //   FilteringTextInputFormatter.digitsOnly,
                     // ],
+                    controller: contentController,
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
@@ -165,11 +166,6 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                     ),
                     // maxLength: null,
                     maxLines: null,
-                    onChanged: (value) {
-                      setState(() {
-                        content = value;
-                      });
-                    },
                   ),
                 ),
                 Expanded(

@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 
-class InstantOrderListView extends StatefulWidget {
-  const InstantOrderListView({super.key});
+class BookingHistoryView extends StatefulWidget {
+  const BookingHistoryView({super.key});
 
   @override
-  State<InstantOrderListView> createState() => _InstantOrderListViewState();
+  State<BookingHistoryView> createState() => _BookingHistoryViewViewState();
 }
 
-class _InstantOrderListViewState extends State<InstantOrderListView> {
+class _BookingHistoryViewViewState extends State<BookingHistoryView> {
   bool isLoading = false;
 
   @override

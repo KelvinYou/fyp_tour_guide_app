@@ -35,14 +35,16 @@ class _MessageCardState extends State<MessageCard> {
 
   final DateFormat formatter = DateFormat('dd MMM, H:mm');
 
+
+
   @override
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width);
+    bool isOwner = widget.snap["fromId"] == FirebaseAuth.instance.currentUser!.uid;
 
-    return widget.snap["fromId"] == FirebaseAuth.instance.currentUser!.uid ?
-      Container(
+    return widget.snap["type"] == "text" ? Container(
         width: width,
-        alignment: Alignment.centerRight,
+        alignment: isOwner ? Alignment.centerRight : Alignment.centerLeft,
         margin: EdgeInsets.symmetric(vertical: 5.0),
         decoration: BoxDecoration(
           // color: AppTheme.darkText,
@@ -51,12 +53,12 @@ class _MessageCardState extends State<MessageCard> {
           // boxShadow: const [ AppTheme.boxShadow ],
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: isOwner ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Text(
-              widget.tourGuideName,
+              isOwner ? widget.tourGuideName : "Tourist name",
               style: TextStyle(
-                color: AppTheme.lightText,
+                color: Theme.of(context).colorScheme.onPrimary,
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
               ),
@@ -64,15 +66,21 @@ class _MessageCardState extends State<MessageCard> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
               decoration: BoxDecoration(
-                color: Colors.blue,
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(10),
+                color: isOwner ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.background,
+                border: Border.all(color: isOwner ?
+                  Theme.of(context).colorScheme.background
+                  : Theme.of(context).colorScheme.primary
+                ),
+                borderRadius: BorderRadius.circular(5),
                 // boxShadow: const [ AppTheme.boxShadow ],
               ),
               child: Text(
                 widget.snap["content"],
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: isOwner ?
+                    Theme.of(context).colorScheme.background
+                      : Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
                 ),
@@ -81,54 +89,16 @@ class _MessageCardState extends State<MessageCard> {
             Text(
               formatter.format(widget.snap["timestamp"].toDate()),
               style: TextStyle(
-                color: AppTheme.lightText,
+                color: Theme.of(context).colorScheme.onPrimary,
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
               ),
             ),
           ],
         )
-    ) : Container(
-      width: width,
-      alignment: Alignment.centerLeft,
-      margin: EdgeInsets.symmetric(vertical: 5.0),
-      decoration: BoxDecoration(
-        // color: AppTheme.darkText,
-        // border: Border.all(color: Colors.white),
-        // borderRadius: BorderRadius.circular(0),
-        // boxShadow: const [ AppTheme.boxShadow ],
-      ),
+    ) : (
+      Container(
 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white24,
-              border: Border.all(color: Colors.blue),
-              borderRadius: BorderRadius.circular(10),
-              // boxShadow: const [ AppTheme.boxShadow ],
-            ),
-            child: Text(
-              widget.snap["content"],
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-              ),
-            ),
-          ),
-          Text(
-            formatter.format(widget.snap["timestamp"].toDate()),
-            style: TextStyle(
-              color: AppTheme.lightText,
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-            ),
-          ),
-        ],
       )
     );
   }

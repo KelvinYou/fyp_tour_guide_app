@@ -126,6 +126,8 @@ class _VerifyIcViewState extends State<VerifyIcView> {
           context,
           'Deleted!',
         );
+        Navigator.of(context).pop();
+
       } else {
         showSnackBar(context, res);
         setState(() {
