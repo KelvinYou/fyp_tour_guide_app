@@ -66,7 +66,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
     if (reenterPassword.text == "") {
       setState(() {
-        reenterPasswordErrorMsg = "Please enter your new password.";
+        reenterPasswordErrorMsg = "Please re-enter your new password.";
       });
     } else if (reenterPassword.text.length < 6) {
       setState(() {
@@ -121,48 +121,46 @@ class _ResetPasswordState extends State<ResetPassword> {
           color: Theme.of(context).colorScheme.background,
         ),
         child:  SingleChildScrollView(
-    child: Column(
-          children: [
-            const SizedBox(height: 25.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 25.0),
 
-            // email textfield
-            TextFieldInput(
-              textEditingController: currentPassword,
-              hintText: "Old Password",
-              isPass: true,
-              textInputType: TextInputType.text,
-              errorMsg: currentPasswordErrorMsg,
-            ),
+              // email textfield
+              TextFieldInput(
+                textEditingController: currentPassword,
+                hintText: "Old Password",
+                isPass: true,
+                textInputType: TextInputType.text,
+                errorMsg: currentPasswordErrorMsg,
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            TextFieldInput(
-              textEditingController: newPassword,
-              hintText: "New Password",
-              isPass: true,
-              textInputType: TextInputType.text,
-              errorMsg: newPasswordErrorMsg,
-            ),
+              TextFieldInput(
+                textEditingController: newPassword,
+                hintText: "New Password",
+                isPass: true,
+                textInputType: TextInputType.text,
+                errorMsg: newPasswordErrorMsg,
+              ),
 
-            const SizedBox(height: 20),
-            TextFieldInput(
-              textEditingController: reenterPassword,
-              hintText: "Reenter New Password",
-              isPass: true,
-              textInputType: TextInputType.text,
-              errorMsg: reenterPasswordErrorMsg,
-            ),
+              const SizedBox(height: 20),
+              TextFieldInput(
+                textEditingController: reenterPassword,
+                hintText: "Reenter New Password",
+                isPass: true,
+                textInputType: TextInputType.text,
+                errorMsg: reenterPasswordErrorMsg,
+              ),
 
-            const SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: ColoredButton(onPressed: submit, childText: 'Confirm'),
-            ),
-
-
-          ],
+              const SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: ColoredButton(onPressed: submit, childText: 'Confirm'),
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

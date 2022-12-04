@@ -66,11 +66,11 @@ class _BankCardViewState extends State<BankCardView> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: ColoredButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AddBankCardView()),
-                    ),
-                    childText: "Add",
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AddBankCardView()),
+                  ),
+                  childText: "Add",
                 ),
               ),
               Padding(

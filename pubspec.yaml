@@ -80,8 +80,8 @@ flutter:
     - assets/erza.jpg
     - assets/logo.png
     - assets/add-image.png
-    - assets/ic_front.jfif
-    - assets/ic_back.jfif
+    - assets/ic_front.jpg
+    - assets/ic_back.jpg
     - assets/ic_hold.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

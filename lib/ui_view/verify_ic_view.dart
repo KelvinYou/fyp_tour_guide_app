@@ -8,6 +8,8 @@ import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/image_full_screen.dart';
+import 'package:fyp_project/widget/memory_image_full_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class VerifyIcView extends StatefulWidget {
@@ -141,71 +143,60 @@ class _VerifyIcViewState extends State<VerifyIcView> {
     }
   }
 
-  Widget imageCard(String title) {
-    return GestureDetector(
-      onTap: () => selectImg(title),
-      child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 5.0),
-          child: Column(
-            children: [
-              Text(title),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 25.0),
-                child: title == frontIcTitle ? _frontImage != null ? Container(
-                  height: 200.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: MemoryImage(_frontImage!),
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                ) : Container(
-                  height: 200.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/ic_front.jfif"),
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                  child: null /* add child content here */,
-                ) : title == backIcTitle ? _backImage != null ? Container(
-                  height: 200.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: MemoryImage(_backImage!),
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                ) : Container(
-                  height: 200.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/ic_back.jfif"),
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                  child: null /* add child content here */,
-                ) : _holdImage != null ? Container(
-                  height: 200.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: MemoryImage(_holdImage!),
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                ) : Container(
-                  height: 200.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/ic_hold.jpg"),
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                  child: null /* add child content here */,
+  Widget imageViewCard(String title, Uint8List? image) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 5.0),
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          TextButton(
+              onPressed: () => selectImg(title),
+              child: Text(
+                "Upload an Image",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-            ],
-          )
+          ),
+
+          image != null ? GestureDetector(
+            child: Container(
+              height: 200.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.white),
+                image: DecorationImage(
+                  image: MemoryImage(image!),
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                return MemoryImageFullScreen(image: image,);
+              }));
+            },
+          ) : Container(
+            height: 200.0,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/${
+                    title == frontIcTitle ? "ic_front" :
+                        title == backIcTitle ? "ic_back" : "ic_hold"
+                }.jpg"),
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+            child: null /* add child content here */,
+          ),
+        ],
       ),
     );
   }
@@ -229,14 +220,14 @@ class _VerifyIcViewState extends State<VerifyIcView> {
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10.0),
-              imageCard(frontIcTitle),
-              imageCard(backIcTitle),
-              imageCard(holdIcTitle),
+              imageViewCard(frontIcTitle, _frontImage),
+              imageViewCard(backIcTitle, _backImage),
+              imageViewCard(holdIcTitle, _holdImage),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: ColoredButton(
                   onPressed: updateImage,
-                  childText: "Update",
+                  childText: "Submit",
                 ),
               ),
             ],

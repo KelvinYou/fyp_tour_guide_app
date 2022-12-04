@@ -34,8 +34,6 @@ class _AddBankCardViewState extends State<AddBankCardView> {
       isLoading = true;
     });
 
-
-
     try {
       String res = await FireStoreMethods().addBankCard(
         FirebaseAuth.instance.currentUser!.uid,
@@ -74,11 +72,7 @@ class _AddBankCardViewState extends State<AddBankCardView> {
       appBar: SecondaryAppBar(
           title: "Add New Bank Card"
       ),
-      body: GestureDetector(
-      onTap: () {
-      FocusScope.of(context).requestFocus(new FocusNode());
-      },
-      child: Container(
+      body: Container(
       // width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
@@ -183,7 +177,6 @@ class _AddBankCardViewState extends State<AddBankCardView> {
             ),
           ],
         ),
-      ),
       ),
       ),
     );

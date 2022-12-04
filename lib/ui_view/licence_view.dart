@@ -20,10 +20,24 @@ class _LicenceViewState extends State<LicenceView> {
         ? const Center(
       child: CircularProgressIndicator(),
     ) : Scaffold(
-      appBar: SecondaryAppBar(
+      appBar: const SecondaryAppBar(
           title: "Licence"
       ),
-      body: Text("Coming soon. pls wait for announcement.."),
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+
+            ],
+          ),
+        ),
+      ),
     );
   }
 
