@@ -14,6 +14,7 @@ import 'package:fyp_project/ui_view/tour_package_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/main_container.dart';
 import 'package:fyp_project/ui_view/verify_ic_view.dart';
 
@@ -78,21 +79,6 @@ class _HomeState extends State<Home> {
       MaterialPageRoute(builder: (context) => const TourPackage()),
     );
   }
-  Widget mainTitle(String title) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-            fontWeight: FontWeight.w500,
-            fontSize: 16,
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget selectionView(IconData icon, String title) {
     return Container(
@@ -128,13 +114,9 @@ class _HomeState extends State<Home> {
     double width = MediaQuery. of(context). size. width;
     double height = MediaQuery. of(context). size. height;
 
-    return isLoading
-      ? const Center(
-        child: CircularProgressIndicator(),
-      )
-    : Scaffold(
-      appBar: MainAppBar(title: "Welcome, ${userData["username"]}"),
-      body: Container(
+    return Scaffold(
+      appBar: MainAppBar(title: "Travel Guide"),
+      body: isLoading ? LoadingView() : Container(
         // width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
@@ -144,7 +126,29 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              mainTitle("Start Your Tour Journey"),
+              const SizedBox(height: 10),
+              Center(
+                child: Text(
+                  "Welcome, ${userData["username"]}",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Center(
+                child: Text(
+                  "- Start Your Tour Journey -",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
               MainContainer(
                 needPadding: true,
                 child: Column(

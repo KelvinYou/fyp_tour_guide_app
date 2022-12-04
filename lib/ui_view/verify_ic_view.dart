@@ -9,6 +9,7 @@ import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
 import 'package:fyp_project/widget/image_full_screen.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/memory_image_full_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,6 +28,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
   String holdIcTitle = "IC Hold";
   String status = "";
   var icData = {};
+  int currentStage = 1;
 
   @override
   void initState() {
@@ -87,6 +89,9 @@ class _VerifyIcViewState extends State<VerifyIcView> {
         );
       } else {
         showSnackBar(context, res);
+        setState(() {
+          isLoading = false;
+        });
       }
     } catch (err) {
       setState(() {
@@ -151,7 +156,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
       child: Column(
         children: [
           Text(
-            title,
+            "Step $currentStage: Upload your $title",
             style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontSize: 16,
@@ -198,21 +203,98 @@ class _VerifyIcViewState extends State<VerifyIcView> {
             ),
             child: null /* add child content here */,
           ),
+          const SizedBox(height: 20,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              currentStage > 1 ? (
+                  ElevatedButton(
+                    onPressed: () => setState(() {
+                      currentStage--;
+                    }),
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.arrow_circle_left,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                          "Previous",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ) : (
+                  const SizedBox()
+              ),
+              currentStage < 3 ? (
+                  ElevatedButton(
+                    onPressed: () => {
+                      if (image == null) {
+                        showSnackBar(
+                          context,
+                          'Please select an image',
+                        )
+                      } else {
+                        setState(() {
+                          currentStage++;
+                        })
+                      }
+                    },
+                    child: Row(
+                      children: const [
+                        Text(
+                          "Next",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        Icon(
+                          Icons.arrow_circle_right,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  )
+              ) : (
+                  const SizedBox()
+              ),
+
+            ],
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget stageAvatar(int num) {
+    return CircleAvatar(
+      backgroundColor: num < currentStage + 1 ?
+      Theme.of(context).colorScheme.primary
+          : AppTheme.lightGrey,
+      radius: num < currentStage + 1 ? 15 : 12,
+      child: Text(
+        num.toString(),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: num < currentStage + 1 ? 15 : 12,
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
           title: "IC Verification"
       ),
-      body: Container(
+      body: isLoading ? LoadingView() : Container(
         height: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
@@ -221,16 +303,55 @@ class _VerifyIcViewState extends State<VerifyIcView> {
           child: status == "" ? Column(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10.0),
-              imageViewCard(frontIcTitle, _frontImage),
-              imageViewCard(backIcTitle, _backImage),
-              imageViewCard(holdIcTitle, _holdImage),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: ColoredButton(
-                  onPressed: updateImage,
-                  childText: "Submit",
+                child: Divider(),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    stageAvatar(1),
+                    Icon(
+                      Icons.keyboard_double_arrow_right,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    stageAvatar(2),
+                    Icon(
+                      Icons.keyboard_double_arrow_right,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    stageAvatar(3),
+                  ],
                 ),
+              ),
+
+              const SizedBox(height: 10.0),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: currentStage == 1 ? (
+                  imageViewCard(frontIcTitle, _frontImage)
+                ) : currentStage == 2 ? (
+                  imageViewCard(backIcTitle, _backImage)
+                ) :  imageViewCard(holdIcTitle, _holdImage),
+
+              ),
+
+              const SizedBox(height: 20.0),
+
+              currentStage == 3 ? (
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: ColoredButton(
+                    onPressed: updateImage,
+                    childText: "Submit",
+                  ),
+                )
+
+              ) : (
+                const SizedBox()
               ),
             ],
           ) : Column(

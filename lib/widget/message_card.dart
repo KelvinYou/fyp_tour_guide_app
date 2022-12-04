@@ -78,9 +78,7 @@ class _MessageCardState extends State<MessageCard> {
               child: Text(
                 widget.snap["content"],
                 style: TextStyle(
-                  color: isOwner ?
-                    Theme.of(context).colorScheme.background
-                      : Theme.of(context).colorScheme.primary,
+                  color: Colors.white,
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
                 ),

@@ -40,7 +40,9 @@ class _ChatroomCardState extends State<ChatroomCard> {
 
     ) : Container(
       decoration: BoxDecoration(
-        color: widget.index % 2 == 0 ? AppTheme.backgroundLightGrey : AppTheme.backgroundNearlyWhite,
+        color: widget.index % 2 == 0 ?
+        Theme.of(context).colorScheme.secondaryContainer
+            : Theme.of(context).colorScheme.tertiaryContainer,
         // border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(0),
         // boxShadow: const [ AppTheme.boxShadow ],
@@ -61,8 +63,8 @@ class _ChatroomCardState extends State<ChatroomCard> {
               Text(
                 widget.snap["chatroomTitle"],
                 textAlign: TextAlign.left,
-                style: const TextStyle(
-                  color: AppTheme.lightText,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -74,8 +76,8 @@ class _ChatroomCardState extends State<ChatroomCard> {
                     child: Text(
                       widget.snap["lastMessage"],
                       textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        color: AppTheme.lightText,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.w300,
                         fontSize: 16,
                       ),
@@ -86,8 +88,8 @@ class _ChatroomCardState extends State<ChatroomCard> {
                     child: Text(
                       formatter.format(widget.snap["lastMessageTime"].toDate()),
                       textAlign: TextAlign.right,
-                      style: const TextStyle(
-                        color: AppTheme.lightText,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.w300,
                         fontSize: 16,
                       ),

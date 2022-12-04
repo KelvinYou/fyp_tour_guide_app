@@ -8,6 +8,7 @@ import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/chatroom_card.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 
 class ChatroomView extends StatefulWidget {
   const ChatroomView({super.key});
@@ -53,50 +54,83 @@ class _ChatroomViewState extends State<ChatroomView> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: MainAppBar(title: "Message"),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('chatrooms')
-          .orderBy('lastMessageTime', descending: true)
-          // .where('tourGuideId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          .snapshots(),
-        builder: (context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Container(
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-            ),
-            child: Column(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 5.0,
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (ctx, index) =>
-                          Container(
-                            child: ChatroomCard(
-                              snap: snapshot.data!.docs[index].data(),
-                              index: index,
-                            ),
+      body: isLoading ? LoadingView() : Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('chatrooms')
+                    .orderBy('lastMessageTime', descending: true)
+                // .where('tourGuideId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    .snapshots(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (ctx, index) =>
+                        Container(
+                          child: ChatroomCard(
+                            snap: snapshot.data!.docs[index].data(),
+                            index: index,
                           ),
-                    ),
-                  ),
-                ),
-              ],
+                        ),
+                  );
+                },
+              ),
             ),
-          );
-        },
+          ],
+        ),
       ),
+      // body: StreamBuilder(
+      //   stream: FirebaseFirestore.instance.collection('chatrooms')
+      //       .orderBy('lastMessageTime', descending: true)
+      //   // .where('tourGuideId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      //       .snapshots(),
+      //   builder: (context,
+      //       AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return const Center(
+      //         child: CircularProgressIndicator(),
+      //       );
+      //     }
+      //     return Container(
+      //       height: double.infinity,
+      //       decoration: BoxDecoration(
+      //         color: Theme.of(context).colorScheme.background,
+      //       ),
+      //       child: Column(
+      //         children: [
+      //           Expanded(
+      //             child: SizedBox(
+      //               height: 5.0,
+      //               child: ListView.builder(
+      //                 itemCount: snapshot.data!.docs.length,
+      //                 itemBuilder: (ctx, index) =>
+      //                     Container(
+      //                       child: ChatroomCard(
+      //                         snap: snapshot.data!.docs[index].data(),
+      //                         index: index,
+      //                       ),
+      //                     ),
+      //               ),
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 

@@ -65,8 +65,8 @@ class _TransactionCardState extends State<TransactionCard> {
                         child: Text(
                           widget.snap["receiveFrom"],
                           textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            color: AppTheme.lightText,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
@@ -94,8 +94,8 @@ class _TransactionCardState extends State<TransactionCard> {
                         child: Text(
                           widget.snap["paymentMethod"],
                           textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            color: AppTheme.lightText,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontWeight: FontWeight.w300,
                             fontSize: 16,
                           ),
@@ -106,8 +106,8 @@ class _TransactionCardState extends State<TransactionCard> {
                         child: Text(
                           formatter.format(widget.snap["dateTime"].toDate()),
                           textAlign: TextAlign.right,
-                          style: const TextStyle(
-                            color: AppTheme.darkText,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontWeight: FontWeight.w300,
                             fontSize: 16,
                           ),

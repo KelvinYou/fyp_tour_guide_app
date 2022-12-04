@@ -30,11 +30,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
       appBar: SecondaryAppBar(
           title: "History"
       ),
-      body: GestureDetector(
-        onTap: () {
-      FocusScope.of(context).requestFocus(new FocusNode());
-    },
-    child: Container(
+      body: Container(
     // width: double.infinity,
     height: double.infinity,
     decoration: BoxDecoration(
@@ -80,7 +76,6 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             ],
           );
         },
-      ),
       ),
       ),
     );

@@ -31,9 +31,9 @@ class _TransactionDetailState extends State<TransactionDetail> {
                 child: Text(
                   title,
                   textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: AppTheme.lightText,
-                    // fontWeight: FontWeight.w300,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
                 ),
@@ -43,8 +43,8 @@ class _TransactionDetailState extends State<TransactionDetail> {
                 child: Text(
                   content,
                   textAlign: TextAlign.right,
-                  style: const TextStyle(
-                    color: AppTheme.darkText,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
                     // fontWeight: FontWeight.w300,
                     fontSize: 16,
                   ),
