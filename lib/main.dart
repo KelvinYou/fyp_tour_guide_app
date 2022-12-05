@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/bottom_bar_view.dart';
+import 'package:fyp_project/admin_bottom_bar_view.dart';
 import 'package:fyp_project/ui_view/login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -56,8 +57,13 @@ class MyApp extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.active) {
                 // Checking if the snapshot has any data or not
                 if (snapshot.hasData) {
-                  // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
-                  return const BottomBarView(selectedIndex: 0,);
+                  if(FirebaseAuth.instance.currentUser!.email!.contains("admin")) {
+                    return const AdminBottomBarView(selectedIndex: 0,);
+                  } else {
+                    // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
+                    return const BottomBarView(selectedIndex: 0,);
+                  }
+
                 } else if (snapshot.hasError) {
                   return Center(
                     child: Text('${snapshot.error}'),

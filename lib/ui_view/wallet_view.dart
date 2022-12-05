@@ -5,12 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/ui_view/bank_card_view.dart';
 import 'package:fyp_project/ui_view/reload_view.dart';
+import 'package:fyp_project/ui_view/wallet_statistic.dart';
 import 'package:fyp_project/ui_view/withdraw_view.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
+import 'package:fyp_project/widget/main_container.dart';
 
 
 class Wallet extends StatefulWidget {
@@ -53,6 +55,40 @@ class _WalletState extends State<Wallet> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  Widget selectionView(IconData icon, String title) {
+    return Column(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+          ),
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(icon),
+                  const SizedBox(width: 10.0),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
+                ],
+              ),
+
+              Icon(Icons.chevron_right),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   cashIn() async {
@@ -140,6 +176,32 @@ class _WalletState extends State<Wallet> {
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 60),
+                    MainContainer(
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const WalletStatisticView(),
+                                ),
+                              ),
+                              child: selectionView(Icons.area_chart, "Wallet Statistic")
+                          ),
+                          const Divider(
+                            height: 1,
+                            thickness: 1,
+                            indent: 0,
+                            endIndent: 0,
+                            color: AppTheme.lightGrey,
+                          ),
+                        ],
+                      )
+                    ),
+                  ],
                 ),
               ),
             ),
