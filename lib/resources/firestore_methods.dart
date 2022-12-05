@@ -238,7 +238,7 @@ class FireStoreMethods {
         "Withdraw Balance to Bank",
         "eWallet Balance",
         "Successful",
-        amount + eWalletSnap.data()!["balance"],
+        -amount + eWalletSnap.data()!["balance"],
       );
 
     } catch (err) {

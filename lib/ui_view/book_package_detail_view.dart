@@ -10,6 +10,10 @@ import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/loading_view.dart';
+import 'package:fyp_project/widget/package_card.dart';
+import 'package:fyp_project/widget/tourist_card.dart';
 import 'package:intl/intl.dart';
 
 class BookPackageDetail extends StatefulWidget {
@@ -22,7 +26,9 @@ class BookPackageDetail extends StatefulWidget {
 
 class _BookPackageDetailState extends State<BookPackageDetail> {
   bool isLoading = false;
-  var bookingData = {};
+  var packageData = {};
+  var touristData = {};
+
   List<String> selectedTypes = [];
 
   void initState() {
@@ -35,12 +41,19 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
       isLoading = true;
     });
     try {
-      var bookingSnap = await FirebaseFirestore.instance
+      var packageSnap = await FirebaseFirestore.instance
           .collection('tourPackages')
           .doc(widget.bookPackageDetailSnap["packageId"])
           .get();
 
-      bookingData = bookingSnap.data()!;
+      packageData = packageSnap.data()!;
+
+      var touristSnap = await FirebaseFirestore.instance
+          .collection('tourists')
+          .doc(widget.bookPackageDetailSnap["touristId"])
+          .get();
+
+      touristData = touristSnap.data()!;
 
       setState(() {});
     } catch (e) {
@@ -54,51 +67,69 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
     });
   }
 
-  delete() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    String res = await FireStoreMethods().deletePackage(widget.bookPackageDetailSnap["bookingId"]);
-
-    if (res == "success") {
-      setState(() {
-        isLoading = false;
-      });
-      Navigator.of(context).pop();
-      showSnackBar(context, "Package removed successfully");
-    } else {
-      setState(() {
-        isLoading = false;
-      });
-      showSnackBar(context, res);
-    }
-  }
-
   final DateFormat formatter = DateFormat('dd MMM, H:mm');
+
+  responseBtn(String responseType) async {
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-      ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
         title: "Booking Detail"
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
+      body: isLoading ? LoadingView() : Container(
+        // width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text("Budget: RM ${widget.bookPackageDetailSnap["budget"]}"),
+                child: Divider(),
               ),
+              TouristCard(
+                snap: touristData,
+                index: 1,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Divider(),
+              ),
+              PackageCard(
+                snap: packageData,
+                index: 0,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Divider(),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                width: MediaQuery. of(context). size. width,
+                child: Row(
+                  children: [
+                    Expanded(child: ColoredButton(
+                        onPressed: () => responseBtn("Reject"),
+                        childText: "Reject"),
+                    ),
+                    SizedBox(width: 20,),
+                    Expanded(child: ColoredButton(
+                        onPressed: () => responseBtn("Accept"),
+                        childText: "Accept"),
+                    ),
+                  ],
+                ),
+              ),
+
             ],
           ),
-        ],
+        ),
       ),
     );
   }

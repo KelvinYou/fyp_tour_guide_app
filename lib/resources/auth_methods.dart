@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/models/user.dart' as model;
+import 'package:fyp_project/models/admin.dart' as model2;
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/resources/storage_methods.dart';
 
@@ -37,40 +38,52 @@ class AuthMethods {
           password: password,
         );
 
-        model.User _user = model.User(
+        model2.AdminAccount _admin = model2.AdminAccount(
           uid: cred.user!.uid,
           username: username,
-          fullname: "",
-          phoneNumber: "",
           email: email,
-          isEmailVerified: false,
-          icNumber: "",
-          isIcVerified: false,
-          photoUrl: "https://firebasestorage.googleapis.com/v0/b/fyp-travel-guide-6b527.appspot.com/o/default-avatar.jpg?alt=media",
-          description: "",
-          language: {},
-          rating: 0,
-          rateNumber: 0,
-          totalDone: 0,
-          grade: "New User",
         );
 
-        // adding user in our database
         await _firestore
-            .collection("tourGuides")
+            .collection("admins")
             .doc(cred.user!.uid)
-            .set(_user.toJson());
+            .set(_admin.toJson());
 
-        res = await FireStoreMethods().updateEWallet(
-          cred.user!.uid,
-          0,
-        );
-
-        res = await FireStoreMethods().updateOrder(
-          cred.user!.uid,
-          0,
-          false,
-        );
+        //
+        // model.User _user = model.User(
+        //   uid: cred.user!.uid,
+        //   username: username,
+        //   fullname: "",
+        //   phoneNumber: "",
+        //   email: email,
+        //   isEmailVerified: false,
+        //   icNumber: "",
+        //   isIcVerified: false,
+        //   photoUrl: "https://firebasestorage.googleapis.com/v0/b/fyp-travel-guide-6b527.appspot.com/o/default-avatar.jpg?alt=media",
+        //   description: "",
+        //   language: {},
+        //   rating: 0,
+        //   rateNumber: 0,
+        //   totalDone: 0,
+        //   grade: "New User",
+        // );
+        //
+        // // adding user in our database
+        // await _firestore
+        //     .collection("tourGuides")
+        //     .doc(cred.user!.uid)
+        //     .set(_user.toJson());
+        //
+        // res = await FireStoreMethods().updateEWallet(
+        //   cred.user!.uid,
+        //   0,
+        // );
+        //
+        // res = await FireStoreMethods().updateOrder(
+        //   cred.user!.uid,
+        //   0,
+        //   false,
+        // );
 
       } else {
         res = "Please enter all the fields";

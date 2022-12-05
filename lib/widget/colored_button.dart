@@ -5,10 +5,13 @@ class ColoredButton extends StatelessWidget {
 
   final String childText;
   final VoidCallback onPressed;
+  final bool inverseColor;
 
   ColoredButton({
     required this.onPressed,
-    required this.childText,});
+    required this.childText,
+    this.inverseColor = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +20,13 @@ class ColoredButton extends StatelessWidget {
       child: Ink(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
+          color: inverseColor ? Theme.of(context).colorScheme.background
+              : Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(5.0),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.primary,
+            width: 2.0,
+          )
         ),
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 25.0),

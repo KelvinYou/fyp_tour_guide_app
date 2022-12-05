@@ -25,7 +25,7 @@ class _PackageCardState extends State<PackageCard> {
     super.initState();
   }
 
-  final DateFormat formatter = DateFormat('dd MMM, H:mm');
+  final DateFormat formatter = DateFormat('dd MMM y');
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class _PackageCardState extends State<PackageCard> {
                   ),
                   Expanded(
                     child: Text(
-                      "Content: ${widget.snap["content"]}",
+                      widget.snap["content"],
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 14,

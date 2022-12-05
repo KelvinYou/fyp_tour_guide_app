@@ -36,7 +36,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    getData();
+    // getData();
 
     // AuthMethods().signOut();
     // Navigator.of(context).pushAndRemoveUntil(

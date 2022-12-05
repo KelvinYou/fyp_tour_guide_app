@@ -49,7 +49,8 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
       .map((e) => _TransactionData(
       dateTime: DateTime.fromMillisecondsSinceEpoch(
       e.data()['dateTime'].millisecondsSinceEpoch),
-      transactionAmount: e.data()['transactionAmount']
+      newWalletBalance: e.data()['newWalletBalance'],
+
     )).toList();
     setState(() {
       transactionData = list;
@@ -113,10 +114,10 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
                 backgroundColor: Theme.of(context).colorScheme.background,
 
                 primaryXAxis: DateTimeAxis(
-                  name: "Date"
+                  title: AxisTitle(text: "Date and Time"),
                 ),
                 primaryYAxis: NumericAxis(
-                  name: "RM"
+                  title: AxisTitle(text: "Wallet Balance in RM"),
                 ),
                 zoomPanBehavior: ZoomPanBehavior(
                   enablePinching: true,
@@ -131,11 +132,7 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
                   LineSeries<_TransactionData, DateTime>(
                     dataSource: transactionData,
                     xValueMapper: (_TransactionData data, _) => data.dateTime,
-                    yValueMapper: (_TransactionData data, _) =>
-                    double.parse(
-                        data.transactionAmount!.substring(0, 1)
-                            + data.transactionAmount!.substring(4)
-                    ),
+                    yValueMapper: (_TransactionData data, _) => data.newWalletBalance,
                   ),
                 ],
               ),

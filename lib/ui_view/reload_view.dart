@@ -72,6 +72,7 @@ class _ReloadViewState extends State<ReloadView> {
               builder: (context) => const BottomBarView(selectedIndex: 2),
             ), (Route<dynamic> route) => false,
           );
+          showSnackBar(context, "Reload successfully");
         } else {
           showSnackBar(context, res);
         }
