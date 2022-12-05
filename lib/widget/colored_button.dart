@@ -17,7 +17,7 @@ class ColoredButton extends StatelessWidget {
       child: Ink(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: AppTheme.primary,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: Container(

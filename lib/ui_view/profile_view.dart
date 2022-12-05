@@ -165,7 +165,17 @@ class _ProfileState extends State<Profile> {
                           padding: EdgeInsets.symmetric(horizontal: 10.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            boxShadow: const [ AppTheme.boxShadow ],
+                            boxShadow: [
+                              BoxShadow(
+                                color: Theme.of(context).colorScheme.shadow,
+                                offset: Offset(
+                                  0.0,
+                                  1.0,
+                                ),
+                                blurRadius: 10.0,
+                                spreadRadius: 0.5,
+                              ),
+                            ],
                             color: Colors.yellow,
                           ),
                           child: Text(

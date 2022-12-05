@@ -135,7 +135,7 @@ class _MessageCardState extends State<MessageCard> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(5.0),
                         child: packageData["photoUrl"] != null ? Image.network(
-                          packageData["photoUrl"],) : LoadingView(),
+                          packageData["photoUrl"],) : SizedBox(),
                       ),
                       Text(
                         packageData["packageTitle"] != null ? packageData["packageTitle"] : "",
