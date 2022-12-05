@@ -27,6 +27,10 @@ class _AddPackageState extends State<AddPackage> {
   final packageTitleController = TextEditingController();
   final contentController = TextEditingController();
   final priceController = TextEditingController();
+  String packageTitleErrorMsg = "";
+  String contentErrorMsg = "";
+  String priceErrorMsg = "";
+
   bool isLoading = false;
   int _currentDuration = 1;
   List<String> selectedTypes = [];
@@ -107,16 +111,18 @@ class _AddPackageState extends State<AddPackage> {
               children: [
                 const SizedBox(height: 30.0,),
                 TextFieldInput(
-                    textEditingController: packageTitleController,
-                    hintText: "Package Title",
-                    textInputType: TextInputType.text,
+                  textEditingController: packageTitleController,
+                  hintText: "Package Title",
+                  textInputType: TextInputType.text,
+                  maxLength: 100,
                 ),
                 const SizedBox(height: 20.0,),
                 TextFieldInput(
-                    textEditingController: contentController,
-                    hintText: "Content",
-                    textInputType: TextInputType.multiline,
-                    maxLines: null
+                  textEditingController: contentController,
+                  hintText: "Content",
+                  textInputType: TextInputType.multiline,
+                  maxLines: null,
+                  maxLength: 500,
                 ),
                 const SizedBox(height: 20.0,),
                 TextFieldInput(
@@ -232,7 +238,6 @@ class _AddPackageState extends State<AddPackage> {
                     ),
                     child: _image != null
                         ? Image(
-                      width: double.infinity - 20,
                       image: MemoryImage(_image!),
                     )
                     : Column(

@@ -136,6 +136,7 @@ class FireStoreMethods {
     return res;
   }
 
+
   // Instant Order
   Future<String> updateOrder(String uid, int price, bool onDuty) async {
     String res = "Some error occurred";

@@ -11,11 +11,13 @@ import 'package:fyp_project/ui_view/transaction_detail_view.dart';
 class ChatroomCard extends StatefulWidget {
   final snap;
   final int index;
+  final VoidCallback? function;
 
   const ChatroomCard({
     Key? key,
     required this.snap,
     this.index = 0,
+    this.function,
   }) : super(key: key);
 
   @override
@@ -48,7 +50,9 @@ class _ChatroomCardState extends State<ChatroomCard> {
         // boxShadow: const [ AppTheme.boxShadow ],
       ),
       child: InkWell(
-        onTap: () => Navigator.of(context).push(
+        onTap: widget.function != null ?
+          widget.function
+          : () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => ChatroomDetailView(
               chatroomDetailSnap: widget.snap,

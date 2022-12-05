@@ -42,8 +42,6 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
 
-      tourGuideName = userSnap.data()!['username'];
-
       setState(() {});
     } catch (e) {
       showSnackBar(
@@ -135,6 +133,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                           Container(
                             child: MessageCard(
                               snap: documents[index].data(),
+                              touristName: "Tourist 1",
                               tourGuideName: tourGuideName,
                             ),
                           ),

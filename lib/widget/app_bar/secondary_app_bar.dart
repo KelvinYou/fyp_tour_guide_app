@@ -30,6 +30,16 @@ class SecondaryAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
       ),
       elevation: 0,
+      actions: <Widget>[
+        rightButton != null && function != null ?
+        Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: function,
+              child: Icon( rightButton ),
+            )
+        ) : const SizedBox(),
+      ],
     );
 
   }

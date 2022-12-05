@@ -56,9 +56,9 @@ class _AddBankCardViewState extends State<AddBankCardView> {
 
     if (ccvNumber == "") {
       setState(() {
-        ccvErrorMsg = "Please enter your card's CCV'.";
+        ccvErrorMsg = "Please enter your card's CCV.";
       });
-    } else if (cardNumber.length < 3) {
+    } else if (ccvNumber.length < 3) {
       setState(() {
         ccvErrorMsg = "Please enter the correct CCV.";
       });
@@ -66,13 +66,20 @@ class _AddBankCardViewState extends State<AddBankCardView> {
       ccvFormatCorrected = true;
     }
 
-    if (cardNumber == "") {
+    if (expiredDateNumber == "") {
       setState(() {
-        cardNumberErrorMsg = "Please enter your card's expired date.";
+        expiredDateErrorMsg = "Please enter your card's expired date.";
       });
-    } else if (cardNumber.length < 5) {
+    } else if (expiredDateNumber.length < 5) {
       setState(() {
-        cardNumberErrorMsg = "Please enter the correct card's expired date.";
+        expiredDateErrorMsg = "Please enter the correct card's expired date.";
+
+      });
+    } else if (int.parse(expiredDateNumber.substring(0, 2)) > 12 ||
+        int.parse(expiredDateNumber.substring(0, 2)) < 1) {
+      setState(() {
+        expiredDateErrorMsg = "Invalid month.";
+
       });
     } else {
       expiredDateFormatCorrected = true;
@@ -161,10 +168,13 @@ class _AddBankCardViewState extends State<AddBankCardView> {
             ),
             cardNumberErrorMsg == "" ?
             SizedBox()
-                : Text(
-              cardNumberErrorMsg,
-              style: TextStyle(
-                color: AppTheme.errorRed,
+              : Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                cardNumberErrorMsg,
+                style: TextStyle(
+                  color: AppTheme.errorRed,
+                ),
               ),
             ),
             const SizedBox(height: 20,),
@@ -195,14 +205,7 @@ class _AddBankCardViewState extends State<AddBankCardView> {
                             });
                           },
                         ),
-                        ccvErrorMsg == "" ?
-                        SizedBox()
-                            : Text(
-                          ccvErrorMsg,
-                          style: TextStyle(
-                            color: AppTheme.errorRed,
-                          ),
-                        ),
+
                       ],
                     )
                   ),
@@ -230,18 +233,44 @@ class _AddBankCardViewState extends State<AddBankCardView> {
 
                     ),
                   ),
-                  expiredDateErrorMsg == "" ?
-                  SizedBox()
-                      : Text(
-                    expiredDateErrorMsg,
-                    style: TextStyle(
-                      color: AppTheme.errorRed,
-                    ),
-                  ),
+
                 ],
               ),
 
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ccvErrorMsg == "" ?
+                    SizedBox()
+                        : Text(
+                      ccvErrorMsg,
+                      style: TextStyle(
+                        color: AppTheme.errorRed,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 20,),
+                  Expanded(
+                    child: expiredDateErrorMsg == "" ?
+                    SizedBox()
+                        : Text(
+                      expiredDateErrorMsg,
+                      style: TextStyle(
+                        color: AppTheme.errorRed,
+                      ),
+                    ),
+                  ),
+
+
+                ],
+              ),
+
+            ),
+
+
 
             const SizedBox(height: 20.0),
             Padding(

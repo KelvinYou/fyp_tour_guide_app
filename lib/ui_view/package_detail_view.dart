@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
+import 'package:fyp_project/ui_view/share_to_view.dart';
 import 'package:fyp_project/ui_view/tour_package_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
@@ -58,6 +59,14 @@ class _PackageDetailState extends State<PackageDetail> {
 
   final DateFormat formatter = DateFormat('dd MMM, H:mm');
 
+  share() async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ShareToView(snap: widget.packageDetailSnap),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -65,10 +74,11 @@ class _PackageDetailState extends State<PackageDetail> {
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: SecondaryAppBar(
-        title: widget.packageDetailSnap["packageTitle"]
+        title: widget.packageDetailSnap["packageTitle"],
+        rightButton: Icons.share_outlined,
+        function: share,
       ),
       body: Container(
-      // width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
@@ -77,30 +87,9 @@ class _PackageDetailState extends State<PackageDetail> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text("Type(s): ${
-                    widget.packageDetailSnap["packageType"]
-                        .reduce((value, element) => value + ', ' + element)
-                }"),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text("Type: ${
-                  widget.packageDetailSnap["packageType"]
-                    .reduce((value, element) => value + ', ' + element)
-                }"),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text("Content: ${widget.packageDetailSnap["content"]}"),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text("Duration: ${widget.packageDetailSnap["duration"].toString()} days"),
-              ),
+
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                // margin: EdgeInsets.symmetric(horizontal: 25.0),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
@@ -133,13 +122,39 @@ class _PackageDetailState extends State<PackageDetail> {
                   },
                 ),
               ),
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text("Create Date: ${formatter.format(widget.packageDetailSnap["createDate"].toDate())}"),
+                child: Text("Content:"),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 0),
+                child: Text(
+                  " ${widget.packageDetailSnap["content"]}",
+                  maxLines: null,
+                  style: TextStyle(
+
+                  ),
+                ),
+              ),
+
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 20),
+                child: Text("Type: ${
+                    widget.packageDetailSnap["packageType"]
+                        .reduce((value, element) => value + ', ' + element)
+                }"),
+              ),
+
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text("Duration: ${widget.packageDetailSnap["duration"].toString()} days"),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text("Last Modify Date: ${formatter.format(widget.packageDetailSnap["lastModifyDate"].toDate())}"),
+                child: Text("Create Date: ${formatter.format(widget.packageDetailSnap["createDate"].toDate())}"),
               ),
               SizedBox(height: 20,),
               Padding(

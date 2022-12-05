@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ImageFullScreen extends StatelessWidget {
   final String imageUrl;
@@ -16,13 +15,9 @@ class ImageFullScreen extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
           ),
-          child: Center(
-            child: Hero(
-              tag: 'imageHero',
-              child: Image.network(
-                  imageUrl
-              ),
-
+          child: PhotoView(
+            imageProvider: NetworkImage(
+                imageUrl
             ),
           ),
         ),

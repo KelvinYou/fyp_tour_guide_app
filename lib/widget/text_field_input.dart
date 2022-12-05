@@ -11,6 +11,7 @@ class TextFieldInput extends StatelessWidget {
   final IconData iconData;
   final int? maxLines;
   final String errorMsg;
+  final int? maxLength;
   final Function(String)? onChanged;
   final List<TextInputFormatter>? textInputFormatter;
 
@@ -23,6 +24,7 @@ class TextFieldInput extends StatelessWidget {
     required this.hintText,
     required this.textInputType,
     this.maxLines = 1,
+    this.maxLength,
     this.errorMsg = "",
     this.onChanged,
     this.textInputFormatter,
@@ -40,6 +42,7 @@ class TextFieldInput extends StatelessWidget {
             inputFormatters: textInputFormatter,
             controller: textEditingController,
             maxLines: maxLines,
+            maxLength: maxLength,
             onChanged: onChanged,
             textInputAction: TextInputAction.done,
             keyboardType: textInputType,

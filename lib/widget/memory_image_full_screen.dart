@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 class MemoryImageFullScreen extends StatelessWidget {
   final Uint8List image;
@@ -17,11 +18,9 @@ class MemoryImageFullScreen extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
           ),
-          child: Center(
-            child: Hero(
-              tag: 'imageHero',
-              child: Image.memory(image),
-
+          child: PhotoView(
+            imageProvider: MemoryImage(
+                image
             ),
           ),
         ),

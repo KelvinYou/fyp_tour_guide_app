@@ -53,6 +53,7 @@ dependencies:
   flutter_multi_select_items: ^0.4.2
   numberpicker: ^2.1.1
   flutter_multi_formatter: ^2.9.10
+  photo_view: ^0.14.0
 
 dev_dependencies:
   flutter_test:

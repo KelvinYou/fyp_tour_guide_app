@@ -42,7 +42,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
       // ),
       elevation: 0,
       actions: <Widget>[
-        rightButton != null && VoidCallback != null ?
+        rightButton != null && function != null ?
         Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: GestureDetector(
