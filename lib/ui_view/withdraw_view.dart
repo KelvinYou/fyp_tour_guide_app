@@ -6,6 +6,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -93,14 +94,11 @@ class _WithdrawViewState extends State<WithdrawView> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
           title: "Withdraw"
       ),
-      body: Column(
+      body: isLoading ? LoadingView() : Column(
         children: [
           const SizedBox(height: 20),
           TextFieldInput(

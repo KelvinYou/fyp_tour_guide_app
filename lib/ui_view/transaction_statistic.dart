@@ -13,14 +13,14 @@ import 'package:fyp_project/widget/main_container.dart';
 import 'package:fyp_project/widget/transaction_card.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class WalletStatisticView extends StatefulWidget {
-  const WalletStatisticView({super.key});
+class TransactionStatisticView extends StatefulWidget {
+  const TransactionStatisticView({super.key});
 
   @override
-  State<WalletStatisticView> createState() => _WalletStatisticViewState();
+  State<TransactionStatisticView> createState() => _TransactionStatisticViewState();
 }
 
-class _WalletStatisticViewState extends State<WalletStatisticView> {
+class _TransactionStatisticViewState extends State<TransactionStatisticView> {
   bool isLoading = false;
 
   //Holds the data source of chart
@@ -96,7 +96,7 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SecondaryAppBar(
-          title: "Wallet Statistic"
+          title: "Transaction Statistic"
       ),
       body: isLoading? LoadingView() : Container(
         width: double.infinity,
@@ -109,7 +109,7 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SfCartesianChart(
-                title: ChartTitle(text: "Wallet Balance Growth"),
+                title: ChartTitle(text: "History Record"),
                 backgroundColor: Theme.of(context).colorScheme.background,
 
                 primaryXAxis: DateTimeAxis(

@@ -8,10 +8,12 @@ import 'package:fyp_project/ui_view/reload_view.dart';
 import 'package:fyp_project/ui_view/wallet_statistic.dart';
 import 'package:fyp_project/ui_view/withdraw_view.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
+import 'package:fyp_project/ui_view/transaction_statistic.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/main_container.dart';
 
 
@@ -112,13 +114,9 @@ class _WalletState extends State<Wallet> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     // TODO: implement build
-    return isLoading
-      ? const Center(
-        child: CircularProgressIndicator(),
-      )
-      : Scaffold(
+    return Scaffold(
         appBar: MainAppBar(title: "Wallet"),
-        body: Stack(
+        body: isLoading ? LoadingView() : Stack(
           fit: StackFit.passthrough,
           children: <Widget>[
             Container(
@@ -197,6 +195,14 @@ class _WalletState extends State<Wallet> {
                             indent: 0,
                             endIndent: 0,
                             color: AppTheme.lightGrey,
+                          ),
+                          GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const TransactionStatisticView(),
+                                ),
+                              ),
+                              child: selectionView(Icons.line_axis_outlined, "Transaction Statistic")
                           ),
                         ],
                       )

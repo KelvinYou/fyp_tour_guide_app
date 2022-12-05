@@ -72,8 +72,8 @@ class _ChatroomViewState extends State<ChatroomView> {
                 builder: (context,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return Center(
+                      child: LoadingView(),
                     );
                   }
                   return ListView.builder(

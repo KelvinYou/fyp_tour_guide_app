@@ -8,6 +8,7 @@ class TransactionRecord {
   final String transactionType;
   final String paymentDetails;
   final String paymentMethod;
+  final double newWalletBalance;
   final DateTime dateTime;
   final String status;
 
@@ -19,6 +20,7 @@ class TransactionRecord {
         required this.transactionType,
         required this.paymentDetails,
         required this.paymentMethod,
+        required this.newWalletBalance,
         required this.dateTime,
         required this.status,
       });
@@ -34,6 +36,7 @@ class TransactionRecord {
       transactionType: snapshot["transactionType"],
       paymentDetails: snapshot["paymentDetails"],
       paymentMethod: snapshot["paymentMethod"],
+      newWalletBalance: snapshot["newWalletBalance"],
       dateTime: snapshot["dateTime"],
       status:snapshot["status"],
     );
@@ -47,6 +50,7 @@ class TransactionRecord {
     "transactionType": transactionType,
     "paymentDetails": paymentDetails,
     "paymentMethod": paymentMethod,
+    "newWalletBalance": newWalletBalance,
     "dateTime": dateTime,
     "status": status,
   };

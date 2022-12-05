@@ -194,7 +194,9 @@ class FireStoreMethods {
     String eWalletId = "ewallet_$uid";
 
     try {
-      _firestore.collection('eWallet').doc(eWalletId).update({"balance": amount + eWalletSnap.data()!["balance"]});
+      _firestore.collection('eWallet').doc(eWalletId).update(
+        {"balance": amount + eWalletSnap.data()!["balance"]}
+      );
       res = "success";
 
       addTransaction(
@@ -205,6 +207,7 @@ class FireStoreMethods {
         "Reload Balance",
         "eWallet Balance",
         "Successful",
+        amount + eWalletSnap.data()!["balance"],
       );
 
     } catch (err) {
@@ -235,6 +238,7 @@ class FireStoreMethods {
         "Withdraw Balance to Bank",
         "eWallet Balance",
         "Successful",
+        amount + eWalletSnap.data()!["balance"],
       );
 
     } catch (err) {
@@ -245,7 +249,7 @@ class FireStoreMethods {
 
   // Transaction
   Future<void> addTransaction(String uid, String amount, String transactionType, String receiveFrom,
-      String paymentDetails, String paymentMethod, String status) async {
+      String paymentDetails, String paymentMethod, String status, double newWalletBalance) async {
     // String res = "Some error occurred";
     String transactionId = const Uuid().v1();
 
@@ -258,6 +262,7 @@ class FireStoreMethods {
         transactionType: transactionType,
         paymentDetails: paymentDetails,
         paymentMethod: paymentMethod,
+        newWalletBalance: newWalletBalance,
         dateTime: DateTime.now(),
         status: status,
       );
@@ -409,9 +414,9 @@ class FireStoreMethods {
       if(type == "text") {
         _firestore.collection('chatrooms').doc(chatroomId).update({
           "lastMessage": content, "lastMessageTime": DateTime.now()});
-      } else if (type == "tourPackage") {
+      } else if (type == "package") {
         _firestore.collection('chatrooms').doc(chatroomId).update({
-          "lastMessage": "[Tour package sent]", "lastMessageTime": DateTime.now()});
+          "lastMessage": "Sent you a tour package", "lastMessageTime": DateTime.now()});
       }
 
       res = "success";

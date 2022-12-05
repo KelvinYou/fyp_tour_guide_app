@@ -8,8 +8,35 @@ class LoadingView extends StatelessWidget {
     return Container(
       color: Theme.of(context).colorScheme.background,
       child: Center(
-        child: CircularProgressIndicator(
-          color: Theme.of(context).colorScheme.primary,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              child: Image(
+                image: AssetImage('assets/logo.png'),
+              ),
+            ),
+            const SizedBox(height: 30.0),
+            CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: 20.0),
+            Text(
+              "Preparing the data ...",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            Text(
+              "Please wait for a moment ...",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ],
         ),
       ),
     );

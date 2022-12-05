@@ -8,6 +8,7 @@ import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
 import 'package:fyp_project/widget/main_container.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 
 class Request extends StatefulWidget {
   const Request({super.key});
@@ -81,19 +82,16 @@ class _RequestState extends State<Request> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-      ? const Center(
-        child: CircularProgressIndicator(),
-      ) : Scaffold(
-        appBar: MainAppBar(title: "Order"),
-        body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+    return Scaffold(
+      appBar: MainAppBar(title: "Order"),
+      body: isLoading ? LoadingView() : Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
         ),
         child: SingleChildScrollView(
-        child: Column(
+          child: Column(
             children: [
               const SizedBox(height: 20,),
               MainContainer(

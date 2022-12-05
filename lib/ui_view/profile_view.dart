@@ -18,6 +18,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/providers/user_provider.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/main_container.dart';
 
 class Profile extends StatefulWidget {
@@ -106,11 +107,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-      ? const Center(
-        child: CircularProgressIndicator(),
-      )
-      : Scaffold(
+    return Scaffold(
       appBar: MainAppBar(
         title: "Profile",
         rightButton: Icons.settings,
@@ -120,7 +117,7 @@ class _ProfileState extends State<Profile> {
           ),
         ),
       ),
-      body: Container(
+      body: isLoading ? LoadingView() : Container(
         height: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
