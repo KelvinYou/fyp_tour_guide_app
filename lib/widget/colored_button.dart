@@ -39,7 +39,8 @@ class ColoredButton extends StatelessWidget {
               childText,
               style: TextStyle(
                 fontSize: 16.0,
-                color: Colors.white,
+                color: inverseColor ? Theme.of(context).colorScheme.primary
+                    : Colors.white,
               ),
             ),
         ),

@@ -7,6 +7,7 @@ import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/book_package_card.dart';
 import 'package:fyp_project/widget/colored_button.dart';
 import 'package:fyp_project/widget/main_container.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 
 class PackageBookingListView extends StatefulWidget {
   const PackageBookingListView({super.key});
@@ -52,62 +53,63 @@ class _PackageBookingListViewState extends State<PackageBookingListView> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
           title: "Tour Package Booking List"
       ),
-      body: StreamBuilder(
-        stream: bookingCollection.snapshots(),
-        builder: (context, streamSnapshot) {
-          if (streamSnapshot.hasData) {
-            documents = streamSnapshot.data!.docs;
-            //todo Documents list added to filterTitle
-            documents = documents.where((element) {
-              return element
-                  .get('status')
-                  .contains(status);
-              }).toList();
-          }
-          return Container(
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-            ),
-            child: Column(
+      body: isLoading ? LoadingView() : Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      children: [
-                        topBarSelection("Pending"),
-                        topBarSelection("Accepted"),
-                        topBarSelection("Rejected"),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  Expanded(
-                    child: SizedBox(
-                      height: double.infinity,
-                      child: ListView.builder(
+                  topBarSelection("Pending"),
+                  topBarSelection("Accepted"),
+                  topBarSelection("Rejected"),
+                ],
+              ),
+            ),
+            Divider(),
+            Expanded(
+              child: SizedBox(
+                height: double.infinity,
+                child: StreamBuilder(
+                    stream: bookingCollection
+                        .orderBy('tourDate', descending: false)
+                        .snapshots(),
+                    builder: (context, streamSnapshot) {
+                      if (streamSnapshot.hasData) {
+                        documents = streamSnapshot.data!.docs;
+                        //todo Documents list added to filterTitle
+                        documents = documents.where((element) {
+                          return element
+                              .get('status')
+                              .contains(status);
+                        }).toList();
+                      }
+                      return ListView.builder(
                         itemCount: documents.length,
                         itemBuilder: (ctx, index) =>
                             Container(
                               child: BookPackageCard(
                                 snap: documents[index].data(),
+                                index: index,
                               ),
                             ),
-                      ),
-                    ),
-                  ),
-                ]
+                      );
+                    }
+                ),
+              ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

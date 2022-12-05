@@ -8,9 +8,11 @@ import 'package:intl/intl.dart';
 
 class BookPackageCard extends StatefulWidget {
   final snap;
+  final int index;
   const BookPackageCard({
     Key? key,
     required this.snap,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -28,12 +30,12 @@ class _BookPackageCardState extends State<BookPackageCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-        color: AppTheme.nearlyWhite,
-        border: Border.all(color: Colors.white),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [ AppTheme.boxShadow ],
+        color: widget.index % 2 == 0 ?
+        Theme.of(context).colorScheme.secondaryContainer
+            : Theme.of(context).colorScheme.tertiaryContainer,
       ),
       child: InkWell(
           onTap: () => Navigator.of(context).push(
@@ -43,18 +45,53 @@ class _BookPackageCardState extends State<BookPackageCard> {
               ),
             ),
           ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
-          child: Column(
-            children: [
-              Text("RM ${widget.snap["budget"]}"),
-              Text("Waiting for accept"),
-              const SizedBox(height: 10.0),
-              Text(formatter.format(widget.snap["bookingDate"].toDate())),
-              // Text(widget.snap["content"]),
-            ],
-          ),
-        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "${widget.index + 1}. Tour Package Booking",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                SizedBox(width: 15,),
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10.0),
+                      Text("Payment"),
+                      const SizedBox(height: 10.0),
+                      Text("Tour Date"),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 6,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10.0),
+                      Text(widget.snap["isPaymentMade"] ? "Paid" : "Haven't paid"),
+                      const SizedBox(height: 10.0),
+                      Text(formatter.format(widget.snap["tourDate"].toDate())),
+                      // Text(widget.snap["content"]),
+                    ],
+                  ),
+                ),
+                Icon(Icons.chevron_right),
+                SizedBox(width: 15,),
+              ],
+            ),
+          ],
+        )
       ),
     );
   }

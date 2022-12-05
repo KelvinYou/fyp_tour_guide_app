@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
+import 'package:fyp_project/ui_view/chatroom_detail_view.dart';
 import 'package:fyp_project/ui_view/tour_package_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 
@@ -28,6 +29,7 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
   bool isLoading = false;
   var packageData = {};
   var touristData = {};
+  var chatroomData = {};
 
   List<String> selectedTypes = [];
 
@@ -68,9 +70,57 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
   }
 
   final DateFormat formatter = DateFormat('dd MMM, H:mm');
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   responseBtn(String responseType) async {
+    try {
+      _firestore.collection('booking').doc(
+          widget.bookPackageDetailSnap["bookingId"]).update(
+          {"status": responseType}
+      );
+      showSnackBar(context, responseType);
+    } catch (err) {
+      showSnackBar(context, err.toString());
+    }
+  }
 
+  startChat() async {
+    try {
+      String res = await FireStoreMethods().addChatroom(
+        "Booking ${packageData["packageTitle"]}",
+        widget.bookPackageDetailSnap["tourGuideId"],
+        widget.bookPackageDetailSnap["touristId"],
+        "[no message]",
+      );
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+
+        var chatroomSnap = await FirebaseFirestore.instance
+            .collection('chatrooms')
+            .doc("chatroom_${widget.bookPackageDetailSnap["tourGuideId"]}_${widget.bookPackageDetailSnap["touristId"]}")
+            .get();
+
+        chatroomData = chatroomSnap.data()!;
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ChatroomDetailView(
+                chatroomDetailSnap: chatroomData
+            ),
+          ),
+        );
+      } else {
+        showSnackBar(context, res);
+      }
+    } catch (err) {
+
+      showSnackBar(
+        context,
+        err.toString(),
+      );
+    }
   }
 
   @override
@@ -97,6 +147,10 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 snap: touristData,
                 index: 1,
               ),
+              ColoredButton(
+                  onPressed: startChat,
+                  childText: "Start a chat",
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
@@ -115,12 +169,13 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 child: Row(
                   children: [
                     Expanded(child: ColoredButton(
-                        onPressed: () => responseBtn("Reject"),
-                        childText: "Reject"),
+                      inverseColor: true,
+                      onPressed: () => responseBtn("Rejected"),
+                      childText: "Reject"),
                     ),
                     SizedBox(width: 20,),
                     Expanded(child: ColoredButton(
-                        onPressed: () => responseBtn("Accept"),
+                        onPressed: () => responseBtn("Accepted"),
                         childText: "Accept"),
                     ),
                   ],

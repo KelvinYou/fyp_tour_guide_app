@@ -49,7 +49,9 @@ class _MessageCardState extends State<MessageCard> {
             .doc(widget.snap["content"])
             .get();
 
-        packageData = packageSnap.data()!;
+        if (packageSnap.exists) {
+          packageData = packageSnap.data()!;
+        }
 
         setState(() {});
       } catch (e) {
@@ -60,7 +62,6 @@ class _MessageCardState extends State<MessageCard> {
       }
 
     }
-    print(packageData);
     setState(() {
       isLoading = false;
     });
@@ -138,7 +139,8 @@ class _MessageCardState extends State<MessageCard> {
                           packageData["photoUrl"],) : SizedBox(),
                       ),
                       Text(
-                        packageData["packageTitle"] != null ? packageData["packageTitle"] : "",
+                        packageData["packageTitle"] != null ? packageData["packageTitle"]
+                          : "Package may have been deleted by the tour guide",
                         style: TextStyle(
                           color: isOwner ? Colors.white :
                           Theme.of(context).colorScheme.onPrimary,

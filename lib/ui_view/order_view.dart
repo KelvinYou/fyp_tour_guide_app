@@ -127,7 +127,7 @@ class _RequestState extends State<Request> {
                   child: Column(
                     children: [
                       Text(
-                        "My Booking Received",
+                        "Booking Received",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.w500,

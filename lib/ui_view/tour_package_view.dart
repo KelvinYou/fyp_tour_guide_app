@@ -25,6 +25,7 @@ class TourPackage extends StatefulWidget {
 class _TourPackageState extends State<TourPackage> {
   TextEditingController _searchController = TextEditingController();
   bool ownedOnly = true;
+  bool isDescending = true;
 
   CollectionReference tourPackagesCollection =
     FirebaseFirestore.instance.collection('tourPackages');
@@ -94,7 +95,9 @@ class _TourPackageState extends State<TourPackage> {
                   SizedBox(width: 10,),
                   Expanded(
                     child: GestureDetector(
-                      onTap: addPackage,
+                      onTap: () => setState(() {
+                        isDescending = !isDescending;
+                      }),
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 5),
                         decoration: BoxDecoration(
@@ -105,7 +108,7 @@ class _TourPackageState extends State<TourPackage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Filter",
+                              isDescending ? "Latest on Top" : "Earliest on Top",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -113,7 +116,8 @@ class _TourPackageState extends State<TourPackage> {
                             ),
                             SizedBox(width: 10,),
                             Icon(
-                              Icons.filter_alt_outlined,
+                              isDescending ? Icons.arrow_upward
+                                  : Icons.arrow_downward,
                               color: Colors.white,
                               size: 16,
                             ),
@@ -140,10 +144,13 @@ class _TourPackageState extends State<TourPackage> {
             ),
             SizedBox(height: 10,),
             StreamBuilder(
-              stream: tourPackagesCollection.snapshots(),
+              stream: tourPackagesCollection
+                  .orderBy('createDate', descending: isDescending)
+                  .snapshots(),
               builder: (context, streamSnapshot) {
                 if (streamSnapshot.hasData) {
                   documents = streamSnapshot.data!.docs;
+
                   //todo Documents list added to filterTitle
                   if (searchText.isNotEmpty) {
                     documents = documents.where((element) {

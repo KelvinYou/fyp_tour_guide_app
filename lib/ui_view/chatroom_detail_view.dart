@@ -55,31 +55,33 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
   }
 
   sendMessage() async {
-    try {
-      String res = await FireStoreMethods().sendMessage(
-        widget.chatroomDetailSnap["chatroomId"],
-        FirebaseAuth.instance.currentUser!.uid,
-        // "Hello world",
-        contentController.text,
-        "text",
-      );
-      if (res == "success") {
-        contentController.text = "";
+    if (contentController.text != "") {
+      try {
+        String res = await FireStoreMethods().sendMessage(
+          widget.chatroomDetailSnap["chatroomId"],
+          FirebaseAuth.instance.currentUser!.uid,
+          // "Hello world",
+          contentController.text,
+          "text",
+        );
+        if (res == "success") {
+          contentController.text = "";
 
+          setState(() {
+            isLoading = false;
+          });
+        } else {
+          showSnackBar(context, res);
+        }
+      } catch (err) {
         setState(() {
           isLoading = false;
         });
-      } else {
-        showSnackBar(context, res);
+        showSnackBar(
+          context,
+          err.toString(),
+        );
       }
-    } catch (err) {
-      setState(() {
-        isLoading = false;
-      });
-      showSnackBar(
-        context,
-        err.toString(),
-      );
     }
     FocusManager.instance.primaryFocus?.unfocus();
   }
@@ -170,6 +172,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                 Expanded(
                   flex: 2,
                   child: IconButton(
+                    color: Theme.of(context).colorScheme.primary,
                     icon: Icon(Icons.send),
                     onPressed: sendMessage,
                   ),

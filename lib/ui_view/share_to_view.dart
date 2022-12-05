@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
+import 'package:fyp_project/ui_view/chatroom_detail_view.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/chatroom_card.dart';
@@ -28,10 +29,10 @@ class _ShareToViewState extends State<ShareToView> {
     super.initState();
   }
 
-  share(String chatroomId) async {
+  share(Map<String, dynamic> chatroomData) async {
     try {
       String res = await FireStoreMethods().sendMessage(
-        chatroomId,
+        chatroomData["chatroomId"],
         FirebaseAuth.instance.currentUser!.uid,
         // "Hello world",
         widget.snap["packageId"],
@@ -41,6 +42,11 @@ class _ShareToViewState extends State<ShareToView> {
         setState(() {
           isLoading = false;
         });
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => ChatroomDetailView(chatroomDetailSnap: chatroomData),
+          ),
+        );
       } else {
         showSnackBar(context, res);
       }
@@ -56,12 +62,12 @@ class _ShareToViewState extends State<ShareToView> {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  shareToConfirmation(String chatroomId) async {
+  shareToConfirmation(Map<String, dynamic> chatroomData) async {
     final action = await Dialogs.yesAbortDialog(
         context, 'Confirm to share?', 'Once confirmed, this package details will be sent to the chatroom',
         'Share');
     if (action == DialogAction.yes) {
-      share(chatroomId);
+      share(chatroomData);
     }
   }
 
@@ -97,7 +103,7 @@ class _ShareToViewState extends State<ShareToView> {
                             snap: snapshot.data!.docs[index].data(),
                             index: index,
                             function: () => shareToConfirmation(
-                                snapshot.data!.docs[index].data()["chatroomId"]
+                                snapshot.data!.docs[index].data()
                             ),
                           ),
                         ),

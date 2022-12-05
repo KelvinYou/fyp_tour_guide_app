@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_project/ui_view/book_history_view.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
@@ -143,10 +144,10 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
                       GestureDetector(
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const TransactionHistory(),
+                              builder: (context) => const BookHistoryView(),
                             ),
                           ),
-                          child: selectionView(Icons.area_chart, "Transaction History")
+                          child: selectionView(Icons.area_chart, "Booking History")
                       ),
                     ],
                   )

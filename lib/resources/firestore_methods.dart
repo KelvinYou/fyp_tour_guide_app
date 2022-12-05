@@ -378,7 +378,7 @@ class FireStoreMethods {
   Future<String> addChatroom(String chatroomTitle, String tourGuideId,
       String touristId, String lastMessage) async {
     String res = "Some error occurred";
-    String chatroomId = const Uuid().v1();
+    String chatroomId = "chatroom_${tourGuideId}_$touristId";
     try {
       Chatroom chatroom = Chatroom(
         chatroomId: chatroomId,

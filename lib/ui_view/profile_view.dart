@@ -20,6 +20,8 @@ import 'package:fyp_project/providers/user_provider.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/main_container.dart';
+import 'package:fyp_project/ui_view/book_history_view.dart';
+
 
 class Profile extends StatefulWidget {
   final String uid;
@@ -36,7 +38,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    // getData();
+    getData();
 
     // AuthMethods().signOut();
     // Navigator.of(context).pushAndRemoveUntil(
@@ -284,7 +286,7 @@ class _ProfileState extends State<Profile> {
                           child: GestureDetector(
                             onTap: () => Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const RatingView()),
+                              MaterialPageRoute(builder: (context) => const BookHistoryView()),
                             ),
                             child: Center(
                               child: Column(
