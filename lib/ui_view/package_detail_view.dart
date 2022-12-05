@@ -86,7 +86,7 @@ class _PackageDetailState extends State<PackageDetail> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text("Type(s): ${
+                child: Text("Type: ${
                   widget.packageDetailSnap["packageType"]
                     .reduce((value, element) => value + ', ' + element)
                 }"),

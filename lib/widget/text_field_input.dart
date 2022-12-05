@@ -63,12 +63,12 @@ class TextFieldInput extends StatelessWidget {
 
           errorMsg == "" ?
             SizedBox()
-             : Text(
-              errorMsg,
-              style: TextStyle(
-              color: AppTheme.errorRed,
-              ),
+           : Text(
+            errorMsg,
+            style: TextStyle(
+            color: AppTheme.errorRed,
             ),
+          ),
         ],
       ),
     );

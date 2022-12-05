@@ -33,37 +33,84 @@ class _AddBankCardViewState extends State<AddBankCardView> {
   void submit() async {
     setState(() {
       isLoading = true;
+      cardNumberErrorMsg = "";
+      ccvErrorMsg = "";
+      expiredDateErrorMsg = "";
     });
 
-    try {
-      String res = await FireStoreMethods().addBankCard(
-        FirebaseAuth.instance.currentUser!.uid,
-        cardNumber,
-        ccvNumber,
-        expiredDateNumber,
-      );
-      if (res == "success") {
-        setState(() {
-          isLoading = false;
-        });
+    bool cardNumberFormatCorrected = false;
+    bool ccvFormatCorrected = false;
+    bool expiredDateFormatCorrected = false;
+
+    if (cardNumber == "") {
+      setState(() {
+        cardNumberErrorMsg = "Please enter your card number.";
+      });
+    } else if (cardNumber.length < 19) {
+      setState(() {
+        cardNumberErrorMsg = "Please enter the correct card number.";
+      });
+    } else {
+      cardNumberFormatCorrected = true;
+    }
+
+    if (ccvNumber == "") {
+      setState(() {
+        ccvErrorMsg = "Please enter your card's CCV'.";
+      });
+    } else if (cardNumber.length < 3) {
+      setState(() {
+        ccvErrorMsg = "Please enter the correct CCV.";
+      });
+    } else {
+      ccvFormatCorrected = true;
+    }
+
+    if (cardNumber == "") {
+      setState(() {
+        cardNumberErrorMsg = "Please enter your card's expired date.";
+      });
+    } else if (cardNumber.length < 5) {
+      setState(() {
+        cardNumberErrorMsg = "Please enter the correct card's expired date.";
+      });
+    } else {
+      expiredDateFormatCorrected = true;
+    }
+
+    if (cardNumberFormatCorrected && ccvFormatCorrected && expiredDateFormatCorrected) {
+      try {
+        String res = await FireStoreMethods().addBankCard(
+          FirebaseAuth.instance.currentUser!.uid,
+          cardNumber,
+          ccvNumber,
+          expiredDateNumber,
+        );
+        if (res == "success") {
+          setState(() {
+            isLoading = false;
+          });
+          showSnackBar(
+            context,
+            'Added!',
+          );
+          Navigator.of(context).pop();
+        } else {
+          showSnackBar(context, res);
+        }
+      } catch (err) {
+
         showSnackBar(
           context,
-          'Posted!',
+          err.toString(),
         );
-        Navigator.of(context).pop();
-      } else {
-        showSnackBar(context, res);
       }
-    } catch (err) {
-      setState(() {
-        isLoading = false;
-      });
-      showSnackBar(
-        context,
-        err.toString(),
-      );
     }
-  }
+    setState(() {
+      isLoading = false;
+    });
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +159,14 @@ class _AddBankCardViewState extends State<AddBankCardView> {
                 },
               ),
             ),
+            cardNumberErrorMsg == "" ?
+            SizedBox()
+                : Text(
+              cardNumberErrorMsg,
+              style: TextStyle(
+                color: AppTheme.errorRed,
+              ),
+            ),
             const SizedBox(height: 20,),
 
             Padding(
@@ -140,7 +195,14 @@ class _AddBankCardViewState extends State<AddBankCardView> {
                             });
                           },
                         ),
-
+                        ccvErrorMsg == "" ?
+                        SizedBox()
+                            : Text(
+                          ccvErrorMsg,
+                          style: TextStyle(
+                            color: AppTheme.errorRed,
+                          ),
+                        ),
                       ],
                     )
                   ),
@@ -165,9 +227,17 @@ class _AddBankCardViewState extends State<AddBankCardView> {
                           expiredDateNumber = value;
                         });
                       },
+
                     ),
                   ),
-
+                  expiredDateErrorMsg == "" ?
+                  SizedBox()
+                      : Text(
+                    expiredDateErrorMsg,
+                    style: TextStyle(
+                      color: AppTheme.errorRed,
+                    ),
+                  ),
                 ],
               ),
 

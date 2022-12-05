@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/ui_view/package_detail_view.dart';
+import 'package:fyp_project/widget/image_full_screen.dart';
+import 'package:intl/intl.dart';
 
 class PackageCard extends StatefulWidget {
   final snap;
+  final int index;
   const PackageCard({
     Key? key,
     required this.snap,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -21,15 +25,19 @@ class _PackageCardState extends State<PackageCard> {
     super.initState();
   }
 
+  final DateFormat formatter = DateFormat('dd MMM, H:mm');
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery. of(context). size. width;
+
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+      height: 140,
+      margin: EdgeInsets.symmetric(vertical: 5.0),
       decoration: BoxDecoration(
-        color: AppTheme.nearlyWhite,
-        border: Border.all(color: Colors.white),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [ AppTheme.boxShadow ],
+        color: widget.index % 2 == 0 ?
+        Theme.of(context).colorScheme.secondaryContainer
+            : Theme.of(context).colorScheme.tertiaryContainer,
       ),
       child: InkWell(
           onTap: () => Navigator.of(context).push(
@@ -39,16 +47,69 @@ class _PackageCardState extends State<PackageCard> {
               ),
             ),
           ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
-          child: Column(
-            children: [
-              Text(widget.snap["packageTitle"]),
-              const SizedBox(height: 10.0),
-              Text(widget.snap["content"]),
-            ],
-          ),
-        ),
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+              ),
+              child: Image(
+                width: 140,
+                height: 140,
+                image: NetworkImage( widget.snap["photoUrl"]),
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 10),
+            Container(
+              width: width - 170,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(width: 20),
+                  Text(
+                    widget.snap["packageTitle"],
+                    style: TextStyle(
+                      color: AppTheme.primary,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      "Content: ${widget.snap["content"]}",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontSize: 14,
+                      ),
+                      maxLines: 4,
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(formatter.format(widget.snap["createDate"].toDate())),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )
       ),
     );
   }

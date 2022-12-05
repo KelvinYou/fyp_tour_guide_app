@@ -41,11 +41,6 @@ class _TransactionHistoryState extends State<TransactionHistory> {
           .orderBy('dateTime', descending: true)
           .snapshots(),
         builder: (context, streamSnapshot) {
-          // if (streamSnapshot.connectionState == ConnectionState.waiting) {
-          //   return const Center(
-          //     child: CircularProgressIndicator(),
-          //   );
-          // }
           if (streamSnapshot.hasData) {
             documents = streamSnapshot.data!.docs;
             //todo Documents list added to filterTitle

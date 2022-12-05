@@ -4,11 +4,14 @@ import 'package:fyp_project/utils/app_theme.dart';
 
 class SecondaryAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
-  final IconData rightButton;
+  final IconData? rightButton;
+  final VoidCallback? function;
+
   const SecondaryAppBar({
     Key? key,
     required this.title,
-    this.rightButton = Icons.settings,
+    this.rightButton,
+    this.function,
   }) : super(key: key);
 
   @override
