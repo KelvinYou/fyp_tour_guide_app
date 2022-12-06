@@ -38,52 +38,43 @@ class AuthMethods {
           password: password,
         );
 
-        model2.AdminAccount _admin = model2.AdminAccount(
+        //
+        model.User _user = model.User(
           uid: cred.user!.uid,
           username: username,
+          fullname: "",
+          phoneNumber: "",
           email: email,
+          isEmailVerified: false,
+          icNumber: "",
+          isIcVerified: false,
+          photoUrl: "https://firebasestorage.googleapis.com/v0/b/fyp-travel-guide-6b527.appspot.com/o/default-avatar.jpg?alt=media",
+          description: "",
+          language: {},
+          rating: 0,
+          rateNumber: 0,
+          totalDone: 0,
+          grade: "New User",
         );
 
-        await _firestore
-            .collection("admins")
-            .doc(cred.user!.uid)
-            .set(_admin.toJson());
-
-        //
-        // model.User _user = model.User(
-        //   uid: cred.user!.uid,
-        //   username: username,
-        //   fullname: "",
-        //   phoneNumber: "",
-        //   email: email,
-        //   isEmailVerified: false,
-        //   icNumber: "",
-        //   isIcVerified: false,
-        //   photoUrl: "https://firebasestorage.googleapis.com/v0/b/fyp-travel-guide-6b527.appspot.com/o/default-avatar.jpg?alt=media",
-        //   description: "",
-        //   language: {},
-        //   rating: 0,
-        //   rateNumber: 0,
-        //   totalDone: 0,
-        //   grade: "New User",
-        // );
-        //
         // // adding user in our database
-        // await _firestore
-        //     .collection("tourGuides")
-        //     .doc(cred.user!.uid)
-        //     .set(_user.toJson());
-        //
-        // res = await FireStoreMethods().updateEWallet(
-        //   cred.user!.uid,
-        //   0,
-        // );
-        //
-        // res = await FireStoreMethods().updateOrder(
-        //   cred.user!.uid,
-        //   0,
-        //   false,
-        // );
+        await _firestore
+            .collection("tourGuides")
+            .doc(cred.user!.uid)
+            .set(_user.toJson());
+
+        res = await FireStoreMethods().updateEWallet(
+          cred.user!.uid,
+          0,
+        );
+
+        res = await FireStoreMethods().updateOrder(
+          cred.user!.uid,
+          0,
+          false,
+          0,
+          0,
+        );
 
       } else {
         res = "Please enter all the fields";

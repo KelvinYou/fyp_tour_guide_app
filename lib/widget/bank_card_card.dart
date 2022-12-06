@@ -14,11 +14,13 @@ import 'package:fyp_project/ui_view/transaction_detail_view.dart';
 class BankCardCard extends StatefulWidget {
   final snap;
   final int index;
+  final String? reloadOrWithdraw;
 
   const BankCardCard({
     Key? key,
     required this.snap,
     required this.index,
+    this.reloadOrWithdraw,
   }) : super(key: key);
 
   @override

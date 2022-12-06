@@ -124,7 +124,7 @@ class AppTheme {
     fontFamily: 'Schyler',
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,
-      primary: Color(0xFF525252),
+      primary: primary,
       onPrimary: Colors.white,
       primaryContainer: backgroundDarkGrey,
       onPrimaryContainer: Colors.black,

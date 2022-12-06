@@ -10,14 +10,18 @@ import 'package:fyp_project/widget/bank_card_card.dart';
 import 'package:fyp_project/widget/colored_button.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 
-class BankCardView extends StatefulWidget {
-  const BankCardView({super.key});
+class SelectBankCardView extends StatefulWidget {
+  final String reloadOrWithdraw;
+  const SelectBankCardView({
+    super.key,
+    required this.reloadOrWithdraw,
+  });
 
   @override
-  State<BankCardView> createState() => _BankCardViewState();
+  State<SelectBankCardView> createState() => _SelectBankCardViewState();
 }
 
-class _BankCardViewState extends State<BankCardView> {
+class _SelectBankCardViewState extends State<SelectBankCardView> {
   bool isLoading = false;
 
   CollectionReference bankCardsCollection =
@@ -28,7 +32,7 @@ class _BankCardViewState extends State<BankCardView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SecondaryAppBar(
-          title: "Bank Cards"
+          title: "Select A Bank Card .. "
       ),
       body: isLoading ? LoadingView() : Container(
         height: double.infinity,
@@ -83,6 +87,7 @@ class _BankCardViewState extends State<BankCardView> {
                         child: BankCardCard(
                           snap: documents[index].data(),
                           index: index,
+                          reloadOrWithdraw: widget.reloadOrWithdraw,
                         ),
                       ),
                   );

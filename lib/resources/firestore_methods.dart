@@ -138,7 +138,8 @@ class FireStoreMethods {
 
 
   // Instant Order
-  Future<String> updateOrder(String uid, int price, bool onDuty) async {
+  Future<String> updateOrder(String uid, int price, bool onDuty,
+      double currentLongitude, double currentLatitude) async {
     String res = "Some error occurred";
     String orderID = "instant_$uid";
     try {
@@ -147,6 +148,8 @@ class FireStoreMethods {
         ownerID: uid,
         price: price,
         onDuty: onDuty,
+        currentLongitude: currentLongitude,
+        currentLatitude: currentLatitude,
       );
       _firestore.collection('instantOrder').doc(orderID).set(instantOrder.toJson());
       res = "success";
