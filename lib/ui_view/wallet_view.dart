@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/ui_view/bank_card_view.dart';
 import 'package:fyp_project/ui_view/reload_view.dart';
+import 'package:fyp_project/ui_view/select_bank_card_view.dart';
 import 'package:fyp_project/ui_view/wallet_statistic.dart';
 import 'package:fyp_project/ui_view/withdraw_view.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
@@ -96,7 +97,9 @@ class _WalletState extends State<Wallet> {
   cashIn() async {
     Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const ReloadView(),
+          builder: (context) => const SelectBankCardView(
+              reloadOrWithdraw: "Reload"
+          ),
         )
     );
   }
@@ -104,7 +107,9 @@ class _WalletState extends State<Wallet> {
   cashOut() async {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const WithdrawView(),
+        builder: (context) => const SelectBankCardView(
+            reloadOrWithdraw: "Withdraw"
+        ),
       )
     );
   }

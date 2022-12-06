@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fyp_project/ui_view/change_profile_view.dart';
+import 'package:fyp_project/ui_view/instant_history_view.dart';
 import 'package:fyp_project/ui_view/rating_view.dart';
 import 'package:fyp_project/ui_view/licence_view.dart';
 
@@ -18,6 +19,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/providers/user_provider.dart';
 import 'package:fyp_project/widget/app_bar/main_app_bar.dart';
+import 'package:fyp_project/widget/dialogs.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/main_container.dart';
 import 'package:fyp_project/ui_view/book_history_view.dart';
@@ -284,10 +286,24 @@ class _ProfileState extends State<Profile> {
                         Expanded(
                           flex: 1,
                           child: GestureDetector(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const BookHistoryView()),
-                            ),
+                            onTap: () async {
+                              final action = await Dialogs.selectionAbortDialog(
+                                  context, '', '',
+                                  'Instant Order', 'Tour Package');
+                              if (action == DialogSelection.first) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const BookHistoryView(),
+                                  ),
+                                );
+                              } else if (action == DialogSelection.second) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const InstantHistoryView(),
+                                  ),
+                                );
+                              }
+                            },
                             child: Center(
                               child: Column(
                                 children: [

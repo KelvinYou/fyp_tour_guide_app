@@ -6,58 +6,57 @@ import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/book_package_card.dart';
 import 'package:fyp_project/widget/colored_button.dart';
-import 'package:fyp_project/widget/main_container.dart';
 import 'package:fyp_project/widget/loading_view.dart';
+import 'package:fyp_project/widget/main_container.dart';
 
-class PackageBookingListView extends StatefulWidget {
-  const PackageBookingListView({super.key});
+class InstantHistoryView extends StatefulWidget {
+  const InstantHistoryView({super.key});
 
   @override
-  State<PackageBookingListView> createState() => _PackageBookingListViewState();
+  State<InstantHistoryView> createState() => _InstantHistoryViewState();
 }
 
-class _PackageBookingListViewState extends State<PackageBookingListView> {
+class _InstantHistoryViewState extends State<InstantHistoryView> {
   bool isLoading = false;
-  String status = "Pending";
+  String status = "Completed";
   CollectionReference bookingCollection =
   FirebaseFirestore.instance.collection('bookings');
   List<DocumentSnapshot> documents = [];
 
   Widget topBarSelection(String title) {
     return Expanded(
-        child: GestureDetector(
-          onTap: () => setState(() {
-            status = title;
-          }),
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 5.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: status == title ?
-              Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.background,
-            ),
-            child: Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: status == title ? Colors.white : Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+      child: GestureDetector(
+        onTap: () => setState(() {
+          status = title;
+        }),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 5.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: status == title ?
+            Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.background,
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: status == title ? Colors.white : Theme.of(context).colorScheme.onPrimary,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
         ),
+      ),
     );
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SecondaryAppBar(
-          title: "Tour Package Booking List"
+          title: "Instant Order History"
       ),
       body: isLoading ? LoadingView() : Container(
         height: double.infinity,
@@ -70,9 +69,9 @@ class _PackageBookingListViewState extends State<PackageBookingListView> {
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
                 children: [
-                  topBarSelection("Pending"),
-                  topBarSelection("Accepted"),
+                  topBarSelection("Completed"),
                   topBarSelection("Rejected"),
+                  topBarSelection("Canceled"),
                 ],
               ),
             ),

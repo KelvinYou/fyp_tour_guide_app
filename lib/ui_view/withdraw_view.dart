@@ -14,55 +14,95 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 class WithdrawView extends StatefulWidget {
-  const WithdrawView({super.key});
+  final String bankNum;
+  const WithdrawView({
+    required this.bankNum,
+    super.key,
+  });
 
   @override
   State<WithdrawView> createState() => _WithdrawViewState();
 }
 
 class _WithdrawViewState extends State<WithdrawView> {
-  final reloadController = TextEditingController();
-  String reloadErrorMsg = "";
+  final withdrawController = TextEditingController();
+  String withdrawErrorMsg = "";
   bool isLoading = false;
+  var eWalletData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var eWalletSnap = await FirebaseFirestore.instance
+          .collection('eWallet')
+          .doc("ewallet_${FirebaseAuth.instance.currentUser!.uid}")
+          .get();
+
+      eWalletData = eWalletSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   submit() async {
     setState(() {
       isLoading = true;
-      reloadErrorMsg = "";
+      withdrawErrorMsg = "";
     });
 
-    bool reloadFormatCorrected = false;
-    double reloadAmount = 0;
+    bool withdrawFormatCorrected = false;
+    double withdrawAmount = 0;
 
     try {
-      reloadAmount = double.parse(reloadController.text);
+      withdrawAmount = double.parse(withdrawController.text);
     } catch (err) {
       setState(() {
-        reloadErrorMsg = err.toString();
+        withdrawErrorMsg = err.toString();
       });
     }
 
-    if (reloadController.text == "") {
+    if (withdrawController.text == "") {
       setState(() {
-        reloadErrorMsg = "Please enter the reload amount";
+        withdrawErrorMsg = "Please enter the withdraw amount";
       });
-    } else if (reloadAmount < 10) {
+    } else if (withdrawAmount < 1) {
       setState(() {
-        reloadErrorMsg = "The minimum reload amount is RM10";
+        withdrawErrorMsg = "The minimum withdraw amount is RM1";
       });
-    } else {
-      reloadFormatCorrected = true;
+    } else if (withdrawAmount > eWalletData["balance"]) {
+      setState(() {
+        withdrawErrorMsg = "The maximum withdraw amount is RM${eWalletData["balance"].toStringAsFixed(2)}";
+      });
+    }else {
+      withdrawFormatCorrected = true;
     }
 
     setState(() {
       isLoading = false;
     });
 
-    if (reloadFormatCorrected) {
+    if (withdrawFormatCorrected) {
       try {
         String res = await FireStoreMethods().withdrawEWallet(
           FirebaseAuth.instance.currentUser!.uid,
-          reloadAmount,
+          withdrawAmount,
+          widget.bankNum,
         );
         if (res == "success") {
           setState(() {
@@ -98,23 +138,30 @@ class _WithdrawViewState extends State<WithdrawView> {
       appBar: SecondaryAppBar(
           title: "Withdraw"
       ),
-      body: isLoading ? LoadingView() : Column(
+      body: isLoading ? LoadingView() : Container(
+      // width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.background,
+      ),
+      child: Column(
         children: [
           const SizedBox(height: 20),
           TextFieldInput(
-            textEditingController: reloadController,
+            textEditingController: withdrawController,
             hintText: "Withdraw Amount: RM",
             textInputType: TextInputType.number,
             iconData: Icons.attach_money,
-            errorMsg: reloadErrorMsg,
+            errorMsg: withdrawErrorMsg,
           ),
-          Text("Min withdraw amount is RM10"),
+          Text("Available amount for withdraw: RM${eWalletData["balance"].toStringAsFixed(2)}"),
           const SizedBox(height: 20),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.0),
             child: ColoredButton(onPressed: submit, childText: "Withdraw"),
           ),
         ],
+      ),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +14,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp_project/utils/utils.dart';
 
 class ReloadView extends StatefulWidget {
-  const ReloadView({super.key});
+  final String bankNum;
+  const ReloadView({
+    required this.bankNum,
+    super.key,
+  });
 
   @override
   State<ReloadView> createState() => _ReloadViewState();
@@ -62,6 +67,7 @@ class _ReloadViewState extends State<ReloadView> {
         String res = await FireStoreMethods().reloadEWallet(
           FirebaseAuth.instance.currentUser!.uid,
           reloadAmount,
+          widget.bankNum,
         );
         if (res == "success") {
           setState(() {
@@ -94,7 +100,7 @@ class _ReloadViewState extends State<ReloadView> {
       appBar: SecondaryAppBar(
           title: "Reload"
       ),
-      body: Container(
+      body: isLoading ? LoadingView() : Container(
         // width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
@@ -123,3 +129,4 @@ class _ReloadViewState extends State<ReloadView> {
   }
 
 }
+

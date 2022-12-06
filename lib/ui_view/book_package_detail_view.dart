@@ -78,11 +78,12 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
 
   responseBtn(String responseType) async {
     try {
-      _firestore.collection('booking').doc(
+      _firestore.collection('bookings').doc(
           widget.bookPackageDetailSnap["bookingId"]).update(
           {"status": responseType}
       );
       showSnackBar(context, responseType);
+      Navigator.of(context).pop();
     } catch (err) {
       showSnackBar(context, err.toString());
     }
@@ -158,7 +159,7 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: ColoredButton(
                   onPressed: startChat,
-                  childText: "Start a chat",
+                  childText: "Chat with Tourist",
                 ),
               ),
               Padding(
@@ -178,7 +179,8 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
-              packageData.isEmpty ? SizedBox() : Container(
+              packageData.isEmpty ? SizedBox() :
+              widget.bookPackageDetailSnap["status"] != "Pending" ? SizedBox() : Container(
                 margin: EdgeInsets.symmetric(horizontal: 25.0),
                 width: MediaQuery. of(context). size. width,
                 child: Row(

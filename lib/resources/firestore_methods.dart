@@ -186,7 +186,7 @@ class FireStoreMethods {
     }
   }
 
-  Future<String> reloadEWallet(String uid, double amount) async {
+  Future<String> reloadEWallet(String uid, double amount, String bankNum) async {
     String res = "Some error occurred";
 
     var eWalletSnap = await FirebaseFirestore.instance
@@ -207,7 +207,7 @@ class FireStoreMethods {
         ringgitFormatter(amount),
         "Receive from Wallet",
         "Reload Balance",
-        "Reload Balance",
+        "Reload Balance From Bank ${bankNum}",
         "eWallet Balance",
         "Successful",
         amount + eWalletSnap.data()!["balance"],
@@ -219,7 +219,7 @@ class FireStoreMethods {
     return res;
   }
 
-  Future<String> withdrawEWallet(String uid, double amount) async {
+  Future<String> withdrawEWallet(String uid, double amount, bankNum) async {
     String res = "Some error occurred";
 
     var eWalletSnap = await FirebaseFirestore.instance
@@ -237,8 +237,8 @@ class FireStoreMethods {
         uid,
         ringgitFormatter(-amount),
         "Deduct from Wallet",
-        "Withdraw Balance to Bank",
-        "Withdraw Balance to Bank",
+        "Withdraw Balance",
+        "Withdraw Balance to Bank ${bankNum}",
         "eWallet Balance",
         "Successful",
         -amount + eWalletSnap.data()!["balance"],

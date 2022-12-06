@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
+import 'package:fyp_project/ui_view/reload_view.dart';
+import 'package:fyp_project/ui_view/withdraw_view.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/utils/utils.dart';
@@ -48,7 +50,7 @@ class _BankCardCardState extends State<BankCardCard> {
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width) - 52;
 
-    return Container(
+    return widget.reloadOrWithdraw == null ? Container(
       decoration: BoxDecoration(
         color: widget.index % 2 == 0 ?
           Theme.of(context).colorScheme.secondaryContainer
@@ -101,6 +103,116 @@ class _BankCardCardState extends State<BankCardCard> {
             ),
           ),
         ],
+      ),
+    ) : widget.reloadOrWithdraw == "Reload" ? GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ReloadView(
+              bankNum: "•••• •••• •••• ${widget.snap["cardNumber"].substring(
+                  widget.snap["cardNumber"].length - 4
+              )}",
+          ),
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: widget.index % 2 == 0 ?
+          Theme.of(context).colorScheme.secondaryContainer
+              : Theme.of(context).colorScheme.tertiaryContainer,
+          borderRadius: BorderRadius.circular(0),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Image.network(
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/800px-Mastercard-logo.svg.png',
+                        height: 30,
+                        width: 30,
+                      ),
+                      const SizedBox(width: 30.0),
+                      Text(
+                        "•••• •••• •••• ${widget.snap["cardNumber"].substring(
+                            widget.snap["cardNumber"].length - 4
+                        )}",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Icon(CupertinoIcons.right_chevron),
+
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ) : GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => WithdrawView(
+            bankNum: "•••• •••• •••• ${widget.snap["cardNumber"].substring(
+                widget.snap["cardNumber"].length - 4
+            )}",
+          ),
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: widget.index % 2 == 0 ?
+          Theme.of(context).colorScheme.secondaryContainer
+              : Theme.of(context).colorScheme.tertiaryContainer,
+          borderRadius: BorderRadius.circular(0),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Image.network(
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/800px-Mastercard-logo.svg.png',
+                        height: 30,
+                        width: 30,
+                      ),
+                      const SizedBox(width: 30.0),
+                      Text(
+                        "•••• •••• •••• ${widget.snap["cardNumber"].substring(
+                            widget.snap["cardNumber"].length - 4
+                        )}",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Icon(CupertinoIcons.right_chevron),
+
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

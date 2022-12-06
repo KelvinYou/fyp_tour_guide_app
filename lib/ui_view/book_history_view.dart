@@ -18,9 +18,9 @@ class BookHistoryView extends StatefulWidget {
 
 class _BookHistoryViewState extends State<BookHistoryView> {
   bool isLoading = false;
-  String status = "Pending";
+  String status = "Completed";
   CollectionReference bookingCollection =
-  FirebaseFirestore.instance.collection('booking');
+  FirebaseFirestore.instance.collection('bookings');
   List<DocumentSnapshot> documents = [];
 
   Widget topBarSelection(String title) {
@@ -56,7 +56,7 @@ class _BookHistoryViewState extends State<BookHistoryView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SecondaryAppBar(
-          title: "Tour Package Booking List"
+          title: "Tour Package Booking History"
       ),
       body: isLoading ? LoadingView() : Container(
         height: double.infinity,
