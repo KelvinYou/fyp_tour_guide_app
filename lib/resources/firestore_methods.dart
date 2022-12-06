@@ -336,6 +336,19 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> deleteVerifyIC(String uid) async {
+    String res = "Some error occurred";
+    String verifyIcId = "ic_$uid";
+
+    try {
+      _firestore.collection('icVerifications').doc(verifyIcId).delete();
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
   Future<String> updateLicence(String uid, Uint8List? licenceFile) async {
     String res = "Some error occurred";
     String licenceId = "licence_$uid";
@@ -352,6 +365,7 @@ class FireStoreMethods {
         );
 
         _firestore.collection('licences').doc(licenceId).set(tourLicence.toJson());
+
         res = "success";
       } else {
         res = "Please select an image";
@@ -362,12 +376,12 @@ class FireStoreMethods {
     return res;
   }
 
-  Future<String> deleteVerifyIC(String uid) async {
+  Future<String> deleteLicence(String uid) async {
     String res = "Some error occurred";
-    String verifyIcId = "ic_$uid";
+    String licenceId = "licence_$uid";
 
     try {
-      _firestore.collection('icVerifications').doc(verifyIcId).delete();
+      _firestore.collection('licences').doc(licenceId).delete();
       res = "success";
     } catch (err) {
       res = err.toString();

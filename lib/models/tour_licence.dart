@@ -27,7 +27,7 @@ class TourLicence {
   Map<String, dynamic> toJson() => {
     "licenceId": licenceId,
     "ownerId": ownerId,
-    "icFrontPic": licencePhotoUrl,
+    "licencePhotoUrl": licencePhotoUrl,
     "status": status,
   };
 }

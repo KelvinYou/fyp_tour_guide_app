@@ -116,6 +116,7 @@ class _MessageCardState extends State<MessageCard> {
                 ),
               ),
             ) ) : (
+                packageData["packageTitle"] != null ?
               GestureDetector(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -139,8 +140,7 @@ class _MessageCardState extends State<MessageCard> {
                           packageData["photoUrl"],) : SizedBox(),
                       ),
                       Text(
-                        packageData["packageTitle"] != null ? packageData["packageTitle"]
-                          : "Package may have been deleted by the tour guide",
+                        packageData["packageTitle"],
                         style: TextStyle(
                           color: isOwner ? Colors.white :
                           Theme.of(context).colorScheme.onPrimary,
@@ -152,6 +152,27 @@ class _MessageCardState extends State<MessageCard> {
                     ],
                   ),
                 )
+              ) : Container(
+                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+                decoration: BoxDecoration(
+                  color: isOwner ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.background,
+                  border: Border.all(color: isOwner ?
+                  Theme.of(context).colorScheme.background
+                      : Theme.of(context).colorScheme.primary
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                  // boxShadow: const [ AppTheme.boxShadow ],
+                ),
+                child: Text(
+                  "<This package may have been deleted by the tour guide>",
+                  style: TextStyle(
+                    color: isOwner ? Colors.white :
+                    Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
               )
             ),
 

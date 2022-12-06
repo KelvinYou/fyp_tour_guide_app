@@ -48,14 +48,18 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
           .doc(widget.bookPackageDetailSnap["packageId"])
           .get();
 
-      packageData = packageSnap.data()!;
+      if (packageSnap.exists) {
+        packageData = packageSnap.data()!;
+      }
 
       var touristSnap = await FirebaseFirestore.instance
           .collection('tourists')
           .doc(widget.bookPackageDetailSnap["touristId"])
           .get();
 
-      touristData = touristSnap.data()!;
+      if (touristSnap.exists) {
+        touristData = touristSnap.data()!;
+      }
 
       setState(() {});
     } catch (e) {
@@ -143,19 +147,30 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
-              TouristCard(
+              touristData.isEmpty ? Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text("The tourist may have been deleted"),
+              ) : TouristCard(
                 snap: touristData,
                 index: 1,
               ),
-              ColoredButton(
+              touristData.isEmpty ? SizedBox() : Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: ColoredButton(
                   onPressed: startChat,
                   childText: "Start a chat",
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
-              PackageCard(
+              packageData.isEmpty ?
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Text("Package may have been deleted"),
+                )
+                : PackageCard(
                 snap: packageData,
                 index: 0,
               ),
@@ -163,7 +178,7 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
-              Container(
+              packageData.isEmpty ? SizedBox() : Container(
                 margin: EdgeInsets.symmetric(horizontal: 25.0),
                 width: MediaQuery. of(context). size. width,
                 child: Row(

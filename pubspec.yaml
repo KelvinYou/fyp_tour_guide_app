@@ -92,6 +92,7 @@ flutter:
     - assets/ic_front.jpg
     - assets/ic_back.jpg
     - assets/ic_hold.jpg
+    - assets/Badge.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
