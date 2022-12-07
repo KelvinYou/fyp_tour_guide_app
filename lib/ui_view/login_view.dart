@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(emailController.text)) {
       setState(() {
-        emailErrorMsg = "Incorrect email format.\nPlease enter the correct email.";
+        emailErrorMsg = "Incorrect email format.\nE.g. correct email: name@email.com.";
       });
     } else {
       emailFormatCorrected = true;

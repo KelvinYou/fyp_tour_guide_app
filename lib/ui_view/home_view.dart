@@ -148,159 +148,64 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              MainContainer(
-                needPadding: true,
-                child: Column(
-                  children: [
-                    Text(
-                      "My Personal Detail",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Username"),
-                            const SizedBox(height: 5),
-                            Text("Full Name"),
-                            const SizedBox(height: 5),
-                            Text("Phone Number"),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(userData["username"] != "" ? userData["username"] : "[No username]"),
-                            const SizedBox(height: 5),
-                            Text(userData["fullname"] != "" ? userData["fullname"] : "[No full name]"),
-                            const SizedBox(height: 5),
-                            Text(userData["phoneNumber"] != "" ? userData["phoneNumber"] : "[No phone number]"),
-                          ],
-                        ),
-                        IconButton(
-                            onPressed: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const EditProfileView(),
-                              ),
-                            ),
-                            icon: Icon(Icons.edit_note_outlined)
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    const Divider(
-                      height: 1,
-                      thickness: 1,
-                      indent: 0,
-                      endIndent: 0,
-                      color: AppTheme.lightGrey,
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      "My Guide Detail",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              child: Text(
-                                "Description : ${
-                                    userData["description"] != "" ?
-                                    userData["description"]
-                                        : "No description"}",
-                              ),
-                            )
-
-                          ],
-                        ),
-
-                        IconButton(
-                            onPressed: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const GuideDetail(),
-                              ),
-                            ),
-                            icon: Icon(Icons.edit_note_outlined)
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ),
               const SizedBox(height: 20,),
               MainContainer(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Column(
+                child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: hourlyOrder,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      "My Hourly Order",
-                                      style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onPrimary,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "On duty",
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        child: GestureDetector(
+                          onTap: hourlyOrder,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.background,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        "My Hourly Order",
                                         style: TextStyle(
+                                          color: Theme.of(context).colorScheme.onPrimary,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 15,
                                         ),
                                       ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "On duty:",
+                                          style: TextStyle(
+                                          ),
+                                        ),
 
-                                      Switch(
-                                        value: instantOrderData["onDuty"],
-                                        onChanged: (value) {
-                                          setState(() {
-                                          });
-                                        },
-                                        activeTrackColor: Colors.lightBlueAccent,
-                                        activeColor: AppTheme.primary,
-                                      ),
-                                    ],
-                                  ),
-                                  Text("Price: RM ${instantOrderData["price"].toStringAsFixed(2)}  / Hour"),
-                                ],
-                              ),
-                              Icon(Icons.chevron_right)
-                            ],
+                                        Switch(
+                                          value: instantOrderData["onDuty"],
+                                          onChanged: (value) {
+                                            setState(() {
+                                            });
+                                          },
+                                          activeTrackColor: Colors.lightBlueAccent,
+                                          activeColor: AppTheme.primary,
+                                        ),
+                                      ],
+                                    ),
+                                    Text("Price: RM ${instantOrderData["price"].toStringAsFixed(2)}  / Hour"),
+                                  ],
+                                ),
+                                Icon(Icons.chevron_right)
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10,),
+
                       const Divider(
                         height: 1,
                         thickness: 1,
@@ -308,10 +213,10 @@ class _HomeState extends State<Home> {
                         endIndent: 0,
                         color: AppTheme.lightGrey,
                       ),
-                      const SizedBox(height: 10,),
                       GestureDetector(
                         onTap: tourPackage,
                         child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.background,
                           ),
@@ -325,7 +230,7 @@ class _HomeState extends State<Home> {
                                       "My Tour Package",
                                       style: TextStyle(
                                         color: Theme.of(context).colorScheme.onPrimary,
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w700,
                                         fontSize: 15,
                                       ),
                                     ),
@@ -337,14 +242,141 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
+                      const Divider(
+                        height: 1,
+                        thickness: 1,
+                        indent: 0,
+                        endIndent: 0,
+                        color: AppTheme.lightGrey,
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const GuideDetail(),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Guide Detail",
+                                    style: TextStyle(
+                                      color: Theme.of(context).colorScheme.onPrimary,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Icon(Icons.edit_note_outlined),
+                                ],
+                              )
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: SizedBox(
+                                width: width - 80,
+                                child: Text(
+                                  "Description : ${
+                                      userData["description"] != "" ?
+                                      userData["description"]
+                                          : "No description"}",
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                     ],
-                  ),
                 ),
               ),
               const SizedBox(height: 20.0),
               MainContainer(
                 child: Column(
                   children: [
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const EditProfileView(),
+                        ),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Personal Detail",
+                                      style: TextStyle(
+                                        color: Theme.of(context).colorScheme.onPrimary,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    Icon(Icons.edit_note_outlined),
+                                  ],
+                                )
+                            ),
+                            const SizedBox(height: 5),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: (width - 80) / 3,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Username:"),
+                                        const SizedBox(height: 5),
+                                        Text("Full Name:"),
+                                        const SizedBox(height: 5),
+                                        Text("Phone Number:"),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: (width - 80) * 2 / 3,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(userData["username"] != "" ? userData["username"] : "[No username]"),
+                                        const SizedBox(height: 5),
+                                        Text(userData["fullname"] != "" ? userData["fullname"] : "[No full name]"),
+                                        const SizedBox(height: 5),
+                                        Text(userData["phoneNumber"] != "" ? userData["phoneNumber"] : "[No phone number]"),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Divider(
+                      height: 1,
+                      thickness: 1,
+                      indent: 0,
+                      endIndent: 0,
+                      color: AppTheme.lightGrey,
+                    ),
+
                     GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(

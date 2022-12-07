@@ -124,7 +124,7 @@ class _OrderRequestDetailState extends State<OrderRequestDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SecondaryAppBar(
-        title: "Booking Detail"
+        title: "Order Request Detail"
       ),
       body: isLoading ? LoadingView() : Container(
         // width: double.infinity,

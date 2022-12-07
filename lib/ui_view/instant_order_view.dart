@@ -10,6 +10,8 @@ import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/loading_view.dart';
+import 'package:fyp_project/widget/main_container.dart';
 
 import 'package:fyp_project/widget/text_field_input.dart';
 import 'package:geocoding/geocoding.dart';
@@ -150,22 +152,42 @@ class _InstantOrderState extends State<InstantOrder> {
   }
 
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-        child: CircularProgressIndicator(),
-      )
-      : Scaffold(
+    return Scaffold(
         appBar: SecondaryAppBar(
             title: "Hourly Order Detail"
         ),
-        body: Container(
+        body: isLoading ? LoadingView() : Container(
           height: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
           ),
           child: Column(
             children: [
-            Text('ADDRESS: ${_currentAddress ?? ""}'),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Divider(),
+              ),
+              MainContainer(
+                needPadding: true,
+                child: Column(
+                  children: [
+                    Text(
+                      "Your Current Location Address:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Divider(),
+                    Text(
+                      _currentAddress ?? "Calculating ... ",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                )
+              ),
             const SizedBox(height: 32),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),

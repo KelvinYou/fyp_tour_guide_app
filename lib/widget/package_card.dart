@@ -50,6 +50,8 @@ class _PackageCardState extends State<PackageCard> {
         child: Row(
           children: [
             Container(
+              width: 140,
+              height: 140,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
               ),

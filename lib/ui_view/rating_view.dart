@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 
 class RatingView extends StatefulWidget {
   const RatingView({super.key});
@@ -16,15 +17,22 @@ class _RatingViewState extends State<RatingView> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
           title: "Rating"
       ),
-      body: Text("Coming soon. pls wait for announcement.."),
+      body: isLoading? LoadingView() : Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        ),
+        child: Column(
+          children: [
+            
+          ],
+        ),
+      ),
     );
   }
-
 }

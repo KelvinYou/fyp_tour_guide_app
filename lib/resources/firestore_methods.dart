@@ -396,16 +396,23 @@ class FireStoreMethods {
       String touristId, String lastMessage) async {
     String res = "Some error occurred";
     String chatroomId = "chatroom_${tourGuideId}_$touristId";
+
     try {
-      Chatroom chatroom = Chatroom(
-        chatroomId: chatroomId,
-        chatroomTitle: chatroomTitle,
-        tourGuideId: tourGuideId,
-        touristId: touristId,
-        lastMessage: lastMessage,
-        lastMessageTime: DateTime.now(),
-      );
-      _firestore.collection('chatrooms').doc(chatroomId).set(chatroom.toJson());
+      var chatroomSnap = await _firestore.collection('chatrooms')
+          .doc(chatroomId).get();
+
+      if(!chatroomSnap.exists) {
+        Chatroom chatroom = Chatroom(
+          chatroomId: chatroomId,
+          chatroomTitle: chatroomTitle,
+          tourGuideId: tourGuideId,
+          touristId: touristId,
+          lastMessage: lastMessage,
+          lastMessageTime: DateTime.now(),
+        );
+        _firestore.collection('chatrooms').doc(chatroomId).set(chatroom.toJson());
+      }
+
       res = "success";
     } catch (err) {
       res = err.toString();

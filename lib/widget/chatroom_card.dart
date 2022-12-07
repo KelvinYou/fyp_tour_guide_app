@@ -76,9 +76,10 @@ class _ChatroomCardState extends State<ChatroomCard> {
               Row(
                 children: [
                   SizedBox(
-                    width: width * 0.6,
+                    width: width * 0.7,
                     child: Text(
-                      widget.snap["lastMessage"],
+                      widget.snap["lastMessage"].length < 20 ? widget.snap["lastMessage"]
+                      : "${widget.snap["lastMessage"].substring(0, 19).replaceAll(RegExp(r'\n'), ' ')} ...",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
@@ -88,7 +89,7 @@ class _ChatroomCardState extends State<ChatroomCard> {
                     ),
                   ),
                   SizedBox(
-                    width: width * 0.4,
+                    width: width * 0.3,
                     child: Text(
                       formatter.format(widget.snap["lastMessageTime"].toDate()),
                       textAlign: TextAlign.right,

@@ -73,7 +73,7 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
     });
   }
 
-  final DateFormat formatter = DateFormat('dd MMM, H:mm');
+  final DateFormat formatter = DateFormat('dd MMM y');
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   responseBtn(String responseType) async {
@@ -128,6 +128,35 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
     }
   }
 
+  int rowNum = 0;
+
+  Widget detailRow(String title, String content) {
+    setState(() {
+      rowNum++;
+    });
+
+    return Container(
+      decoration: BoxDecoration(
+          color: rowNum % 2 == 1 ? Theme.of(context).colorScheme.secondaryContainer
+              : Theme.of(context).colorScheme.tertiaryContainer
+      ),
+      padding: EdgeInsets.symmetric(vertical: 5.0),
+      child: Row(
+        children: [
+          SizedBox(width: 10,),
+          Expanded(
+            flex: 4,
+            child: Text(title),
+          ),
+          Expanded(
+            flex: 6,
+            child: Text(content != "" ? content : "<No Data>"),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,6 +177,25 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
+              detailRow("Tour Date: ", formatter.format(widget.bookPackageDetailSnap["bookingDate"].toDate())),
+              detailRow("Price: ", "RM ${widget.bookPackageDetailSnap["price"]}"),
+              detailRow("Status: ", widget.bookPackageDetailSnap["status"]),
+              detailRow("Payment: ", widget.bookPackageDetailSnap["isPaymentMade"] ? "Paid" : "Haven't Paid"),
+              detailRow("Create By: ", formatter.format(widget.bookPackageDetailSnap["bookingDate"].toDate())),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text(
+                  "Request By: ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
               touristData.isEmpty ? Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Text("The tourist may have been deleted"),
@@ -165,6 +213,16 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text(
+                  "Tour Package: ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
               packageData.isEmpty ?
                 Padding(

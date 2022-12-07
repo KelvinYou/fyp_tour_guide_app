@@ -163,16 +163,15 @@ class _VerifyIcViewState extends State<VerifyIcView> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          TextButton(
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            child: ColoredButton(
               onPressed: () => selectImg(title),
-              child: Text(
-                "Upload an Image",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
+              childText: "Upload an Image",
+              inverseColor: true,
+            ),
           ),
-
+          const SizedBox(height: 20),
           image != null ? GestureDetector(
             child: Container(
               height: 200.0,

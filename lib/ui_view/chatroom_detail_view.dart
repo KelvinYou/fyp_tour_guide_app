@@ -24,6 +24,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
   TextEditingController contentController = TextEditingController();
   bool isLoading = false;
   String tourGuideName = '';
+  String touristName = '';
 
   @override
   void initState() {
@@ -37,12 +38,20 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
       isLoading = true;
     });
     try {
-      var userSnap = await FirebaseFirestore.instance
+      var tourGuideSnap = await FirebaseFirestore.instance
           .collection('tourGuides')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(widget.chatroomDetailSnap["tourGuideId"])
           .get();
 
-      setState(() {});
+      var touristSnap = await FirebaseFirestore.instance
+          .collection('tourists')
+          .doc(widget.chatroomDetailSnap["touristId"])
+          .get();
+
+      setState(() {
+        tourGuideName = tourGuideSnap.data()!["username"];
+        touristName = touristSnap.data()!["username"];
+      });
     } catch (e) {
       showSnackBar(
         context,
@@ -135,7 +144,7 @@ class _ChatroomDetailViewState extends State<ChatroomDetailView> {
                           Container(
                             child: MessageCard(
                               snap: documents[index].data(),
-                              touristName: "Tourist 1",
+                              touristName: touristName,
                               tourGuideName: tourGuideName,
                             ),
                           ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fyp_project/ui_view/tourist_detail_view.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
@@ -33,7 +34,7 @@ class _TouristCardState extends State<TouristCard> {
     double width = MediaQuery. of(context). size. width;
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5.0),
+      margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
       decoration: BoxDecoration(
         color: widget.index % 2 == 0 ?
         Theme.of(context).colorScheme.secondaryContainer
@@ -48,8 +49,57 @@ class _TouristCardState extends State<TouristCard> {
             ),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(widget.snap["username"]),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 36.0,
+                    backgroundImage: NetworkImage(
+                      widget.snap["photoUrl"],
+                    ),
+                    backgroundColor: Colors.grey,
+                  ),
+                  const SizedBox(width: 10.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.snap['username'],
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
+                      SizedBox(height: 5.0),
+                      Row(
+                        children: [
+                          RatingBarIndicator(
+                            rating: widget.snap['rating'],
+                            itemBuilder: (context, index) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            itemCount: 5,
+                            itemSize: 24.0,
+                            direction: Axis.horizontal,
+                          ),
+                          SizedBox(width: 10.0),
+                          Text(
+                            widget.snap['rating'].toString(),
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context).colorScheme.onPrimary
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Icon(Icons.chevron_right),
             ],
           )
       ),

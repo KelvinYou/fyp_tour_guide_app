@@ -151,21 +151,24 @@ class _LicenceViewState extends State<LicenceView> {
       padding: EdgeInsets.symmetric(vertical: 5.0),
       child: Column(
         children: [
-          Text(
-            "Step",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            child: Text(
+              "Upload your tour guide licence",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
-          TextButton(
-            onPressed: () => selectImg(title),
-            child: Text(
-              "Upload an Image",
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            child: ColoredButton(
+              onPressed: () => selectImg(title),
+              childText: "Upload an Image",
+              inverseColor: true,
             ),
           ),
 
