@@ -53,7 +53,6 @@ class _PackageBookingListViewState extends State<PackageBookingListView> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SecondaryAppBar(

@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_project/ui_view/book_package_detail_view.dart';
+import 'package:fyp_project/ui_view/order_request_detail_view.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/ui_view/package_detail_view.dart';
@@ -9,10 +12,14 @@ import 'package:intl/intl.dart';
 class OrderRequestCard extends StatefulWidget {
   final snap;
   final int index;
+  final double? tourGuideLongitude;
+  final double? tourGuideLatitude;
   const OrderRequestCard({
     Key? key,
     required this.snap,
     required this.index,
+    this.tourGuideLongitude,
+    this.tourGuideLatitude,
   }) : super(key: key);
 
   @override
@@ -27,6 +34,18 @@ class _OrderRequestCardState extends State<OrderRequestCard> {
 
   final DateFormat formatter = DateFormat('dd MMM, H:mm');
 
+  double _calculateDistance(double lat1, double lng1, lat2, lng2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lng2 - lng1) * p)) / 2;
+    var distanceInKiloMeters = 12742 * asin(sqrt(a));
+
+    /// return as distance in Meters
+    return distanceInKiloMeters * 1000;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,8 +59,8 @@ class _OrderRequestCardState extends State<OrderRequestCard> {
       child: InkWell(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => BookPackageDetail(
-                  bookPackageDetailSnap: widget.snap,
+              builder: (context) => OrderRequestDetail(
+                  orderRequestDetailSnap: widget.snap,
               ),
             ),
           ),
@@ -70,6 +89,15 @@ class _OrderRequestCardState extends State<OrderRequestCard> {
                       Text("Payment"),
                       const SizedBox(height: 10.0),
                       Text("Start Time"),
+                      const SizedBox(height: 10.0),
+                      Text(
+                        widget.tourGuideLongitude != null
+                          && widget.tourGuideLatitude != null?
+                        "${(_calculateDistance(widget.snap["currentLatitude"],
+                        widget.snap["currentLatitude"], widget.tourGuideLatitude,
+                        widget.tourGuideLongitude) / 1000)
+                            .toStringAsFixed(3)} KM" : " "
+                      ),
                     ],
                   ),
                 ),
@@ -82,6 +110,8 @@ class _OrderRequestCardState extends State<OrderRequestCard> {
                       Text(widget.snap["isPaymentMade"] ? "Paid" : "Haven't paid"),
                       const SizedBox(height: 10.0),
                       Text(formatter.format(widget.snap["startTime"].toDate())),
+                      const SizedBox(height: 10.0),
+
                       // Text(widget.snap["content"]),
                     ],
                   ),

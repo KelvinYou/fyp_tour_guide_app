@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
+import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
-import 'package:fyp_project/widget/book_package_card.dart';
-import 'package:fyp_project/widget/colored_button.dart';
-import 'package:fyp_project/widget/loading_view.dart';
-import 'package:fyp_project/widget/main_container.dart';
+import 'package:fyp_project/widget/order_request_card.dart';
 
 class InstantHistoryView extends StatefulWidget {
   const InstantHistoryView({super.key});
@@ -19,9 +18,40 @@ class InstantHistoryView extends StatefulWidget {
 class _InstantHistoryViewState extends State<InstantHistoryView> {
   bool isLoading = false;
   String status = "Completed";
-  CollectionReference bookingCollection =
-  FirebaseFirestore.instance.collection('bookings');
+  var instantData = {};
+  CollectionReference requestCollection =
+  FirebaseFirestore.instance.collection('orderRequests');
   List<DocumentSnapshot> documents = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var instantSnap = await FirebaseFirestore.instance
+          .collection('instantOrder')
+          .doc("instant_${FirebaseAuth.instance.currentUser!.uid}")
+          .get();
+
+      instantData = instantSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   Widget topBarSelection(String title) {
     return Expanded(
@@ -54,11 +84,14 @@ class _InstantHistoryViewState extends State<InstantHistoryView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading
+        ? const Center(
+      child: CircularProgressIndicator(),
+    ) : Scaffold(
       appBar: SecondaryAppBar(
-          title: "Instant Order History"
+          title: "Instant Order List"
       ),
-      body: isLoading ? LoadingView() : Container(
+      body: Container(
         height: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
@@ -80,8 +113,8 @@ class _InstantHistoryViewState extends State<InstantHistoryView> {
               child: SizedBox(
                 height: double.infinity,
                 child: StreamBuilder(
-                    stream: bookingCollection
-                        .orderBy('tourDate', descending: false)
+                    stream: requestCollection
+                        .orderBy('startTime', descending: false)
                         .snapshots(),
                     builder: (context, streamSnapshot) {
                       if (streamSnapshot.hasData) {
@@ -97,9 +130,11 @@ class _InstantHistoryViewState extends State<InstantHistoryView> {
                         itemCount: documents.length,
                         itemBuilder: (ctx, index) =>
                             Container(
-                              child: BookPackageCard(
+                              child: OrderRequestCard(
                                 snap: documents[index].data(),
                                 index: index,
+                                tourGuideLatitude: instantData["currentLatitude"],
+                                tourGuideLongitude: instantData["currentLatitude"],
                               ),
                             ),
                       );

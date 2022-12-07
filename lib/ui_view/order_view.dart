@@ -60,35 +60,6 @@ class _RequestState extends State<Request> {
     });
   }
 
-  Widget topCountNum(String title, int number) {
-    return Expanded(
-      child: Container(
-          padding: EdgeInsets.symmetric(vertical: 5.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Theme.of(context).colorScheme.background,
-          ),
-          child: Column(
-            children: [
-              Text(
-                number.toString(),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 24,
-                ),
-              ),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-              ),
-            ]
-          ),
-        ),
-    );
-  }
-
   Widget selectionView(IconData icon, String title) {
     return Column(
       children: [
@@ -136,29 +107,18 @@ class _RequestState extends State<Request> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 20,),
-              const SizedBox(height: 10,),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  children: [
-                    topCountNum("Booking Pending", bookingData.length),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10,),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 30,),
               MainContainer(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Column(
                     children: [
                       Text(
-                        "Booking Received",
+                        "Booking Pending",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onPrimary,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
                         ),
                       ),
                       GestureDetector(
@@ -178,13 +138,14 @@ class _RequestState extends State<Request> {
                               Expanded(
                                 child: Text("Instant Order"),
                               ),
-                              CircleAvatar(
+                              instantData.length == 0 ? SizedBox() : CircleAvatar(
                                 backgroundColor: Colors.red,
                                 radius: 12,
                                 child: Text(
                                   instantData.length.toString(),
                                   style: TextStyle(
                                     color: Colors.white,
+                                    fontSize: 12,
                                   ),
                                 ),
                               ),
@@ -217,13 +178,14 @@ class _RequestState extends State<Request> {
                               Expanded(
                                 child: Text("Tour Package Order"),
                               ),
-                              CircleAvatar(
+                              bookingData.length == 0 ? SizedBox() : CircleAvatar(
                                 backgroundColor: Colors.red,
                                 radius: 12,
                                 child: Text(
                                   bookingData.length.toString(),
                                   style: TextStyle(
                                     color: Colors.white,
+                                    fontSize: 12,
                                   ),
                                 ),
                               ),

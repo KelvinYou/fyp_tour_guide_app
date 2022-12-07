@@ -74,8 +74,8 @@ class _InstantOrderState extends State<InstantOrder> {
       FirebaseAuth.instance.currentUser!.uid,
       int.parse(_priceController.text),
       isOnDuty,
-      _currentPosition!.latitude,
       _currentPosition!.longitude,
+      _currentPosition!.latitude,
     );
     if (res == "success") {
       setState(() {

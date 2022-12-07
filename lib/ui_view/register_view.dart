@@ -22,9 +22,11 @@ class _RegisterState extends State<Register> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _reenterPasswordController = TextEditingController();
   String usernameErrorMsg = "";
   String emailErrorMsg = "";
   String passwordErrorMsg = "";
+  String reenterPasswordErrorMsg = "";
 
   bool _isLoading = false;
 
@@ -47,10 +49,11 @@ class _RegisterState extends State<Register> {
     bool usernameFormatCorrected = false;
     bool emailFormatCorrected = false;
     bool passwordFormatCorrected = false;
+    bool reenterPasswordFormatCorrected = false;
 
     if (_usernameController.text == "") {
       setState(() {
-        usernameErrorMsg = "Please enter your username";
+        usernameErrorMsg = "The Username cannot be empty.";
       });
     } else {
       usernameFormatCorrected = true;
@@ -58,7 +61,13 @@ class _RegisterState extends State<Register> {
 
     if (_emailController.text == "") {
       setState(() {
-        emailErrorMsg = "Please enter your email address";
+        emailErrorMsg = "Please enter your email address.";
+      });
+    } else if (!RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(_emailController.text)) {
+      setState(() {
+        emailErrorMsg = "Incorrect email format.\nPlease enter the correct email.";
       });
     } else {
       emailFormatCorrected = true;
@@ -66,13 +75,34 @@ class _RegisterState extends State<Register> {
 
     if (_passwordController.text == "") {
       setState(() {
-        passwordErrorMsg = "Please enter your password";
+        passwordErrorMsg = "Please enter your new password.";
+      });
+    } else if (_passwordController.text.length < 6) {
+      setState(() {
+        passwordErrorMsg = "Please enter at least 6 or more characters.";
       });
     } else {
       passwordFormatCorrected = true;
     }
 
-    if (usernameFormatCorrected && usernameFormatCorrected && usernameFormatCorrected) {
+    if (_reenterPasswordController.text == "") {
+      setState(() {
+        reenterPasswordErrorMsg = "Please re-enter your new password.";
+      });
+    } else if (_reenterPasswordController.text.length < 6) {
+      setState(() {
+        reenterPasswordErrorMsg = "Please enter at least 6 or more characters.";
+      });
+    } else if (_passwordController.text != _reenterPasswordController.text) {
+      setState(() {
+        reenterPasswordErrorMsg = "The password doesn't match the password enter above.";
+      });
+    } else {
+      reenterPasswordFormatCorrected = true;
+    }
+
+    if (usernameFormatCorrected && emailFormatCorrected
+        && passwordFormatCorrected && reenterPasswordFormatCorrected) {
       String res = await AuthMethods().signUpUser(
         email: _emailController.text,
         password: _passwordController.text,
@@ -121,20 +151,21 @@ class _RegisterState extends State<Register> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50.0),
-                Container(
-                  margin: const EdgeInsets.only(left: 30.0),
-                  child: const Image(
-                    width: 150,
-                    image: AssetImage('assets/logo.png'),
-                  ),
-                ),
-                const SizedBox(height: 5.0),
                 const Text(
                   "Travel Guide",
                   style: TextStyle(
                     color: AppTheme.primary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 24,
+                    fontSize: 26,
+                  ),
+                ),
+                const SizedBox(height: 5.0),
+                const Text(
+                  "Be A Tour Guide With Us",
+                  style: TextStyle(
+                    color: AppTheme.primary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(height: 25.0),
@@ -169,7 +200,16 @@ class _RegisterState extends State<Register> {
                   iconData: Icons.lock_open_sharp,
                 ),
                 const SizedBox(height: 10.0),
-
+                // password textfield
+                TextFieldInput(
+                  textEditingController: _reenterPasswordController,
+                  hintText: "Re-enter Password",
+                  isPass: true,
+                  textInputType: TextInputType.text,
+                  errorMsg: reenterPasswordErrorMsg,
+                  iconData: Icons.lock_open_sharp,
+                ),
+                const SizedBox(height: 10.0),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.0),
                   child: ColoredButton(
