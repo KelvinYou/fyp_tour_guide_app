@@ -47,9 +47,8 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
 
     List<_TransactionData> list = snapShotsValue.docs
       .map((e) => _TransactionData(
-      dateTime: DateTime.fromMillisecondsSinceEpoch(
-      e.data()['dateTime'].millisecondsSinceEpoch),
-      transactionAmount: e.data()['transactionAmount']
+        transactionType: e.data()['transactionType'],
+        transactionAmount: e.data()['transactionAmount'],
     )).toList();
     setState(() {
       transactionData = list;
@@ -112,7 +111,7 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
                 title: ChartTitle(text: "History Record"),
                 backgroundColor: Theme.of(context).colorScheme.background,
 
-                primaryXAxis: DateTimeAxis(
+                primaryXAxis: CategoryAxis(
                   name: "Date"
                 ),
                 primaryYAxis: NumericAxis(
@@ -127,10 +126,10 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
                   zoomMode: ZoomMode.x,
                   maximumZoomLevel: 0.01,
                 ),
-                series: <ChartSeries<_TransactionData, DateTime>>[
-                  LineSeries<_TransactionData, DateTime>(
+                series: <ChartSeries<_TransactionData, String>>[
+                  BarSeries<_TransactionData, String>(
                     dataSource: transactionData,
-                    xValueMapper: (_TransactionData data, _) => data.dateTime,
+                    xValueMapper: (_TransactionData data, _) => data.transactionType,
                     yValueMapper: (_TransactionData data, _) =>
                     double.parse(
                         data.transactionAmount!.substring(0, 1)

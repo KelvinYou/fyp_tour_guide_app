@@ -154,7 +154,7 @@ class _InstantOrderState extends State<InstantOrder> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: SecondaryAppBar(
-            title: "Hourly Order Detail"
+            title: "Instant Order Detail"
         ),
         body: isLoading ? LoadingView() : Container(
           height: double.infinity,

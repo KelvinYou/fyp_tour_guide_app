@@ -58,6 +58,7 @@ class _PackageCardState extends State<PackageCard> {
               child: Image(
                 width: 140,
                 height: 140,
+                fit: BoxFit.fitHeight,
                 image: NetworkImage( widget.snap["photoUrl"]),
                 loadingBuilder: (BuildContext context, Widget child,
                     ImageChunkEvent? loadingProgress) {

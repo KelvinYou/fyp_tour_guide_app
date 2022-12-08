@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,7 +21,15 @@ import 'package:intl/intl.dart';
 
 class OrderRequestDetail extends StatefulWidget {
   final orderRequestDetailSnap;
-  const OrderRequestDetail({super.key, required this.orderRequestDetailSnap});
+  final double tourGuideLatitude;
+  final double tourGuideLongitude;
+
+  const OrderRequestDetail({
+    super.key,
+    required this.orderRequestDetailSnap,
+    required this.tourGuideLongitude,
+    required this.tourGuideLatitude,
+  });
 
   @override
   State<OrderRequestDetail> createState() => _OrderRequestDetailState();
@@ -120,6 +130,47 @@ class _OrderRequestDetailState extends State<OrderRequestDetail> {
     }
   }
 
+  int rowNum = 0;
+
+  Widget detailRow(String title, String content) {
+    setState(() {
+      rowNum++;
+    });
+
+    return Container(
+      decoration: BoxDecoration(
+          color: rowNum % 2 == 1 ? Theme.of(context).colorScheme.secondaryContainer
+              : Theme.of(context).colorScheme.tertiaryContainer
+      ),
+      padding: EdgeInsets.symmetric(vertical: 5.0),
+      child: Row(
+        children: [
+          SizedBox(width: 10,),
+          Expanded(
+            flex: 4,
+            child: Text(title),
+          ),
+          Expanded(
+            flex: 6,
+            child: Text(content != "" ? content : "<No Data>"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  double _calculateDistance(double lat1, double lng1, lat2, lng2) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lng2 - lng1) * p)) / 2;
+    var distanceInKiloMeters = 12742 * asin(sqrt(a));
+
+    /// return as distance in Meters
+    return distanceInKiloMeters * 1000;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,6 +191,21 @@ class _OrderRequestDetailState extends State<OrderRequestDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
+
+              detailRow("Tourist Current Address: ", widget.orderRequestDetailSnap["address"]),
+
+              detailRow("Distance: ", widget.tourGuideLongitude != null
+                  && widget.tourGuideLatitude != null?
+              "${(_calculateDistance(widget.orderRequestDetailSnap["currentLatitude"],
+                  widget.orderRequestDetailSnap["currentLatitude"], widget.tourGuideLatitude,
+                  widget.tourGuideLongitude) / 1000)
+                  .toStringAsFixed(3)} KM" : " "),
+
+              detailRow("Payment: ", widget.orderRequestDetailSnap["isPaymentMade"] ?
+              "Paid" : "Haven't Paid"),
+
+              detailRow("Start Time: ", formatter.format(widget.orderRequestDetailSnap["startTime"].toDate())),
+
               touristData.isEmpty ? Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Text("The tourist may have been deleted"),

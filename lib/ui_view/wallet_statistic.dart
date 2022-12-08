@@ -119,6 +119,9 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
                 ),
                 primaryYAxis: NumericAxis(
                   title: AxisTitle(text: "Wallet Balance in RM"),
+                  majorTickLines: const MajorTickLines(color: Colors.transparent),
+                  axisLine: const AxisLine(width: 0),
+
                 ),
                 zoomPanBehavior: ZoomPanBehavior(
                   enablePinching: true,
@@ -130,11 +133,16 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
                   maximumZoomLevel: 0.01,
                 ),
                 series: <ChartSeries<_TransactionData, DateTime>>[
-                  LineSeries<_TransactionData, DateTime>(
+                  AreaSeries<_TransactionData, DateTime>(
                     dataSource: transactionData,
                     xValueMapper: (_TransactionData data, _) => data.dateTime,
                     yValueMapper: (_TransactionData data, _) => data.newWalletBalance,
+                    name: 'Gold',
+                    color: const Color.fromRGBO(223, 233, 248, 0.6),
+                    borderColor: AppTheme.primary,
+                    borderWidth: 2,
                   ),
+
                 ],
               ),
               const SizedBox(height: 20,),

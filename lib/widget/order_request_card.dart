@@ -60,7 +60,9 @@ class _OrderRequestCardState extends State<OrderRequestCard> {
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => OrderRequestDetail(
-                  orderRequestDetailSnap: widget.snap,
+                orderRequestDetailSnap: widget.snap,
+                tourGuideLongitude: widget.tourGuideLongitude!,
+                tourGuideLatitude: widget.tourGuideLatitude!,
               ),
             ),
           ),
@@ -90,14 +92,7 @@ class _OrderRequestCardState extends State<OrderRequestCard> {
                       const SizedBox(height: 10.0),
                       Text("Start Time"),
                       const SizedBox(height: 10.0),
-                      Text(
-                        widget.tourGuideLongitude != null
-                          && widget.tourGuideLatitude != null?
-                        "${(_calculateDistance(widget.snap["currentLatitude"],
-                        widget.snap["currentLatitude"], widget.tourGuideLatitude,
-                        widget.tourGuideLongitude) / 1000)
-                            .toStringAsFixed(3)} KM" : " "
-                      ),
+                      Text("Distance"),
                     ],
                   ),
                 ),
@@ -111,7 +106,14 @@ class _OrderRequestCardState extends State<OrderRequestCard> {
                       const SizedBox(height: 10.0),
                       Text(formatter.format(widget.snap["startTime"].toDate())),
                       const SizedBox(height: 10.0),
-
+                      Text(
+                          widget.tourGuideLongitude != null
+                              && widget.tourGuideLatitude != null?
+                          "${(_calculateDistance(widget.snap["currentLatitude"],
+                              widget.snap["currentLatitude"], widget.tourGuideLatitude,
+                              widget.tourGuideLongitude) / 1000)
+                              .toStringAsFixed(3)} KM" : " "
+                      ),
                       // Text(widget.snap["content"]),
                     ],
                   ),

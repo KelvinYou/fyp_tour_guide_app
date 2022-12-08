@@ -322,7 +322,7 @@ class _HomeState extends State<Home> {
                                   children: [
                                     Center(
                                       child: Text(
-                                        "Hourly Order",
+                                        "My Instant Order",
                                         style: TextStyle(
                                           color: Theme.of(context).colorScheme.onPrimary,
                                           fontWeight: FontWeight.w700,
@@ -466,6 +466,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.background,
+                          borderRadius: BorderRadius.only(),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
