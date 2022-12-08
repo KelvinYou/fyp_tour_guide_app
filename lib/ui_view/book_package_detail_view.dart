@@ -12,6 +12,7 @@ import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/dialogs.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/package_card.dart';
 import 'package:fyp_project/widget/person_card.dart';
@@ -77,15 +78,22 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   responseBtn(String responseType) async {
-    try {
-      _firestore.collection('bookings').doc(
-          widget.bookPackageDetailSnap["bookingId"]).update(
-          {"status": responseType}
-      );
-      showSnackBar(context, responseType);
-      Navigator.of(context).pop();
-    } catch (err) {
-      showSnackBar(context, err.toString());
+    final action = await Dialogs.yesAbortDialog(
+        context, 'Confirm to "${responseType}"?',
+        'Once confirmed, it cannot be modified anymore',
+        responseType);
+
+    if (action == DialogAction.yes) {
+      try {
+        _firestore.collection('bookings').doc(
+            widget.bookPackageDetailSnap["bookingId"]).update(
+            {"status": responseType}
+        );
+        showSnackBar(context, responseType);
+        Navigator.of(context).pop();
+      } catch (err) {
+        showSnackBar(context, err.toString());
+      }
     }
   }
 
@@ -237,8 +245,16 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
-              packageData.isEmpty ? SizedBox() :
-              widget.bookPackageDetailSnap["status"] != "Pending" ? SizedBox() : Container(
+              packageData.isEmpty ? widget.bookPackageDetailSnap["status"] != "Rejected" ?
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                width: MediaQuery. of(context). size. width,
+                child: ColoredButton(
+                    inverseColor: true,
+                    onPressed: () => responseBtn("Rejected"),
+                    childText: "Reject"),
+              ) : SizedBox() :
+              widget.bookPackageDetailSnap["status"] == "Pending" ? Container(
                 margin: EdgeInsets.symmetric(horizontal: 25.0),
                 width: MediaQuery. of(context). size. width,
                 child: Row(
@@ -255,7 +271,7 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                     ),
                   ],
                 ),
-              ),
+              ) : SizedBox(),
 
             ],
           ),

@@ -12,6 +12,7 @@ import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/dialogs.dart';
 import 'package:fyp_project/widget/person_card.dart';
 import 'package:intl/intl.dart';
 import 'package:fyp_project/widget/image_full_screen.dart';
@@ -59,24 +60,31 @@ class _PackageDetailState extends State<PackageDetail> {
   }
 
   delete() async {
-    setState(() {
-      isLoading = true;
-    });
 
-    String res = await FireStoreMethods().deletePackage(widget.packageDetailSnap["packageId"]);
+    final action = await Dialogs.yesAbortDialog(
+        context, 'Confirm to delete?',
+        'Once confirmed, it cannot be modified anymore',
+        'Delete');
 
-    if (res == "success") {
-      setState(() {
-        isLoading = false;
-      });
-      Navigator.of(context).pop();
-      showSnackBar(context, "Package removed successfully");
-    } else {
-      setState(() {
-        isLoading = false;
-      });
-      showSnackBar(context, res);
+    if (action == DialogAction.yes) {
+      String res = await FireStoreMethods().deletePackage(widget.packageDetailSnap["packageId"]);
+
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        Navigator.of(context).pop();
+        showSnackBar(context, "Package removed successfully");
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(context, res);
+      }
     }
+
+
+
   }
 
   Widget getTextWidgets(List<String> strings)
