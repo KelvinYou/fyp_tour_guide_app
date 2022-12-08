@@ -14,7 +14,7 @@ import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/package_card.dart';
-import 'package:fyp_project/widget/tourist_card.dart';
+import 'package:fyp_project/widget/person_card.dart';
 import 'package:intl/intl.dart';
 
 class BookPackageDetail extends StatefulWidget {
@@ -199,7 +199,7 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
               touristData.isEmpty ? Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Text("The tourist may have been deleted"),
-              ) : TouristCard(
+              ) : PersonCard(
                 snap: touristData,
                 index: 1,
               ),

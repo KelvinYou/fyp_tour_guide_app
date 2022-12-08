@@ -16,7 +16,11 @@ import 'package:fyp_project/widget/text_field_input.dart';
 
 
 class TourPackage extends StatefulWidget {
-  const TourPackage({super.key});
+  final bool isOwnerOnly;
+  const TourPackage({
+    super.key,
+    required this.isOwnerOnly,
+  });
 
   @override
   State<TourPackage> createState() => _TourPackageState();
@@ -43,7 +47,7 @@ class _TourPackageState extends State<TourPackage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SecondaryAppBar(
-          title: "My Tour Packages"
+          title: widget.isOwnerOnly ? "My Tour Packages" : "All Tour Packages"
       ),
       body: Container(
         height: double.infinity,
@@ -164,7 +168,8 @@ class _TourPackageState extends State<TourPackage> {
                     documents = documents.where((element) {
                       return element
                           .get('ownerId')
-                          .contains(FirebaseAuth.instance.currentUser!.uid);
+                          .contains(widget.isOwnerOnly ?
+                      FirebaseAuth.instance.currentUser!.uid : "");
                     }).toList();
                   }
                 }

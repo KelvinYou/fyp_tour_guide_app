@@ -16,18 +16,21 @@ import 'package:fyp_project/widget/colored_button.dart';
 import 'package:intl/intl.dart';
 import 'package:fyp_project/widget/image_full_screen.dart';
 
-class TouristDetail extends StatefulWidget {
-  final touristDetailSnap;
-  const TouristDetail({
+class UserDetail extends StatefulWidget {
+  final snap;
+  final String role;
+
+  const UserDetail({
     super.key,
-    required this.touristDetailSnap,
+    required this.snap,
+    required this.role,
   });
 
   @override
-  State<TouristDetail> createState() => _TouristDetailState();
+  State<UserDetail> createState() => _UserDetailState();
 }
 
-class _TouristDetailState extends State<TouristDetail> {
+class _UserDetailState extends State<UserDetail> {
   bool isLoading = false;
   List<String> selectedTypes = [];
 
@@ -96,7 +99,7 @@ class _TouristDetailState extends State<TouristDetail> {
       child: CircularProgressIndicator(),
     ) : Scaffold(
       appBar: SecondaryAppBar(
-        title: "Tourist Detail",
+        title: "${widget.role} Detail",
       ),
       body: Container(
         height: double.infinity,
@@ -111,14 +114,14 @@ class _TouristDetailState extends State<TouristDetail> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (_) {
-                    return ImageFullScreen(imageUrl: widget.touristDetailSnap["photoUrl"],);
+                    return ImageFullScreen(imageUrl: widget.snap["photoUrl"],);
                   }));
                 },
                 child: Center(
                   child: CircleAvatar(
                     radius: 56.0,
                     backgroundImage: NetworkImage(
-                      widget.touristDetailSnap["photoUrl"],
+                      widget.snap["photoUrl"],
                     ),
                     backgroundColor: Colors.grey,
                   ),
@@ -129,7 +132,7 @@ class _TouristDetailState extends State<TouristDetail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RatingBarIndicator(
-                    rating: widget.touristDetailSnap['rating'],
+                    rating: widget.snap['rating'],
                     itemBuilder: (context, index) => Icon(
                       Icons.star,
                       color: Colors.amber,
@@ -140,7 +143,7 @@ class _TouristDetailState extends State<TouristDetail> {
                   ),
                   SizedBox(width: 10.0),
                   Text(
-                    widget.touristDetailSnap['rating'].toString(),
+                    widget.snap['rating'].toString(),
                     style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).colorScheme.onPrimary
@@ -151,11 +154,11 @@ class _TouristDetailState extends State<TouristDetail> {
               const SizedBox(height: 20,),
               const Text(" Tourist Details"),
               const Divider(),
-              detailRow("Username:", widget.touristDetailSnap["username"]),
-              detailRow("Full name:", widget.touristDetailSnap["fullname"]),
-              detailRow("Email:", widget.touristDetailSnap["email"]),
-              detailRow("Phone Number:", widget.touristDetailSnap["phoneNumber"]),
-              detailRow("Description:", widget.touristDetailSnap["description"]),
+              detailRow("Username:", widget.snap["username"]),
+              detailRow("Full name:", widget.snap["fullname"]),
+              detailRow("Email:", widget.snap["email"]),
+              detailRow("Phone Number:", widget.snap["phoneNumber"]),
+              detailRow("Description:", widget.snap["description"]),
 
             ],
           ),

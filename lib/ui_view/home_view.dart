@@ -30,6 +30,12 @@ class _HomeState extends State<Home> {
   var instantOrderData = {};
   bool isLoading = false;
 
+  List<Object> bookingData = <Object>[];
+  List<Object> instantData = <Object>[];
+
+  int instantNum = 0;
+  int packageNum = 0;
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +60,24 @@ class _HomeState extends State<Home> {
       userData = userSnap.data()!;
       instantOrderData = instantOrderSnap.data()!;
 
-      setState(() {});
+      var instantSnapShotsValue =
+      await FirebaseFirestore.instance.collection("instantOrder")
+          .get();
+
+      List<Object> instantList = instantSnapShotsValue.docs
+          .map((e) => Object()).toList();
+
+      var packageSnapShotsValue =
+      await FirebaseFirestore.instance.collection("tourPackages")
+          .get();
+
+      List<Object> packageList = packageSnapShotsValue.docs
+          .map((e) => Object()).toList();
+
+      setState(() {
+        instantNum = instantList.length;
+        packageNum = packageList.length;
+      });
     } catch (e) {
       showSnackBar(
         context,
@@ -70,13 +93,6 @@ class _HomeState extends State<Home> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const InstantOrder()),
-    );
-  }
-
-  void tourPackage() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const TourPackage()),
     );
   }
 
@@ -137,18 +153,156 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              Center(
-                child: Text(
-                  "- Start Your Tour Journey -",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
               const SizedBox(height: 20,),
+
+              Row(
+                children: [
+                  const SizedBox(width: 20,),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TourPackage(
+                          isOwnerOnly: false,
+                        )),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(context).colorScheme.shadow,
+                              offset: Offset(
+                                0.0,
+                                1.0,
+                              ),
+                              blurRadius: 5.0,
+                              spreadRadius: 0.5,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Instant Order",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.chevron_right,
+                                    color: Colors.white,
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10,),
+                            Text(
+                              instantNum.toString(),
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text("Total Numbers"),
+                            const SizedBox(height: 10,),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10,),
+
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const TourPackage(
+                          isOwnerOnly: false,
+                        )),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(context).colorScheme.shadow,
+                              offset: Offset(
+                                0.0,
+                                1.0,
+                              ),
+                              blurRadius: 5.0,
+                              spreadRadius: 0.5,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Tour Packages",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.chevron_right,
+                                    color: Colors.white,
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10,),
+                            Text(
+                              packageNum.toString(),
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text("Total Numbers"),
+                            const SizedBox(height: 10,),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 20,),
+                ],
+              ),
+
+              const SizedBox(height: 20,),
+
               MainContainer(
                 child: Column(
                     children: [
@@ -168,7 +322,7 @@ class _HomeState extends State<Home> {
                                   children: [
                                     Center(
                                       child: Text(
-                                        "My Hourly Order",
+                                        "Hourly Order",
                                         style: TextStyle(
                                           color: Theme.of(context).colorScheme.onPrimary,
                                           fontWeight: FontWeight.w700,
@@ -214,7 +368,12 @@ class _HomeState extends State<Home> {
                         color: AppTheme.lightGrey,
                       ),
                       GestureDetector(
-                        onTap: tourPackage,
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const TourPackage(
+                            isOwnerOnly: true,
+                          )),
+                        ),
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                           decoration: BoxDecoration(
@@ -388,9 +547,13 @@ class _HomeState extends State<Home> {
                           "Verify IC"
                       ),
                     ),
+
                   ],
                 ),
               ),
+
+              const SizedBox(height: 30),
+
             ],
           ),
         ),

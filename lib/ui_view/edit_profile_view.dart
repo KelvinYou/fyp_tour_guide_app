@@ -140,7 +140,7 @@ class _EditProfileViewState extends State<EditProfileView> {
     if (_icNumberController.text != "") {
       if (icOnlyNum.length == 12) {
         formattedIcNumber =
-        "${icOnlyNum.substring(0, 6)} ${icOnlyNum.substring(6, 8)} ${icOnlyNum.substring(8)}";
+        "${icOnlyNum.substring(0, 6)}-${icOnlyNum.substring(6, 8)}-${icOnlyNum.substring(8)}";
         icNumberFormatCorrected = true;
       } else {
         setState(() {

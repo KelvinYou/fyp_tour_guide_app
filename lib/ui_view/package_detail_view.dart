@@ -12,6 +12,7 @@ import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/person_card.dart';
 import 'package:intl/intl.dart';
 import 'package:fyp_project/widget/image_full_screen.dart';
 
@@ -26,6 +27,36 @@ class PackageDetail extends StatefulWidget {
 class _PackageDetailState extends State<PackageDetail> {
   bool isLoading = false;
   List<String> selectedTypes = [];
+  var ownerData = {};
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('tourGuides')
+          .doc(widget.packageDetailSnap["ownerId"])
+          .get();
+
+      ownerData = userSnap.data()!;
+
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   delete() async {
     setState(() {
@@ -201,15 +232,33 @@ class _PackageDetailState extends State<PackageDetail> {
                   ),
                 ),
               ),
-
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Text(
+                  "Owned By: ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              PersonCard(
+                snap: ownerData,
+                index: 1,
+              ),
               SizedBox(height: 20,),
+              widget.packageDetailSnap["ownerId"] == FirebaseAuth.instance.currentUser!.uid ?
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: ColoredButton(
                   onPressed: delete,
                   childText: "Delete",
                 ),
-              ),
+              ) : SizedBox(),
 
             ],
           ),

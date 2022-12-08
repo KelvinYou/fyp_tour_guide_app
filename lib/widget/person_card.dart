@@ -1,27 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:fyp_project/ui_view/tourist_detail_view.dart';
+import 'package:fyp_project/ui_view/user_detail_view.dart';
 
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/ui_view/package_detail_view.dart';
 import 'package:fyp_project/widget/image_full_screen.dart';
 import 'package:intl/intl.dart';
 
-class TouristCard extends StatefulWidget {
+class PersonCard extends StatefulWidget {
   final snap;
   final int index;
-  const TouristCard({
+  const PersonCard({
     Key? key,
     required this.snap,
     required this.index,
   }) : super(key: key);
 
   @override
-  State<TouristCard> createState() => _TouristCardState();
+  State<PersonCard> createState() => _PersonCardState();
 }
 
-class _TouristCardState extends State<TouristCard> {
+class _PersonCardState extends State<PersonCard> {
   @override
   void initState() {
     super.initState();
@@ -43,8 +43,9 @@ class _TouristCardState extends State<TouristCard> {
       child: InkWell(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TouristDetail(
-                touristDetailSnap: widget.snap,
+              builder: (context) => UserDetail(
+                snap: widget.snap,
+                role: "Tour Guide",
               ),
             ),
           ),
