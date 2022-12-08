@@ -6,6 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fyp_project/ui_view/change_profile_view.dart';
 import 'package:fyp_project/ui_view/guide_detail_view.dart';
 import 'package:fyp_project/ui_view/edit_profile_view.dart';
+import 'package:fyp_project/ui_view/hourly_price_list_view.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 
 import 'package:fyp_project/ui_view/instant_order_view.dart';
@@ -162,9 +163,8 @@ class _HomeState extends State<Home> {
                     child: GestureDetector(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const TourPackage(
-                          isOwnerOnly: false,
-                        )),
+                        MaterialPageRoute(builder: (context) =>
+                        const HourlyPriceListView()),
                       ),
                       child: Container(
                         decoration: BoxDecoration(

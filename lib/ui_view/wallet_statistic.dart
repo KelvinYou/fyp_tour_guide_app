@@ -30,7 +30,7 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
   @override
   void initState() {
     getDataFromFireStore().then((results) {
-      SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         setState(() {});
       });
     });
@@ -155,7 +155,7 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
                               builder: (context) => const BookHistoryView(),
                             ),
                           ),
-                          child: selectionView(Icons.area_chart, "Booking History")
+                          child: selectionView(Icons.history, "Booking History")
                       ),
                     ],
                   )

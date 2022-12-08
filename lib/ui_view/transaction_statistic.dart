@@ -1,16 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
 
-import 'package:fyp_project/utils/app_theme.dart';
-import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/main_container.dart';
-import 'package:fyp_project/widget/transaction_card.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class TransactionStatisticView extends StatefulWidget {
@@ -29,7 +24,7 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
   @override
   void initState() {
     getDataFromFireStore().then((results) {
-      SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         setState(() {});
       });
     });
@@ -47,14 +42,13 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
 
     List<_TransactionData> list = snapShotsValue.docs
       .map((e) => _TransactionData(
-        transactionType: e.data()['transactionType'],
+        receiveFrom: e.data()['receiveFrom'],
         transactionAmount: e.data()['transactionAmount'],
     )).toList();
     setState(() {
       transactionData = list;
       isLoading = false;
     });
-    print(transactionData);
   }
 
   Widget selectionView(IconData icon, String title) {
@@ -62,9 +56,9 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
           ),
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -112,7 +106,7 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
                 backgroundColor: Theme.of(context).colorScheme.background,
 
                 primaryXAxis: CategoryAxis(
-                  name: "Date"
+                  name: "Type"
                 ),
                 primaryYAxis: NumericAxis(
                   name: "RM"
@@ -129,7 +123,7 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
                 series: <ChartSeries<_TransactionData, String>>[
                   BarSeries<_TransactionData, String>(
                     dataSource: transactionData,
-                    xValueMapper: (_TransactionData data, _) => data.transactionType,
+                    xValueMapper: (_TransactionData data, _) => data.receiveFrom,
                     yValueMapper: (_TransactionData data, _) =>
                     double.parse(
                         data.transactionAmount!.substring(0, 1)
@@ -148,7 +142,7 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
                               builder: (context) => const TransactionHistory(),
                             ),
                           ),
-                          child: selectionView(Icons.area_chart, "Transaction History")
+                          child: selectionView(Icons.history, "Transaction History")
                       ),
                     ],
                   )
