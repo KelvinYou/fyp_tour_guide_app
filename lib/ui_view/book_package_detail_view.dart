@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
+import 'package:fyp_project/ui_view/add_rating_view.dart';
 import 'package:fyp_project/ui_view/chatroom_detail_view.dart';
 import 'package:fyp_project/ui_view/tour_package_view.dart';
 import 'package:fyp_project/utils/utils.dart';
@@ -245,7 +246,22 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
-              packageData.isEmpty ? widget.bookPackageDetailSnap["status"] != "Rejected" ?
+              packageData.isEmpty ? widget.bookPackageDetailSnap["status"] == "Completed" ?
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                width: MediaQuery. of(context). size. width,
+                child: ColoredButton(
+                    inverseColor: true,
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => AddRatingView(
+                            snap: widget.bookPackageDetailSnap
+                        ),
+                      ),
+                    ),
+                    childText: "Feedback"),
+              ) :
+              widget.bookPackageDetailSnap["status"] != "Rejected" ?
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 25.0),
                 width: MediaQuery. of(context). size. width,

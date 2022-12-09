@@ -124,7 +124,7 @@ class _InstantOrderCardState extends State<InstantOrderCard> {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        widget.snap['price'].toStringAsFixed(2),
+                        "RM ${widget.snap['price'].toStringAsFixed(2)}",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,

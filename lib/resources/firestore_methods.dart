@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fyp_project/models/history_feedback.dart';
 import 'package:fyp_project/models/tour_licence.dart';
 import 'package:fyp_project/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
@@ -450,5 +451,26 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> addFeedback(String bookingId, String fromId,
+      String toId, double rating, String content) async {
+    String res = "Some error occurred";
+    String feedbackId = "feedback_${bookingId}_$fromId";
 
+    try {
+      HistoryFeedback historyFeedback = HistoryFeedback(
+        feedbackId: feedbackId,
+        fromId: fromId,
+        toId: toId,
+        feedbackDate: DateTime.now(),
+        content: content,
+        rating: rating,
+      );
+      _firestore.collection('feedbacks').doc(feedbackId).set(historyFeedback.toJson());
+
+      res = "success";
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
 }

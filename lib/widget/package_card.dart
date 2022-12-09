@@ -86,7 +86,7 @@ class _PackageCardState extends State<PackageCard> {
                     widget.snap["packageTitle"],
                     style: TextStyle(
                       color: AppTheme.primary,
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

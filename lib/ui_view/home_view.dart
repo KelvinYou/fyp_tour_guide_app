@@ -157,146 +157,263 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 20,),
 
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(width: 20,),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>
-                        const HourlyPriceListView()),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Theme.of(context).colorScheme.shadow,
-                              offset: Offset(
-                                0.0,
-                                1.0,
-                              ),
-                              blurRadius: 5.0,
-                              spreadRadius: 0.5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.background,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context).colorScheme.shadow,
+                            offset: Offset(
+                              0.0,
+                              1.0,
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
+                            blurRadius: 5.0,
+                            spreadRadius: 0.5,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                              const HourlyPriceListView()),
+                            ),
+                            child: Container(
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)
+                                color: Theme.of(context).colorScheme.secondary,
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  topLeft: Radius.circular(10),
                                 ),
                               ),
-                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    "Instant Order",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 15,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)
+                                      ),
+                                    ),
+                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Instant Order",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.chevron_right,
+                                          color: Colors.white,
+                                        )
+                                      ],
                                     ),
                                   ),
-                                  Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.white,
-                                  )
+                                  const SizedBox(height: 10,),
+                                  Text(
+                                    instantNum.toString(),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text("Total Numbers"),
+                                  const SizedBox(height: 10,),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 10,),
-                            Text(
-                              instantNum.toString(),
-                              style: TextStyle(
-                                fontSize: 20,
+                          ),
+                          Divider(height: 2,),
+                          GestureDetector(
+                            onTap: hourlyOrder,
+                            child: Container(
+                              padding: EdgeInsets.only(left: 10, top: 5, bottom: 5),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.background,
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Center(
+                                        child: Text(
+                                          "My Instant Order",
+                                          style: TextStyle(
+                                            color: Theme.of(context).colorScheme.onPrimary,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "On duty:",
+                                            style: TextStyle(
+                                            ),
+                                          ),
+
+                                          Switch(
+                                            value: instantOrderData["onDuty"],
+                                            onChanged: (value) {
+                                              setState(() {
+                                              });
+                                            },
+                                            activeTrackColor: Colors.lightBlueAccent,
+                                            activeColor: AppTheme.primary,
+                                          ),
+                                        ],
+                                      ),
+                                      Text("RM ${instantOrderData["price"].toStringAsFixed(2)}  / Hour"),
+                                    ],
+                                  ),
+                                  Icon(Icons.chevron_right)
+                                ],
                               ),
                             ),
-                            Text("Total Numbers"),
-                            const SizedBox(height: 10,),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                   const SizedBox(width: 10,),
-
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const TourPackage(
-                          isOwnerOnly: false,
-                        )),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Theme.of(context).colorScheme.shadow,
-                              offset: Offset(
-                                0.0,
-                                1.0,
-                              ),
-                              blurRadius: 5.0,
-                              spreadRadius: 0.5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.background,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context).colorScheme.shadow,
+                            offset: Offset(
+                              0.0,
+                              1.0,
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
+                            blurRadius: 5.0,
+                            spreadRadius: 0.5,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const TourPackage(
+                                isOwnerOnly: false,
+                              )),
+                            ),
+                            child: Container(
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                borderRadius: BorderRadius.only(
+                                color: Theme.of(context).colorScheme.secondary,
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(10),
                                   topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10)
                                 ),
                               ),
-                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    "Tour Packages",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 15,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.primary,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)
+                                      ),
+                                    ),
+                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Tour Packages",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.chevron_right,
+                                          color: Colors.white,
+                                        )
+                                      ],
                                     ),
                                   ),
-                                  Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.white,
-                                  )
+                                  const SizedBox(height: 10,),
+                                  Text(
+                                    packageNum.toString(),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text("Total Numbers"),
+                                  const SizedBox(height: 10,),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 10,),
-                            Text(
-                              packageNum.toString(),
-                              style: TextStyle(
-                                fontSize: 20,
+                          ),
+                          Divider(height: 2,),
+                          GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const TourPackage(
+                                isOwnerOnly: true,
+                              )),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.background,
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: 100,
+                                    child: Text(
+                                      "My Tour Package",
+                                      style: TextStyle(
+                                        color: Theme.of(context).colorScheme.onPrimary,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(Icons.chevron_right)
+                                ],
                               ),
                             ),
-                            Text("Total Numbers"),
-                            const SizedBox(height: 10,),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-
                   const SizedBox(width: 20,),
                 ],
               ),
@@ -306,101 +423,7 @@ class _HomeState extends State<Home> {
               MainContainer(
                 child: Column(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: GestureDetector(
-                          onTap: hourlyOrder,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        "My Instant Order",
-                                        style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onPrimary,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "On duty:",
-                                          style: TextStyle(
-                                          ),
-                                        ),
 
-                                        Switch(
-                                          value: instantOrderData["onDuty"],
-                                          onChanged: (value) {
-                                            setState(() {
-                                            });
-                                          },
-                                          activeTrackColor: Colors.lightBlueAccent,
-                                          activeColor: AppTheme.primary,
-                                        ),
-                                      ],
-                                    ),
-                                    Text("Price: RM ${instantOrderData["price"].toStringAsFixed(2)}  / Hour"),
-                                  ],
-                                ),
-                                Icon(Icons.chevron_right)
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const Divider(
-                        height: 1,
-                        thickness: 1,
-                        indent: 0,
-                        endIndent: 0,
-                        color: AppTheme.lightGrey,
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TourPackage(
-                            isOwnerOnly: true,
-                          )),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      "My Tour Package",
-                                      style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onPrimary,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Icon(Icons.chevron_right)
-                            ],
-                          ),
-                        ),
-                      ),
                       const Divider(
                         height: 1,
                         thickness: 1,
