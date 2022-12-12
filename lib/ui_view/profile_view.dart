@@ -43,11 +43,11 @@ class _ProfileState extends State<Profile> {
     getData();
 
     // AuthMethods().signOut();
-    // Navigator.of(context).pushAndRemoveUntil(
+    // Navigator.of(context).pushReplacement(
     //     MaterialPageRoute(
     //       builder: (context) =>
     //       const Login(),
-    //     ), (Route<dynamic> route) => false
+    //     ),
     // );
   }
 

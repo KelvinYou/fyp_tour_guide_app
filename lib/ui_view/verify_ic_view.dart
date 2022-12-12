@@ -8,6 +8,7 @@ import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/dialogs.dart';
 import 'package:fyp_project/widget/image_full_screen.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/memory_image_full_screen.dart';
@@ -82,11 +83,7 @@ class _VerifyIcViewState extends State<VerifyIcView> {
           context,
           'Submitted!',
         );
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const BottomBarView(selectedIndex: 4),
-          ),
-        );
+        Navigator.of(context).pop();
       } else {
         showSnackBar(context, res);
         setState(() {
@@ -287,6 +284,43 @@ class _VerifyIcViewState extends State<VerifyIcView> {
     );
   }
 
+  Widget showImg(String title, String imgUrl) {
+    return Column(
+      children: [
+        Text(title),
+        GestureDetector(
+          child: Hero(
+            tag: 'imageHero',
+            child: Image(
+              height: 200,
+              fit: BoxFit.fitHeight,
+              width: double.infinity,
+              // width: double.infinity - 20,
+              image: NetworkImage( imgUrl),
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
+            ),
+          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_) {
+              return ImageFullScreen(imageUrl: imgUrl,);
+            }));
+          },
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -356,51 +390,47 @@ class _VerifyIcViewState extends State<VerifyIcView> {
           ) : Column(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              status == "Pending" ? (
-                Text("Your IC Verification submittion is pending for review.\n"
-                    "Please wait for about 3 working days.")
-              ) : (
-                Text("Your IC have been verify")
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: status == "Pending" ? (
+                    Text("Your IC Verification submittion is pending for review.\n"
+                        "Please wait for about 3 working days.")
+                ) : (
+                    Text("Your IC has been verified")
+                ),
               ),
 
-              const SizedBox(height: 10.0),
-              Container(
-                height: 200.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      icData["icFrontPic"],
-                    ),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Divider(),
               ),
-              Container(
-                height: 200.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      icData["icBackPic"],
-                    ),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
+
+              showImg(frontIcTitle, icData["icFrontPic"]),
+              const SizedBox(height: 20),
+              showImg(backIcTitle, icData["icBackPic"]),
+              const SizedBox(height: 20),
+              showImg(holdIcTitle, icData["icHoldPic"]),
+              const SizedBox(height: 20),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                  child: ColoredButton(
+                    onPressed: () async {
+                      final action = await Dialogs.yesAbortDialog(
+                          context, 'Confirm to delete? \nAfter deletion, you can resubmit if necessary', '',
+                          'Delete');
+                      if (action == DialogAction.yes) {
+                        deleteSubmittion();
+                      }
+                    },
+                    childText: "Delete",
+                    inverseColor: true,
+                  )
               ),
-              Container(
-                height: 200.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      icData["icHoldPic"],
-                    ),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              ),
-              IconButton(
-                  onPressed: deleteSubmittion,
-                  icon: Icon(Icons.delete_outline_outlined),
-              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

@@ -83,8 +83,9 @@ class _ChangeProfileState extends State<ChangeProfile> {
         });
         showSnackBar(
           context,
-          'Posted!',
+          'The profile picture has been changed!',
         );
+        // Navigator.of(context).pop();
         // Navigator.of(context).pushReplacement(
         //   MaterialPageRoute(
         //     builder: (context) => const BottomBarView(selectedIndex: 4),

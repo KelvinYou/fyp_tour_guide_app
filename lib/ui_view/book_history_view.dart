@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -91,6 +92,12 @@ class _BookHistoryViewState extends State<BookHistoryView> {
                           return element
                               .get('status')
                               .contains(status);
+                        }).toList();
+
+                        documents = documents.where((element) {
+                          return element
+                              .get('tourGuideId')
+                              .contains(FirebaseAuth.instance.currentUser!.uid);
                         }).toList();
                       }
                       return ListView.builder(

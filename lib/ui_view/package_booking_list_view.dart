@@ -9,6 +9,8 @@ import 'package:fyp_project/widget/colored_button.dart';
 import 'package:fyp_project/widget/main_container.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 class PackageBookingListView extends StatefulWidget {
   const PackageBookingListView({super.key});
 
@@ -91,6 +93,12 @@ class _PackageBookingListViewState extends State<PackageBookingListView> {
                           return element
                               .get('status')
                               .contains(status);
+                        }).toList();
+
+                        documents = documents.where((element) {
+                          return element
+                              .get('tourGuideId')
+                              .contains(FirebaseAuth.instance.currentUser!.uid);
                         }).toList();
                       }
                       return ListView.builder(

@@ -267,7 +267,7 @@ class _PackageDetailState extends State<PackageDetail> {
                   childText: "Delete",
                 ),
               ) : SizedBox(),
-
+              SizedBox(height: 20,),
             ],
           ),
         ),

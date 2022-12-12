@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:fyp_project/ui_view/transaction_history_view.dart';
@@ -44,7 +45,13 @@ class _TransactionStatisticViewState extends State<TransactionStatisticView> {
       .map((e) => _TransactionData(
         receiveFrom: e.data()['receiveFrom'],
         transactionAmount: e.data()['transactionAmount'],
+        ownerId: e.data()['ownerId'],
     )).toList();
+
+    list = list.where((item) {
+      return item.ownerId == FirebaseAuth.instance.currentUser!.uid;
+    }).toList();
+
     setState(() {
       transactionData = list;
       isLoading = false;

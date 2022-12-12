@@ -126,6 +126,11 @@ class _InstantHistoryViewState extends State<InstantHistoryView> {
                               .contains(status);
                         }).toList();
                       }
+                      documents = documents.where((element) {
+                        return element
+                            .get('tourGuideId')
+                            .contains(FirebaseAuth.instance.currentUser!.uid);
+                      }).toList();
                       return ListView.builder(
                         itemCount: documents.length,
                         itemBuilder: (ctx, index) =>

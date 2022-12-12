@@ -37,27 +37,35 @@ class _WalletStatisticViewState extends State<WalletStatisticView> {
     super.initState();
   }
 
-
+  List<DocumentSnapshot> documents = [];
   Future<void> getDataFromFireStore() async {
     setState(() {
       isLoading = true;
     });
     var snapShotsValue =
     await FirebaseFirestore.instance.collection("transactions")
-        .orderBy('dateTime', descending: false).get();
+        .orderBy('dateTime', descending: false)
+        .get();
 
     List<_TransactionData> list = snapShotsValue.docs
       .map((e) => _TransactionData(
       dateTime: DateTime.fromMillisecondsSinceEpoch(
       e.data()['dateTime'].millisecondsSinceEpoch),
       newWalletBalance: e.data()['newWalletBalance'],
+      ownerId: e.data()['ownerId'],
 
     )).toList();
+
+    list = list.where((item) {
+      return item.ownerId == FirebaseAuth.instance.currentUser!.uid;
+    }).toList();
+
+    // print(list);
+
     setState(() {
       transactionData = list;
       isLoading = false;
     });
-    print(transactionData);
   }
 
   Widget selectionView(IconData icon, String title) {

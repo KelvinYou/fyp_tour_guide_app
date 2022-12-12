@@ -9,6 +9,8 @@ import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/utils/utils.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/dialogs.dart';
+import 'package:fyp_project/widget/image_full_screen.dart';
 import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/memory_image_full_screen.dart';
 import 'package:image_picker/image_picker.dart';
@@ -80,11 +82,7 @@ class _LicenceViewState extends State<LicenceView> {
           context,
           'Submitted!',
         );
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const BottomBarView(selectedIndex: 4),
-          ),
-        );
+        Navigator.of(context).pop();
       } else {
         showSnackBar(context, res);
         setState(() {
@@ -234,27 +232,70 @@ class _LicenceViewState extends State<LicenceView> {
           ],
         ) : Column(
           children: [
-            status == "Pending" ? (
-                Text("Your Licence Verification submittion is pending for review.\n"
-                    "Please wait for about 3 working days.")
-            ) : (
-                Text("Your Licence have been verify")
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Divider(),
             ),
-            Container(
-              height: 200.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                    licenceData["licencePhotoUrl"],
-                  ),
-                  fit: BoxFit.fitHeight,
-                ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: status == "Pending" ? (
+                  Text("Your Licence Verification submittion is pending for review.\n"
+                      "Please wait for about 3 working days.")
+              ) : (
+                  Text("Your license has been verified")
               ),
             ),
-            IconButton(
-              onPressed: deleteSubmittion,
-              icon: Icon(Icons.delete_outline_outlined),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Divider(),
             ),
+            const SizedBox(height: 20),
+            GestureDetector(
+              child: Hero(
+                tag: 'imageHero',
+                child: Image(
+                  height: 200,
+                  fit: BoxFit.fitHeight,
+                  width: double.infinity,
+                  // width: double.infinity - 20,
+                  image: NetworkImage( licenceData["licencePhotoUrl"]),
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return ImageFullScreen(imageUrl: licenceData["licencePhotoUrl"],);
+                }));
+              },
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: ColoredButton(
+                onPressed: () async {
+                  final action = await Dialogs.yesAbortDialog(
+                      context, 'Confirm to delete? \nAfter deletion, you can resubmit if necessary', '',
+                      'Delete');
+                  if (action == DialogAction.yes) {
+                    deleteSubmittion();
+                  }
+                },
+                childText: "Delete",
+                inverseColor: true,
+              )
+            ),
+            const SizedBox(height: 20),
           ],
         ),
         ),
