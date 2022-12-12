@@ -75,6 +75,12 @@ class _BankCardViewState extends State<BankCardView> {
                 builder: (context, streamSnapshot) {
                   if (streamSnapshot.hasData) {
                     documents = streamSnapshot.data!.docs;
+
+                    documents = documents.where((element) {
+                      return element
+                          .get('ownerId')
+                          .contains(FirebaseAuth.instance.currentUser!.uid);
+                    }).toList();
                   }
                   return ListView.builder(
                     itemCount: documents.length,

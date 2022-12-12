@@ -144,21 +144,29 @@ class AuthMethods {
     return res;
   }
 
-  Future<String> changeEmail(String currentEmail, String newEmail) async {
+  Future<String> changeEmail(String currentEmail, String password, String newEmail) async {
     String res = "Some error Occurred";
     User user = _auth.currentUser!;
-    //
-    // final cred = EmailAuthProvider.credential(email: user.email ?? "", password: currentPassword);
-    //
-    // await user.reauthenticateWithCredential(cred).then((value) async {
-    //   await user.updatePassword(newPassword).then((_) {
-    //     res = "success";
-    //   }).catchError((error) {
-    //     res = "Some error Occurred";
-    //   });
-    // }).catchError((err) {
-    //   res = "Wrong old password";
-    // });
+
+    final cred = EmailAuthProvider.credential(email: currentEmail, password: password);
+
+    await user.reauthenticateWithCredential(cred).then((value) async {
+      await user.updateEmail(newEmail).then((_) {
+        try {
+          _firestore.collection('tourGuides').doc(FirebaseAuth.instance.currentUser!.uid).update({
+            "email": newEmail,
+          },);
+          res = "success";
+        } catch (err) {
+          res = err.toString();
+        }
+        return res;
+      }).catchError((error) {
+        res = "Some error Occurred";
+      });
+    }).catchError((err) {
+      res = "Wrong old email or password";
+    });
 
     return res;
   }

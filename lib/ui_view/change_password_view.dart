@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
 import 'package:fyp_project/widget/colored_button.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:fyp_project/utils/utils.dart';
@@ -108,14 +109,11 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+    return Scaffold(
       appBar: SecondaryAppBar(
           title: "Change Password",
       ),
-      body: Container(
+      body: _isLoading ? LoadingView() : Container(
         height: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,

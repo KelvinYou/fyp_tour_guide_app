@@ -335,21 +335,21 @@ class _ProfileState extends State<Profile> {
                         ),
                         child: selectionView(Icons.settings, "Setting")
                     ),
-                    const Divider(
-                      height: 1,
-                      thickness: 1,
-                      indent: 0,
-                      endIndent: 0,
-                      color: AppTheme.lightGrey,
-                    ),
-                    GestureDetector(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const ProfileSetting(),
-                          ),
-                        ),
-                        child: selectionView(Icons.group, "About Us")
-                    ),
+                    // const Divider(
+                    //   height: 1,
+                    //   thickness: 1,
+                    //   indent: 0,
+                    //   endIndent: 0,
+                    //   color: AppTheme.lightGrey,
+                    // ),
+                    // GestureDetector(
+                    //     onTap: () => Navigator.of(context).push(
+                    //       MaterialPageRoute(
+                    //         builder: (context) => const ProfileSetting(),
+                    //       ),
+                    //     ),
+                    //     child: selectionView(Icons.group, "About Us")
+                    // ),
                   ],
                 ),
               ),
