@@ -94,7 +94,7 @@ class _ResetPasswordState extends State<ResetPassword> {
             MaterialPageRoute(
                 builder: (context) => const BottomBarView(selectedIndex: 4)
             ), (route) => false);
-        showSnackBar(context, "Password has been reset successfully.");
+        showSnackBar(context, "Password has been changed successfully.");
       } else {
         setState(() {
           _isLoading = false;

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,53 +22,79 @@ class ResetEmail extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetEmail> {
-  final currentEmail = TextEditingController();
   final password = TextEditingController();
   final newEmail = TextEditingController();
   bool _isLoading = false;
-  String currentEmailErrorMsg = "";
   String passwordErrorMsg = "";
   String newEmailErrorMsg = "";
 
   submit() async {
     setState(() {
       _isLoading = true;
-      currentEmailErrorMsg = "";
       passwordErrorMsg = "";
       newEmailErrorMsg = "";
     });
 
-    bool currentEmailFormatCorrected = false;
     bool passwordFormatCorrected = false;
     bool newEmailFormatCorrected = false;
 
-    print("hi1");
-
-    String res = await AuthMethods().changeEmail(
-        currentEmail.text, password.text, newEmail.text);
-
-    print("hi2");
-
-    if (res == "success") {
+    if (password.text == "") {
       setState(() {
-        _isLoading = false;
+        passwordErrorMsg = "Please enter your password.";
       });
-      print("hi3");
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const BottomBarView(selectedIndex: 4)
-          ), (route) => false);
-      showSnackBar(context, "Email has been reset successfully.");
+    } else if (password.text.length < 6) {
+      setState(() {
+        passwordErrorMsg = "Please enter at least 6 or more characters.";
+      });
     } else {
+      passwordFormatCorrected = true;
+    }
+
+    if (newEmail.text == "") {
+      setState(() {
+        newEmailErrorMsg = "Please enter your email address.";
+      });
+    } else if (!RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(newEmail.text)) {
+      setState(() {
+        newEmailErrorMsg = "Incorrect email format.\nE.g. correct email: name@email.com.";
+      });
+    } else {
+      newEmailFormatCorrected = true;
+    }
+
+    if (passwordFormatCorrected && newEmailFormatCorrected) {
+      String email = FirebaseAuth.instance.currentUser!.email ?? "";
+      String res = await AuthMethods().changeEmail(
+          email,
+          password.text,
+          newEmail.text
+      );
+
+      if (res == "success") {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => const BottomBarView(selectedIndex: 4)
+            ), (route) => false);
+        showSnackBar(context, "Email has been changed successfully.");
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(context, res);
+      }
       setState(() {
         _isLoading = false;
       });
-      print("hi4");
-      showSnackBar(context, res);
     }
     setState(() {
       _isLoading = false;
     });
+
   }
 
   @override
@@ -86,13 +113,6 @@ class _ResetPasswordState extends State<ResetEmail> {
             children: [
               const SizedBox(height: 25.0),
 
-              TextFieldInput(
-                textEditingController: currentEmail,
-                hintText: "Current Email",
-                textInputType: TextInputType.emailAddress,
-                errorMsg: currentEmailErrorMsg,
-              ),
-              const SizedBox(height: 20),
               TextFieldInput(
                 textEditingController: password,
                 hintText: "Password",
