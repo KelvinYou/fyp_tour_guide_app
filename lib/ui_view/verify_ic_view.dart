@@ -284,13 +284,15 @@ class _VerifyIcViewState extends State<VerifyIcView> {
     );
   }
 
+  int i = 0;
+
   Widget showImg(String title, String imgUrl) {
     return Column(
       children: [
         Text(title),
         GestureDetector(
           child: Hero(
-            tag: 'imageHero',
+            tag: 'imageHero${i++}',
             child: Image(
               height: 200,
               fit: BoxFit.fitHeight,

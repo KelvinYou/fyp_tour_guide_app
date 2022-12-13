@@ -95,7 +95,15 @@ class _TransactionDetailState extends State<TransactionDetail> {
             ),
             const Divider( color: Colors.black ),
             cardView("Transaction Type", widget.transactionDetailSnap["transactionType"]),
-            cardView("Receive From", widget.transactionDetailSnap["receiveFrom"]),
+
+            widget.transactionDetailSnap["transferTo"] != null ?
+            widget.transactionDetailSnap["transferTo"] == "" ? SizedBox() :
+            cardView("Transfer To", widget.transactionDetailSnap["transferTo"]) : SizedBox(),
+
+            widget.transactionDetailSnap["receiveFrom"] != null ?
+            widget.transactionDetailSnap["receiveFrom"] == "" ? SizedBox() :
+            cardView("Receive From", widget.transactionDetailSnap["receiveFrom"]) : SizedBox(),
+
             cardView("Payment Details", widget.transactionDetailSnap["paymentDetails"]),
             cardView("Payment Method", widget.transactionDetailSnap["paymentMethod"]),
             cardView("Date/Time", formatter.format(widget.transactionDetailSnap["dateTime"].toDate())),
