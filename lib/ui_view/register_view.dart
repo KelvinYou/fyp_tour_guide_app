@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fyp_project/utils/app_theme.dart';
 import 'package:fyp_project/widget/colored_button.dart';
 import 'package:fyp_project/widget/app_bar/secondary_app_bar.dart';
+import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/text_field_input.dart';
 
 import 'package:fyp_project/bottom_bar_view.dart';
@@ -53,7 +54,7 @@ class _RegisterState extends State<Register> {
 
     if (_usernameController.text == "") {
       setState(() {
-        usernameErrorMsg = "The Username cannot be empty.";
+        usernameErrorMsg = "The field cannot be empty.";
       });
     } else {
       usernameFormatCorrected = true;
@@ -61,7 +62,7 @@ class _RegisterState extends State<Register> {
 
     if (_emailController.text == "") {
       setState(() {
-        emailErrorMsg = "Please enter your email address.";
+        emailErrorMsg = "The field cannot be empty.";
       });
     } else if (!RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -75,7 +76,7 @@ class _RegisterState extends State<Register> {
 
     if (_passwordController.text == "") {
       setState(() {
-        passwordErrorMsg = "Please enter your new password.";
+        passwordErrorMsg = "The field cannot be empty.";
       });
     } else if (_passwordController.text.length < 6) {
       setState(() {
@@ -87,7 +88,7 @@ class _RegisterState extends State<Register> {
 
     if (_reenterPasswordController.text == "") {
       setState(() {
-        reenterPasswordErrorMsg = "Please re-enter your new password.";
+        reenterPasswordErrorMsg = "The field cannot be empty.";
       });
     } else if (_reenterPasswordController.text.length < 6) {
       setState(() {
@@ -95,7 +96,7 @@ class _RegisterState extends State<Register> {
       });
     } else if (_passwordController.text != _reenterPasswordController.text) {
       setState(() {
-        reenterPasswordErrorMsg = "The password doesn't match the password enter above.";
+        reenterPasswordErrorMsg = "The password doesn't match the password entered above.";
       });
     } else {
       reenterPasswordFormatCorrected = true;
@@ -114,11 +115,11 @@ class _RegisterState extends State<Register> {
           _isLoading = false;
         });
         // navigate to the home screen
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const BottomBarView(selectedIndex: 0),
-          ),
-        );
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => const BottomBarView(selectedIndex: 0)
+            ),
+                (route) => false);
       } else {
         setState(() {
           _isLoading = false;
@@ -135,9 +136,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-      ? const Center(
-      child: CircularProgressIndicator(),
-    ) : Scaffold(
+      ? LoadingView() : Scaffold(
       appBar: const SecondaryAppBar(
         title: "Register an Account"
       ),

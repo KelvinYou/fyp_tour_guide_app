@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
+import 'package:fyp_project/models/transaction_record.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
 import 'package:fyp_project/ui_view/add_rating_view.dart';
 import 'package:fyp_project/ui_view/chatroom_detail_view.dart';
@@ -18,6 +19,7 @@ import 'package:fyp_project/widget/loading_view.dart';
 import 'package:fyp_project/widget/package_card.dart';
 import 'package:fyp_project/widget/person_card.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class BookPackageDetail extends StatefulWidget {
   final bookPackageDetailSnap;
@@ -32,6 +34,7 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
   var packageData = {};
   var touristData = {};
   var chatroomData = {};
+  var touristEWalletData = {};
 
   List<String> selectedTypes = [];
 
@@ -63,6 +66,15 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
         touristData = touristSnap.data()!;
       }
 
+      var eWalletSnap = await FirebaseFirestore.instance
+          .collection('eWallet')
+          .doc("ewallet_${widget.bookPackageDetailSnap["touristId"]}")
+          .get();
+
+      if (eWalletSnap.exists) {
+        touristEWalletData = eWalletSnap.data()!;
+      }
+
       setState(() {});
     } catch (e) {
       showSnackBar(
@@ -78,6 +90,15 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
   final DateFormat formatter = DateFormat('dd MMM y');
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  String ringgitFormatter(double amount) {
+    if (amount >= 0) {
+      return "+RM ${amount.toStringAsFixed(2)}";
+    } else {
+      amount = -amount;
+      return "-RM ${amount.toStringAsFixed(2)}";
+    }
+  }
+
   responseBtn(String responseType) async {
     final action = await Dialogs.yesAbortDialog(
         context, 'Confirm to "${responseType}"?',
@@ -90,6 +111,38 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
             widget.bookPackageDetailSnap["bookingId"]).update(
             {"status": responseType}
         );
+
+        double newWalletBalance = touristEWalletData["balance"] +
+            widget.bookPackageDetailSnap["price"].toDouble();
+        String transactionId = "Refund_${const Uuid().v1()}";
+
+        if (responseType == "Rejected") {
+          TransactionRecord transaction = TransactionRecord(
+            transactionId: transactionId,
+            transactionAmount: ringgitFormatter(
+                widget.bookPackageDetailSnap["price"].toDouble()),
+            ownerId: widget.bookPackageDetailSnap["touristId"],
+            receiveFrom: widget.bookPackageDetailSnap["touristId"],
+            transferTo: widget.bookPackageDetailSnap["touristId"],
+            transactionType: "Booking Rejection",
+            paymentDetails: "Rejected Booking ${widget
+                .bookPackageDetailSnap["orderId"]}",
+            paymentMethod: "eWallet Balance",
+            newWalletBalance: newWalletBalance,
+            dateTime: DateTime.now(),
+            status: "Successful",
+          );
+          _firestore.collection('touristTransactions').doc(transactionId).set(
+              transaction.toJson());
+          _firestore.collection('touristTransactions')
+              .doc("BookingRequest_${widget.bookPackageDetailSnap["bookingId"]}")
+              .update({"status": "Refunded"});
+          _firestore.collection('eWallet').doc(
+              "ewallet_${widget.bookPackageDetailSnap["touristId"]}").update({
+            "balance": newWalletBalance,
+          });
+        }
+
         showSnackBar(context, responseType);
         Navigator.of(context).pop();
       } catch (err) {

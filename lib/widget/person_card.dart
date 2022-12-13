@@ -11,10 +11,12 @@ import 'package:intl/intl.dart';
 class PersonCard extends StatefulWidget {
   final snap;
   final int index;
+  final String role;
   const PersonCard({
     Key? key,
     required this.snap,
     required this.index,
+    this.role = "Tour Guide",
   }) : super(key: key);
 
   @override
@@ -45,7 +47,7 @@ class _PersonCardState extends State<PersonCard> {
             MaterialPageRoute(
               builder: (context) => UserDetail(
                 snap: widget.snap,
-                role: "Tour Guide",
+                role: widget.role,
               ),
             ),
           ),

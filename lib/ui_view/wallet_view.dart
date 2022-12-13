@@ -40,24 +40,24 @@ class _WalletState extends State<Wallet> {
     setState(() {
       isLoading = true;
     });
-    try {
-      var eWalletSnap = await FirebaseFirestore.instance
-          .collection('eWallet')
-          .doc("ewallet_${FirebaseAuth.instance.currentUser!.uid}")
-          .get();
-
-      eWalletData = eWalletSnap.data()!;
-
-      setState(() {});
-    } catch (e) {
-      showSnackBar(
-        context,
-        e.toString(),
-      );
-    }
-    setState(() {
-      isLoading = false;
-    });
+    // try {
+    //   var eWalletSnap = await FirebaseFirestore.instance
+    //       .collection('eWallet')
+    //       .doc("ewallet_${FirebaseAuth.instance.currentUser!.uid}")
+    //       .get();
+    //
+    //   eWalletData = eWalletSnap.data()!;
+    //
+    //   setState(() {});
+    // } catch (e) {
+    //   showSnackBar(
+    //     context,
+    //     e.toString(),
+    //   );
+    // }
+    // setState(() {
+    //   isLoading = false;
+    // });
   }
 
   Widget selectionView(IconData icon, String title) {
