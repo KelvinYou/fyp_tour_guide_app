@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:fyp_project/models/transaction_record.dart';
 import 'package:fyp_project/resources/firestore_methods.dart';
+import 'package:fyp_project/ui_view/add_rating_view.dart';
 import 'package:fyp_project/ui_view/chatroom_detail_view.dart';
 import 'package:fyp_project/ui_view/tour_package_view.dart';
 import 'package:fyp_project/utils/utils.dart';
@@ -102,9 +103,9 @@ class _OrderRequestDetailState extends State<OrderRequestDetail> {
 
   responseBtn(String responseType) async {
     final action = await Dialogs.yesAbortDialog(
-        context, 'Confirm to "${responseType}"?',
+        context, 'Confirm to "${responseType.substring(0, 6)}"?',
         'Once confirmed, it cannot be modified anymore',
-        responseType);
+        responseType.substring(0, 6));
 
     if (action == DialogAction.yes) {
       try {
@@ -277,6 +278,50 @@ class _OrderRequestDetailState extends State<OrderRequestDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
+
+              widget.orderRequestDetailSnap["status"] == "Completed" ?
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                width: MediaQuery. of(context). size. width,
+                child: ColoredButton(
+                    inverseColor: true,
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => AddRatingView(
+                            snap: widget.orderRequestDetailSnap
+                        ),
+                      ),
+                    ),
+                    childText: "Feedback"),
+              ) :
+              widget.orderRequestDetailSnap["status"] == "Pending" ? Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                width: MediaQuery. of(context). size. width,
+                child: Row(
+                  children: [
+                    Expanded(child: ColoredButton(
+                        inverseColor: true,
+                        onPressed: () => responseBtn("Rejected"),
+                        childText: "Reject"),
+                    ),
+                    SizedBox(width: 20,),
+                    Expanded(child: ColoredButton(
+                        onPressed: () => responseBtn("Accepted"),
+                        childText: "Accept"),
+                    ),
+                  ],
+                ),
+              ) : widget.orderRequestDetailSnap["status"] != "Rejected" &&
+                  widget.orderRequestDetailSnap["status"] != "Canceled"?
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.0),
+                width: MediaQuery. of(context). size. width,
+                child: ColoredButton(
+                    inverseColor: true,
+                    onPressed: () => responseBtn("Rejected"),
+                    childText: "Reject"),
+              ) : SizedBox(),
+
               widget.orderRequestDetailSnap["status"] != "Pending" ? SizedBox() : Container(
                 margin: EdgeInsets.symmetric(horizontal: 25.0),
                 width: MediaQuery. of(context). size. width,

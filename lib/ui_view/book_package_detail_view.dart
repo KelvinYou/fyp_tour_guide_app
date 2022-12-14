@@ -101,9 +101,9 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
 
   responseBtn(String responseType) async {
     final action = await Dialogs.yesAbortDialog(
-        context, 'Confirm to "${responseType}"?',
+        context, 'Confirm to "${responseType.substring(0, 6)}"?',
         'Once confirmed, it cannot be modified anymore',
-        responseType);
+        responseType.substring(0, 6));
 
     if (action == DialogAction.yes) {
       try {
@@ -299,47 +299,50 @@ class _BookPackageDetailState extends State<BookPackageDetail> {
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Divider(),
               ),
-              packageData.isEmpty ? widget.bookPackageDetailSnap["status"] == "Completed" ?
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                width: MediaQuery. of(context). size. width,
-                child: ColoredButton(
-                    inverseColor: true,
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => AddRatingView(
-                            snap: widget.bookPackageDetailSnap
+
+              packageData.isNotEmpty ? (
+                  widget.bookPackageDetailSnap["status"] == "Completed" ?
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    width: MediaQuery. of(context). size. width,
+                    child: ColoredButton(
+                        inverseColor: true,
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => AddRatingView(
+                                snap: widget.bookPackageDetailSnap
+                            ),
+                          ),
                         ),
-                      ),
+                        childText: "Feedback"),
+                  ) :
+                  widget.bookPackageDetailSnap["status"] == "Pending" ? Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    width: MediaQuery. of(context). size. width,
+                    child: Row(
+                      children: [
+                        Expanded(child: ColoredButton(
+                            inverseColor: true,
+                            onPressed: () => responseBtn("Rejected"),
+                            childText: "Reject"),
+                        ),
+                        SizedBox(width: 20,),
+                        Expanded(child: ColoredButton(
+                            onPressed: () => responseBtn("Accepted"),
+                            childText: "Accept"),
+                        ),
+                      ],
                     ),
-                    childText: "Feedback"),
-              ) :
-              widget.bookPackageDetailSnap["status"] != "Rejected" ?
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                width: MediaQuery. of(context). size. width,
-                child: ColoredButton(
-                    inverseColor: true,
-                    onPressed: () => responseBtn("Rejected"),
-                    childText: "Reject"),
-              ) : SizedBox() :
-              widget.bookPackageDetailSnap["status"] == "Pending" ? Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                width: MediaQuery. of(context). size. width,
-                child: Row(
-                  children: [
-                    Expanded(child: ColoredButton(
-                      inverseColor: true,
-                      onPressed: () => responseBtn("Rejected"),
-                      childText: "Reject"),
-                    ),
-                    SizedBox(width: 20,),
-                    Expanded(child: ColoredButton(
-                        onPressed: () => responseBtn("Accepted"),
-                        childText: "Accept"),
-                    ),
-                  ],
-                ),
+                  ) : widget.bookPackageDetailSnap["status"] != "Rejected" &&
+                      widget.bookPackageDetailSnap["status"] != "Canceled"?
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.0),
+                    width: MediaQuery. of(context). size. width,
+                    child: ColoredButton(
+                        inverseColor: true,
+                        onPressed: () => responseBtn("Rejected"),
+                        childText: "Reject"),
+                  ) : SizedBox()
               ) : SizedBox(),
 
             ],

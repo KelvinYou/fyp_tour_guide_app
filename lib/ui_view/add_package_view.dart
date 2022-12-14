@@ -48,40 +48,85 @@ class _AddPackageState extends State<AddPackage> {
   void submit() async {
     setState(() {
       isLoading = true;
+      packageTitleErrorMsg = "";
+      contentErrorMsg = "";
+      priceErrorMsg = "";
     });
 
-    try {
-      String res = await FireStoreMethods().addPackage(
-        FirebaseAuth.instance.currentUser!.uid,
-        packageTitleController.text,
-        contentController.text,
-        double.parse(priceController.text),
-        selectedTypes,
-        _image,
-        _currentDuration,
-        stateOfCountry,
-      );
-      if (res == "success") {
+    bool packageTitleFormatCorrected = false;
+    bool contentFormatCorrected = false;
+    bool priceFormatCorrected = false;
+
+    if (packageTitleController.text == "") {
+      setState(() {
+        packageTitleErrorMsg = "This field cannot be empty.";
+      });
+    } else {
+      packageTitleFormatCorrected = true;
+    }
+
+    if (contentController.text == "") {
+      setState(() {
+        contentErrorMsg = "This field cannot be empty.";
+      });
+    } else {
+      contentFormatCorrected = true;
+    }
+
+    if (priceController.text == "") {
+      setState(() {
+        priceErrorMsg = "This field cannot be empty.";
+      });
+    } else if (double.tryParse(priceController.text) == null) {
+      setState(() {
+        priceErrorMsg = "Enter a valid price.";
+      });
+    } else if (double.tryParse(priceController.text)! == 0) {
+      setState(() {
+        priceErrorMsg = "The price cannot be 0.";
+      });
+    } else {
+      priceFormatCorrected = true;
+    }
+
+    if (packageTitleFormatCorrected && contentFormatCorrected && priceFormatCorrected) {
+      try {
+        String res = await FireStoreMethods().addPackage(
+          FirebaseAuth.instance.currentUser!.uid,
+          packageTitleController.text,
+          contentController.text,
+          double.parse(priceController.text),
+          selectedTypes,
+          _image,
+          _currentDuration,
+          stateOfCountry,
+        );
+        if (res == "success") {
+          setState(() {
+            isLoading = false;
+          });
+          showSnackBar(
+            context,
+            'Added!',
+          );
+          Navigator.of(context).pop();
+        } else {
+          showSnackBar(context, res);
+        }
+      } catch (err) {
         setState(() {
           isLoading = false;
         });
         showSnackBar(
           context,
-          'Added!',
+          err.toString(),
         );
-        Navigator.of(context).pop();
-      } else {
-        showSnackBar(context, res);
       }
-    } catch (err) {
-      setState(() {
-        isLoading = false;
-      });
-      showSnackBar(
-        context,
-        err.toString(),
-      );
     }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   MultiSelectCard<String> customMultiCard(String title) {
@@ -115,6 +160,7 @@ class _AddPackageState extends State<AddPackage> {
                   hintText: "Package Title",
                   textInputType: TextInputType.text,
                   maxLength: 100,
+                  errorMsg: packageTitleErrorMsg,
                 ),
                 const SizedBox(height: 20.0,),
                 TextFieldInput(
@@ -123,12 +169,14 @@ class _AddPackageState extends State<AddPackage> {
                   textInputType: TextInputType.multiline,
                   maxLines: null,
                   maxLength: 500,
+                  errorMsg: contentErrorMsg,
                 ),
                 const SizedBox(height: 20.0,),
                 TextFieldInput(
-                    textEditingController: priceController,
-                    hintText: "Price: RM ",
-                    textInputType: TextInputType.text,
+                  textEditingController: priceController,
+                  hintText: "Price: RM ",
+                  textInputType: TextInputType.text,
+                  errorMsg: priceErrorMsg,
                 ),
                 const SizedBox(height: 20.0,),
                 Padding(
@@ -252,10 +300,12 @@ class _AddPackageState extends State<AddPackage> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 20.0,),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.0),
                   child: ColoredButton(onPressed: submit, childText: "Submit",),
                 ),
+                const SizedBox(height: 10.0,),
                     ],
                   ),
                 ),

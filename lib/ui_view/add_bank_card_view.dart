@@ -19,32 +19,32 @@ class AddBankCardView extends StatefulWidget {
 
 class _AddBankCardViewState extends State<AddBankCardView> {
   String cardNumber = "";
-  String ccvNumber = "";
+  String cvvNumber = "";
   String expiredDateNumber = "";
 
   String cardNumberErrorMsg = "";
-  String ccvErrorMsg = "";
+  String cvvErrorMsg = "";
   String expiredDateErrorMsg = "";
 
   TextEditingController expiredDateController = TextEditingController();
-  TextEditingController ccvController = TextEditingController();
+  TextEditingController cvvController = TextEditingController();
   bool isLoading = false;
 
   void submit() async {
     setState(() {
       isLoading = true;
       cardNumberErrorMsg = "";
-      ccvErrorMsg = "";
+      cvvErrorMsg = "";
       expiredDateErrorMsg = "";
     });
 
     bool cardNumberFormatCorrected = false;
-    bool ccvFormatCorrected = false;
+    bool cvvFormatCorrected = false;
     bool expiredDateFormatCorrected = false;
 
     if (cardNumber == "") {
       setState(() {
-        cardNumberErrorMsg = "Please enter your card number.";
+        cardNumberErrorMsg = "This field cannot be empty.";
       });
     } else if (cardNumber.length < 19) {
       setState(() {
@@ -54,21 +54,21 @@ class _AddBankCardViewState extends State<AddBankCardView> {
       cardNumberFormatCorrected = true;
     }
 
-    if (ccvNumber == "") {
+    if (cvvNumber == "") {
       setState(() {
-        ccvErrorMsg = "Please enter your card's CCV.";
+        cvvErrorMsg = "This field cannot be empty.";
       });
-    } else if (ccvNumber.length < 3) {
+    } else if (cvvNumber.length < 3) {
       setState(() {
-        ccvErrorMsg = "Please enter the correct CCV.";
+        cvvErrorMsg = "Please enter the correct CVV.";
       });
     } else {
-      ccvFormatCorrected = true;
+      cvvFormatCorrected = true;
     }
 
     if (expiredDateNumber == "") {
       setState(() {
-        expiredDateErrorMsg = "Please enter your card's expired date.";
+        expiredDateErrorMsg = "This field cannot be empty.";
       });
     } else if (expiredDateNumber.length < 5) {
       setState(() {
@@ -85,12 +85,12 @@ class _AddBankCardViewState extends State<AddBankCardView> {
       expiredDateFormatCorrected = true;
     }
 
-    if (cardNumberFormatCorrected && ccvFormatCorrected && expiredDateFormatCorrected) {
+    if (cardNumberFormatCorrected && cvvFormatCorrected && expiredDateFormatCorrected) {
       try {
         String res = await FireStoreMethods().addBankCard(
           FirebaseAuth.instance.currentUser!.uid,
           cardNumber,
-          ccvNumber,
+          cvvNumber,
           expiredDateNumber,
         );
         if (res == "success") {
@@ -195,13 +195,13 @@ class _AddBankCardViewState extends State<AddBankCardView> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'XXX',
-                            labelText: 'CCV',
+                            labelText: 'CVV',
                             counterText: "",
                           ),
                           maxLength: 3,
                           onChanged: (value) {
                             setState(() {
-                              ccvNumber = value;
+                              cvvNumber = value;
                             });
                           },
                         ),
@@ -243,10 +243,10 @@ class _AddBankCardViewState extends State<AddBankCardView> {
               child: Row(
                 children: [
                   Expanded(
-                    child: ccvErrorMsg == "" ?
+                    child: cvvErrorMsg == "" ?
                     SizedBox()
                         : Text(
-                      ccvErrorMsg,
+                      cvvErrorMsg,
                       style: TextStyle(
                         color: AppTheme.errorRed,
                       ),

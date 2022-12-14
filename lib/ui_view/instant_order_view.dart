@@ -43,10 +43,15 @@ class _InstantOrderState extends State<InstantOrder> {
     _getCurrentPosition();
   }
 
+
+
   getData() async {
     setState(() {
       isLoading = true;
     });
+
+
+
     try {
       var instantOrderSnap = await FirebaseFirestore.instance
           .collection('instantOrder')
@@ -72,29 +77,52 @@ class _InstantOrderState extends State<InstantOrder> {
   void edit() async {
     String res;
 
-    res = await FireStoreMethods().updateOrder(
-      FirebaseAuth.instance.currentUser!.uid,
-      int.parse(_priceController.text),
-      isOnDuty,
-      _currentPosition!.longitude,
-      _currentPosition!.latitude,
-    );
-    if (res == "success") {
+    bool priceFormatCorrected = false;
+
+    if (_priceController.text == "") {
       setState(() {
-        isLoading = false;
+        priceErrorMsg = "This field cannot be empty.";
       });
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const BottomBarView(selectedIndex: 0),
-        ),
-      );
-      showSnackBar(
-        context,
-        'Update Successfully!',
-      );
+    } else if (int.tryParse(_priceController.text) == null) {
+      setState(() {
+        priceErrorMsg = "Enter a valid price.";
+      });
+    } else if (int.tryParse(_priceController.text)! == 0) {
+      setState(() {
+        priceErrorMsg = "The price cannot be 0.";
+      });
     } else {
-      showSnackBar(context, res);
+      priceFormatCorrected = true;
     }
+
+    if (priceFormatCorrected) {
+      res = await FireStoreMethods().updateOrder(
+        FirebaseAuth.instance.currentUser!.uid,
+        int.parse(_priceController.text),
+        isOnDuty,
+        _currentPosition!.longitude,
+        _currentPosition!.latitude,
+      );
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const BottomBarView(selectedIndex: 0),
+          ),
+        );
+        showSnackBar(
+          context,
+          'Update Successfully!',
+        );
+      } else {
+        showSnackBar(context, res);
+      }
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Future<bool> _handleLocationPermission() async {
@@ -225,7 +253,7 @@ class _InstantOrderState extends State<InstantOrder> {
             TextFieldInput(
               textEditingController: _priceController,
               // isReadOnly: isReadOnly,
-              hintText: "Price",
+              hintText: "Price / Hour",
               textInputType: TextInputType.number,
               errorMsg: priceErrorMsg,),
             SizedBox(height: 20.0,),

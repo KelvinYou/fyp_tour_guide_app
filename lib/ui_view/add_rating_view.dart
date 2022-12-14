@@ -45,16 +45,30 @@ class _AddRatingViewState extends State<AddRatingView> {
     });
 
     try {
-      var feedbackSnap = await FirebaseFirestore.instance
-          .collection('feedbacks')
-          .doc("feedback_${widget.snap["bookingId"]}_${widget.snap["tourGuideId"]}")
-          .get();
-
-      if(feedbackSnap.exists) {
-        feedbackData = feedbackSnap.data()!;
-        feedbackRating = feedbackSnap["rating"].toInt();
-        contentController = TextEditingController(text: feedbackData["content"]);
+      if (widget.snap["bookingId"] != null) {
+        var feedbackSnap = await FirebaseFirestore.instance
+            .collection('feedbacks')
+            .doc("feedback_${widget.snap["bookingId"]}_${widget.snap["tourGuideId"]}")
+            .get();
+        if(feedbackSnap.exists) {
+          feedbackData = feedbackSnap.data()!;
+          feedbackRating = feedbackSnap["rating"].toInt();
+          contentController = TextEditingController(text: feedbackData["content"]);
+        }
       }
+
+      if (widget.snap["orderId"] != null) {
+        var feedbackSnap = await FirebaseFirestore.instance
+            .collection('feedbacks')
+            .doc("feedback_${widget.snap["orderId"]}_${widget.snap["tourGuideId"]}")
+            .get();
+        if(feedbackSnap.exists) {
+          feedbackData = feedbackSnap.data()!;
+          feedbackRating = feedbackSnap["rating"].toInt();
+          contentController = TextEditingController(text: feedbackData["content"]);
+        }
+      }
+
 
     } catch (e) {
       showSnackBar(
@@ -75,7 +89,7 @@ class _AddRatingViewState extends State<AddRatingView> {
 
     try {
       String res = await FireStoreMethods().addFeedback(
-        widget.snap["bookingId"],
+        widget.snap["orderId"] != null ? widget.snap["orderId"] : widget.snap["bookingId"],
         widget.snap["tourGuideId"],
         widget.snap["touristId"],
         feedbackRating.toDouble(),

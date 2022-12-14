@@ -19,7 +19,7 @@ class HourlyPriceListView extends StatefulWidget {
 
 class _HourlyPriceListViewState extends State<HourlyPriceListView> {
   bool isLoading = false;
-
+  bool isDescending = true;
   CollectionReference instantOrderCollection =
   FirebaseFirestore.instance.collection('instantOrder');
   List<DocumentSnapshot> documents = [];
@@ -37,11 +37,44 @@ class _HourlyPriceListViewState extends State<HourlyPriceListView> {
         ),
         child: Column(
           children: [
+            // GestureDetector(
+            //   onTap: () => setState(() {
+            //     isDescending = !isDescending;
+            //   }),
+            //   child: Container(
+            //     padding: EdgeInsets.symmetric(vertical: 5),
+            //     decoration: BoxDecoration(
+            //       color: Theme.of(context).colorScheme.primary,
+            //       borderRadius: BorderRadius.circular(5),
+            //     ),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         Text(
+            //           isDescending ? "Latest on Top" : "Earliest on Top",
+            //           style: TextStyle(
+            //             color: Colors.white,
+            //             fontSize: 16,
+            //           ),
+            //         ),
+            //         SizedBox(width: 10,),
+            //         Icon(
+            //           isDescending ? Icons.arrow_upward
+            //               : Icons.arrow_downward,
+            //           color: Colors.white,
+            //           size: 16,
+            //         ),
+            //       ],
+            //
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: SizedBox(
                 height: double.infinity,
                 child: StreamBuilder(
                     stream: instantOrderCollection
+                        .orderBy('price', descending: isDescending)
                         .snapshots(),
                     builder: (context, streamSnapshot) {
                       if (streamSnapshot.hasData) {
