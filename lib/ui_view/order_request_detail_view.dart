@@ -117,6 +117,13 @@ class _OrderRequestDetailState extends State<OrderRequestDetail> {
             widget.orderRequestDetailSnap["paymentAmount"].toDouble();
         String transactionId = "Refund_${const Uuid().v1()}";
 
+        if (responseType == "Accepted") {
+          _firestore.collection('orderRequests').doc(
+              widget.orderRequestDetailSnap["orderId"]).update(
+              {"startTime": DateTime.now()}
+          );
+        }
+
         if (responseType == "Rejected") {
           TransactionRecord transaction = TransactionRecord(
             transactionId: transactionId,
@@ -322,24 +329,6 @@ class _OrderRequestDetailState extends State<OrderRequestDetail> {
                     childText: "Reject"),
               ) : SizedBox(),
 
-              widget.orderRequestDetailSnap["status"] != "Pending" ? SizedBox() : Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                width: MediaQuery. of(context). size. width,
-                child: Row(
-                  children: [
-                    Expanded(child: ColoredButton(
-                        inverseColor: true,
-                        onPressed: () => responseBtn("Rejected"),
-                        childText: "Reject"),
-                    ),
-                    SizedBox(width: 20,),
-                    Expanded(child: ColoredButton(
-                        onPressed: () => responseBtn("Accepted"),
-                        childText: "Accept"),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

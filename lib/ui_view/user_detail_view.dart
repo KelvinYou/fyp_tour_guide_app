@@ -132,7 +132,7 @@ class _UserDetailState extends State<UserDetail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RatingBarIndicator(
-                    rating: widget.snap['rating'],
+                    rating: widget.snap['rating'].toDouble(),
                     itemBuilder: (context, index) => Icon(
                       Icons.star,
                       color: Colors.amber,

@@ -28,12 +28,14 @@ class LoadingView extends StatelessWidget {
               "Preparing the data ...",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
+                fontSize: 16,
               ),
             ),
             Text(
               "Please wait for a moment ...",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
+                fontSize: 14,
               ),
             ),
           ],

@@ -79,7 +79,7 @@ class _PersonCardState extends State<PersonCard> {
                       Row(
                         children: [
                           RatingBarIndicator(
-                            rating: widget.snap['rating'],
+                            rating: widget.snap['rating'].toDouble(),
                             itemBuilder: (context, index) => Icon(
                               Icons.star,
                               color: Colors.amber,
